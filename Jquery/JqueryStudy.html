@@ -1,0 +1,1676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JSStudy</title>
+    <script type="application/javascript" src="js/jquery.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+</head>
+<body>
+jQuery.parent(expr)           //找父元素
+
+jQuery.parents(expr)          //找到所有祖先元素，不限于父元素
+
+jQuery.children(expr)        //查找所有子元素，只会找到直接的孩子节点，不会返回所有子孙
+
+jQuery.contents()            //查找下面的所有内容，包括节点和文本。
+
+jQuery.prev()                //查找上一个兄弟节点，不是所有的兄弟节点
+
+jQuery.prevAll()             //查找所有之前的兄弟节点
+
+jQuery.next()                //查找下一个兄弟节点，不是所有的兄弟节点
+
+jQuery.nextAll()             //查找所有之后的兄弟节点
+
+jQuery.siblings()            //查找兄弟节点，不分前后
+
+jQuery.find(expr)
+<div id="1">
+    <li onclick="ifElse(0)">1.if .. else (num=0)语句测试</li>
+    <script>
+        function ifElse(num) {
+            if (num > 1) {
+                alert("num大于1");
+
+            } else {
+                alert("num小于1");
+
+            }
+        }
+    </script>
+</div>
+
+<div id="2">
+    <li onclick="switchTest(3)">2. switch(3)测试</li>
+    <script>
+        function switchTest(num) {
+            switch (num) {
+                case 1:
+                case 2:
+                {
+                    alert('1或2');
+                }
+                    break;
+                case 3:
+                {
+
+                    alert('3或4');
+                }
+                    break;
+                default:
+                {
+                    alert("no 1234");
+                }
+            }
+        }
+    </script>
+</div>
+
+
+<div id="3">
+    <li onclick="forTest(3)">3. for 循环测试alert 1-3</li>
+    <script>
+        function forTest(num) {
+            var i = num;
+            for (i; i > 0; i--) {
+                alert(i);
+            }
+        }
+    </script>
+</div>
+
+<div id="4">
+    <li onclick="forInTest()"> 4.for in 语法 不行目前</li>
+    <script>
+
+        function forInTest() {
+            var myArray = new array();
+            myArray [0] = '1';
+            myArray [1] = '2';
+            myArray [2] = '3';
+
+            for (var tmp in myArray) {
+
+                alert(tmp);
+            }
+        }
+
+    </script>
+</div>
+
+<div id="5">
+    <li onclick="whileTest(3)">5.while循环</li>
+    <script>
+        function whileTest(num) {
+            var i = 0;
+            while (i < num) {
+                alert(i);
+
+            }
+
+        }
+
+    </script>
+
+</div>
+
+<div id="6">
+    <li onclick="doWhileTest(3)">6.do while循环</li>
+    <script>
+        function doWhileTest(num) {
+            var i = 0;
+            do {
+                i++;
+                alert(i);
+            } while (i < num)
+
+        }
+
+    </script>
+
+</div>
+
+<div id="7">
+    <li onclick="tryCatchCFinally()">7.try catch finally测试</li>
+    <script>
+        function tryCatchCFinally() {
+            try {
+                alert("错误前");
+                asas;
+                alert("错误后");
+            } catch (msg) {
+                alert("运行错误");
+                alert(msg);
+            } finally {
+                alert("运行结束");
+            }
+        }
+
+    </script>
+</div>
+
+<div id="8">
+    <li onclick="alert(returnTest(3))">8.returnTest()</li>
+    <script>
+        function returnTest(num) {
+            if (1 == num) {
+                return 1;
+            } else if (2 == num) {
+                return 'num is 2';
+            } else if (3 == num) {
+                return num;
+            }
+        }
+    </script>
+</div>
+
+<div id="9">
+    <li onclick="withTest()">9.withTest() 对象统一操作</li>
+    <script>
+        function withTest() {
+            var obj = document.getElementById('9')
+            with (obj) {
+
+                obj.style.color = 'red';
+                obj.style.border = '1px blue solid';
+                obj.style.float = 'left';
+            }
+
+
+        }
+    </script>
+</div>
+
+<div id=“10”>
+    <li onclick="objectTest()">10. 对象测试</li>
+    <script>
+        function objectTest() {
+
+            var student = new Object();
+
+            student.name = 'chao';
+
+            student.age = "10";
+
+            student.f = show();
+
+            function show() {
+
+                alert("函数");
+            }
+
+
+        }
+    </script>
+
+
+</div>
+
+
+<div id=“11”>
+    <li onclick="objectThisTest()">11. 对象测试 this的使用</li>
+    <script>
+
+        function teacher(name, age, address) {
+            this.name = name;
+            this.age = age;
+            this.address = address;
+        }
+        function show() {
+            alert(this.name + this.age + this.address);
+        }
+        var teacher1 = new teacher("wanghaichao", "23", "313宿舍");
+
+    </script>
+    <script>
+        function objectThisTest() {
+            alert(teacher1.address);
+        }
+    </script>
+</div>
+
+<div id="12">
+    <dt onclick="windowsTest()">12.windows对象</dt>
+    <dd onclick="alertTest()">12.1警告框
+        <script>
+            function alertTest() {
+                alert("这是警告框");
+            }
+        </script>
+    </dd>
+
+    <dd onclick="statusTest()">12.2状态
+        <script>
+            function statusTest() {
+                window.status = "welcome";//浏览器状态
+            }
+        </script>
+    </dd>
+
+    <dd onclick="closeTest()">12.3窗口关闭
+        <script>
+            function closeTest() {
+                window.close();//关闭浏览器
+            }
+        </script>
+    </dd>
+
+    <dd onclick="openUrlTest()">12.4打开url
+        <script>
+            function openUrlTest() {
+                window.open("http://www.baidu.com");//打开新的浏览页面
+            }
+        </script>
+    </dd>
+
+    <dd onclick="confirmTest()">12.5确认框
+        <script>
+            function confirmTest() {
+                alert(window.confirm("确认测试"));//返回true'和 false
+            }
+        </script>
+    </dd>
+
+    <dd onclick="promptTest()">12.6输入框
+        <script>
+            function promptTest() {
+                alert(window.prompt("你好"));//输入
+            }
+        </script>
+    </dd>
+
+    <dd onclick="locationTest()">12.6浏览器跳转
+        <script>
+            function locationTest() {
+                window.location = "http://www.baidu.com";//浏览器跳转
+            }
+        </script>
+    </dd>
+
+    <dd onclick="ReloadTest()">12.浏览器刷新
+    <script>
+        function ReloadTest() {
+            window.location.reload();;//浏览器刷新
+        }
+    </script>
+</dd>
+
+
+</div>
+
+<div id="13">
+    <li onclick="documentTest()">13.document文档对象</li>
+    <script>
+        function documentTest() {
+            document.title = '13.document文档对象测试';//修改title
+            document.fgColor = "red";//修改前景
+            document.bgColor = "blue";//修改背景
+            alert(document.cookie);
+
+        }
+
+    </script>
+</div>
+
+
+<div id="15">
+    <li onclick="screenTest()">15.screen 测试</li>
+    <script>
+        function screenTest() {
+            alert(window.screen.width);
+            alert(window.screen.height);
+
+        }
+    </script>
+
+</div>
+
+<div id="16">
+    <dt> 16.jquery选择器</dt>
+    <div>
+        代码测试区
+    </div>
+    <dd id="tagTest">16.1标签选择器[点击变红]
+        <script>
+            $(document).ready(tagTest());
+            function tagTest() {
+                $('#tagTest').bind({
+                    click: function () {
+                        $('#16 div').css('color', 'red');
+                    }
+                });
+            }
+        </script>
+    </dd>
+    <dd class="classTest" onclick="classTest()">16.2 class 类选择器
+        <script>
+
+            function classTest() {
+                $('#16 .classTest').css('color', 'blue');
+            }
+        </script>
+    </dd>
+    <dd id="idTest" onclick="idTest()">16.3 id 选择器
+        <script>
+            function idTest() {
+                $('#idTest').css('color', 'yellow');
+            }
+        </script>
+    </dd>
+
+    <dd onclick="allTest()">16.4 通配符*选择器
+        <script>
+            function allTest() {
+                $('*').css('color', 'green');
+            }
+        </script>
+    </dd>
+
+    <dd onclick="morechooseTest()">16.5 群组选择器
+        <script>
+            function morechooseTest() {
+                $('.classTest , #idTest').css('color', 'green');
+            }
+        </script>
+    </dd>
+
+</div>
+
+<div id="17">
+    <dt>17.jquery层级选择器</dt>
+    <div id="childTest" style="border:1px grey solid">
+        <dt>代码 测试区
+        <dt>
+            <font>子元素选择器选择不到，后代选择器可以 $('parent>child')</font>
+        </dt>
+        </dt>
+        <font>子元素选择器选择不到，后代选择器可以$('parent descendants')</font>
+        <font> | $('pre+next')选择所有紧邻同辈的元素</font>
+    </div>
+    <dd onclick="childTest()"> 17.1子元素选择器 $('parent>child')选择所有的子选择器
+        <script>
+            function childTest() {
+                $('#childTest>font').css('color', 'red');
+            }
+        </script>
+    </dd>
+    <dd onclick="descendantsTest()"> 17.2后代元素选择器 $('parent descendants')选择所有的后代选择器
+        <script>
+            function descendantsTest() {
+                $('#childTest font').css('color', 'red');
+            }
+        </script>
+    </dd>
+
+    <dd onclick="nextTest()"> 17.3紧邻同辈选择器 $('pre+next')选择紧邻同辈的元素（一个）
+        <script>
+            function nextTest() {
+                $('dt+font').css('color', 'green');
+            }
+        </script>
+    </dd>
+
+    <dd onclick="allnextTest()"> 17.4相邻同辈选择器 $('pre~next')选择相邻同辈的元素（全部）
+        <script>
+            function allnextTest() {
+                $('dt~font').css('color', 'green');
+            }
+        </script>
+    </dd>
+</div>
+
+<div 1d="18">
+    <dt>18.表单域选择器</dt>
+    <div style="border:1px grey solid">
+        代码测试区域
+        <form>
+            <input type="text">
+            <input type="password">
+            <input type="radio">
+            <input type="radio">
+            <input type="checkbox">
+            <input type="checkbox">
+            <input type="image">
+            <select>
+                <option>选择1</option>
+                <option>选择2</option>
+                <option>选择3</option>
+            </select>
+            <input type="file">
+            <input type="hidden">
+            <input type="button">
+            <input type="submit">
+            <input type="reset">
+            <textarea>文本域</textarea>
+
+        </form>
+    </div>
+
+
+    <dd onclick="inputTest()">18.1 :input选择器 听【点击所有的input消失】
+        <script>
+            function inputTest() {
+                $(':input').css('display', 'none');
+            }
+        </script>
+
+    </dd>
+
+    <dd onclick="textTest()">18.2 :text选择器 【点击添加value属性】
+        <script>
+            function textTest() {
+                $(':text').attr('value', '出现');
+            }
+        </script>
+
+    </dd>
+    <dd onclick="passwordTest()">18.3 :password选择器 【点击添加value属性】
+        <script>
+            function passwordTest() {
+                $(':password').attr('value', '密码');
+            }
+        </script>
+
+    </dd>
+    <dd onclick="radioTest()">18.4 :radio选择器 【点击设置第一个为选中】
+        <script>
+            function radioTest() {
+                $(':radio:eq(0)').attr('checked', 'true');
+            }
+        </script>
+
+    </dd>
+
+    <dd onclick="checkboxTest()">18.5 :checkbox选择器 【点击设置第一个为选中】
+        <script>
+            function checkboxTest() {
+                $(':checkbox:eq(0)').attr('checked', 'true');
+            }
+        </script>
+
+    </dd>
+
+    <dd onclick="imageTest()">18.6 :image选择器
+        <script>
+            function imageTest() {
+                $(':image').attr('src', 'image/IMG_0087.JPG');
+            }
+        </script>
+
+    </dd>
+    <dd onclick="selectTest()">18.7 select 下拉列表 无':''选择器 【点击变色】
+        <script>
+            function selectTest() {
+                $('select').css('background', 'red');
+            }
+        </script>
+
+    </dd>
+</div>
+
+
+<div id="19">
+
+    <dt>19.简单过滤选择器</dt>
+    <div style="border:1px grey solid">
+        代码测试区域
+        <table id="table">
+            <tr>
+                <td>第一列</td>
+                <td>第二列</td>
+                <td>第三列</td>
+                <td>第四列</td>
+                <td>第五列</td>
+                <td>第六列</td>
+            </tr>
+        </table>
+    </div>
+
+    <dd onclick="firstTest()">19.1. :first选择器 $('selector:first')【点击第一个前景变红】
+        <script>
+            function firstTest() {
+                $('#table tr td:first').css('color', 'red');
+            }
+        </script>
+    </dd>
+    <dd onclick="lastTest()">19.2. :last选择器 $('selector:last')【点击最后一个前景变红】
+        <script>
+            function lastTest() {
+                $('#table tr td:last').css('color', 'red');
+            }
+        </script>
+    </dd>
+    <dd onclick="oddTest()">19.3. :odd索引为奇数选择器 从0开始 $('selector:odd'')【点击奇数前景变红】
+        <script>
+            function oddTest() {
+                $('#table tr td:odd').css('color', 'red');
+            }
+        </script>
+    </dd>
+    <dd onclick="evenTest()">19.4. :odd索引为偶数选择器 从0开始 $('selector:even')【点击偶数前景变绿】
+        <script>
+            function evenTest() {
+                $('#table tr td:even').css('color', 'green');
+            }
+        </script>
+    </dd>
+    <dd onclick="eqTest()">19.5. :eq选择器 $('selector:eq(?)')【点击指定索引(1/2/3/4)前景变蓝】
+        <script>
+            function eqTest() {
+                $('#table tr td:eq(0)').css('color', 'blue');
+                $('#table tr td:eq(1)').css('color', 'blue');
+                $('#table tr td:eq(2)').css('color', 'blue');
+                $('#table tr td:eq(3)').css('color', 'blue');
+            }
+        </script>
+    </dd>
+
+    <dd onclick="gtTest()">19.6. :gt大于选择器 $('selector:gt(?)')【点击指定索引大于2(1/2/3/4)前景变红】
+        <script>
+            function gtTest() {
+                $('#table tr td:gt(2)').css('color', 'red');
+            }
+        </script>
+    </dd>
+
+    <dd onclick="ltTest()">19.7. :lt大于选择器 $('selector:lt(?)')【点击指定索引小于2(1/2/3/4)前景变红】
+        <script>
+            function ltTest() {
+                $('#table tr td:lt(2)').css('color', 'red');
+            }
+        </script>
+    </dd>
+    <dd onclick="notTest()">19.8. :not()去除选择器 $('selector:not(selector）')【$('#table tr td:not(:lt(2))')点击去除了小于2的索引】
+        <script>
+            function notTest() {
+                $('#table tr td:not(:lt(2))').css('color', 'red');
+            }
+        </script>
+    </dd>
+</div>
+
+<div id="20">
+    <dt>20.内容过滤选择器</dt>
+    <div id="contextTest" style="border:1px grey solid">
+        代码测试区
+        <div>安徒生童话</div>
+        <div>安徒生简介
+            <li>1.....</li>
+            <li>1.....</li>
+            <li></li>
+        </div>
+
+    </div>
+
+    <dd onclick="containTest()">20.1 :contains选择器【点击:contains('安徒生简介')"包含安徒生简介的变红】
+        <script>
+            function containTest() {
+                $("#contextTest>*:contains(安徒生简介)").css('color', 'red');
+            }
+        </script>
+    </dd>
+    <dd onclick="hasTest()">20.2 :has选择器【点击:has('selector'')"包含安徒生简介的变红】
+        <script>
+            function hasTest() {
+                $("#contextTest>*:has(li)").css('color', 'red');
+            }
+        </script>
+    </dd>
+    <dd onclick="emptyTest()">20.3 :empty选择器【点击不包含子元素或文本的元素的变红】
+        <script>
+            function emptyTest() {
+                $("#contextTest :empty").css('background', 'red');
+            }
+        </script>
+    </dd>
+    <dd onclick="parentTest()">20.4 :parent选择器【点击包含子元素或文本的元素的变红】
+        <script>
+            function parentTest() {
+                $("#contextTest :parent").css('background', 'red');
+            }
+        </script>
+    </dd>
+</div>
+
+<div id="21">
+    <dt>21.属性过滤选择器</dt>
+    <div style="border:1px grey solid">
+        代码测试区
+        <div attr="">包含属性选择器attr=""</div>
+        <div attr="value">包含属性选择器attr="value"</div>
+        <div attr="value XXXX">包含属性选择器attr="value XXXX"</div>
+        <div attr="valueXXXX">属性包含选择器attr="valueXXXX"</div>
+        <div attr="valueXXXXX">属性包含选择器attr="valueXXXXX"</div>
+
+    </div>
+
+    <dd onclick="includeAttrTest()">21.1 包含属性选择器【$('div[attr]')，包含attr属性的div 】
+        <script>
+            function includeAttrTest() {
+                $('div[attr]').css('color', 'red');
+            }
+        </script>
+    </dd>
+
+    <dd onclick="attrValueTest()">21.2 属性等于选择器【$('div[attr=value]')，包含attr=value属性的div】
+        <script>
+            function attrValueTest() {
+                $('div[attr=value]').css('color', 'red');
+            }
+        </script>
+    </dd>
+
+    <dd onclick="attrIncludeTest()">21.3 属性包含选择器【$('div[attr*=value]')，在attr属性中，属性值包含value字符串的div】
+        <script>
+            function attrIncludeTest() {
+                $('div[attr*=value]').css('color', 'red');
+            }
+        </script>
+    </dd>
+
+    <dd onclick="attrIncludewordTest()">21.4 属性包含单词选择器【$('div[attr~=valueword]')，在attr属性中，属性值包含value单词（由空格分开）的div】
+        <script>
+            function attrIncludewordTest() {
+                $('div[attr~=value]').css('color', 'red');
+            }
+        </script>
+    </dd>
+
+    <dd onclick="attrNotEqualTest()">21.5 属性不等于选择器【$('div[attr!=value]')，在attr属性中，属性值不等于value的div】
+        <script>
+            function attrNotEqualTest() {
+                $('#21>div>div[attr!=value]').css('color', 'red');
+            }
+        </script>
+    </dd>
+
+    <dd onclick="valueStartTest()">21.6 属性开始选择器【$('div[attr^=value]')，在attr属性中，属性值以value开始的div】
+        <script>
+            function valueStartTest() {
+                $('#21>div>div[attr^=value]').css('color', 'red');
+            }
+        </script>
+    </dd>
+
+    <dd onclick="valueEndTest()">21.7 属性结尾选择器【$('div[attr$=value]')，在attr属性中，属性值以value结尾的div】
+        <script>
+            function valueEndTest() {
+                $('#21>div>div[attr$=value]').css('color', 'red');
+            }
+        </script>
+    </dd>
+
+    <dd onclick="complexTest()">21.8 属性结尾选择器【$('div[attr$=XX][attr^=value][][][][]')，在attr属性中，属性值以value开头，属性值以XX结尾的div】
+        <script>
+            function complexTest() {
+                $('#21>div>div[attr$=XX][attr^=value]').css('color', 'red');
+            }
+        </script>
+    </dd>
+</div>
+
+<div id="22">
+    <dt>22.jQuery DOM操作</dt>
+    <div style="border:1px grey solid">
+        代码测试区
+        <div id="textFindTest"></div>
+        <div id="attrFindTest" attr="value"></div>
+        <div id="createNodeTest" attr="value">创建节点 id="createNodeTest"</div>
+        <div id="deleteNodeTest" attr="value">删除节点 id="deleteNodeTest"</div>
+        <div id="emptyNodeTest" attr="value">清空节点，节点还在"</div>
+        <div id="cloneNodeTest" attr="value">克隆节点</div>
+        <div id="replaceNodeTest" attr="value">替换节点</div>
+        <div id="appendTest" attr="value">节点尾部添加内容</div>
+        <div id="prependTest" attr="value">节点头部添加内容</div>
+        <div id="afterTest" attr="value">after外部后面添加节点</div>
+        <div id="beforeTest" attr="value">before外部前面添加节点</div>
+    </div>
+    <dd onclick="textFindTest()">22.1查找文本节点【$('#textFindTest').text('这是文本'); 可以获取和改写文本节点】
+        <script>
+            function textFindTest() {
+                alert($('#22').text());//获取
+                $('#textFindTest').text('这是文本');
+
+            }
+        </script>
+    </dd>
+
+    <dd onclick="attrFindTest()">22.2查找属性节点【$('#textFindTest').attr(attr); 可以获取属性节点的值】
+        <script>
+            function attrFindTest() {
+
+                var attrValue = $('#attrFindTest').attr('attr');
+
+                alert(attrValue);
+            }
+
+        </script>
+    </dd>
+
+    <dd onclick="createNodeTest()">22.3创建节点【 $('< div> 这是创建的node< /div>'); 点击创建节点】
+        <script>
+            function createNodeTest() {
+                var node = $('#createNodeTest');
+                var newNode = $('<div> 这是创建的node</div>');
+                node.after(newNode);
+            }
+        </script>
+    </dd>
+
+    <dd onclick="deleteNodeTest()">
+        22.4删除节点,返回被删除的节点【$('#deleteNodeTest').remove()[删除节点]、$(selector).remove(selector)[删除元素内部的及元素]
+        点击创建节点】
+        <script>
+            function deleteNodeTest() {
+                var node = $('#deleteNodeTest');
+                alert(node.remove());
+            }
+        </script>
+    </dd>
+    <dd onclick="emptyNodeTest()">22.5清空节点,返回被清空的节点【$('#emptyNodeTest').empty();[清空元素、元素并不删除]
+        点击创建节点】
+        <script>
+            function emptyNodeTest() {
+                var node = $('#emptyNodeTest');
+                alert(node.empty());
+            }
+        </script>
+    </dd>
+    <dd onclick="cloneNodeTest()">22.6;复制节点,【$('#cloneNodeTest').clone();;[复制元素]
+        点击复制节点】
+        <script>
+            function cloneNodeTest() {
+
+                var node = $('#cloneNodeTest');
+                var newNode = node.clone();
+                alert(node.after(newNode));
+            }
+        </script>
+    </dd>
+
+    <dd onclick="relpaceNodeTest()">22.7;替换节点,【$(newNode).replaceAll(selector);;[替换节点]
+        点击替换节点】
+        <script>
+            function relpaceNodeTest() {
+
+                var node = $('#22');
+                var newNode = node.clone();//复制节点
+
+                $(newNode).replaceAll('#replaceNodeTest');
+            }
+        </script>
+    </dd>
+
+    <dd onclick="relpaceWithNodeTest()">22.8;替换节点,【$(selector).replaceWith(newNode);;[替换节点]
+        点击替换节点】
+        <script>
+            function relpaceWithNodeTest() {
+                var node = $('#22');
+                var newNode = node.clone();//复制节点
+                $('#replaceNodeTest').replaceWith(newNode);
+            }
+        </script>
+    </dd>
+    <dd onclick="appendTest()">22.9;节点尾部添加内容,【$(selector).appendTest(acontent);;[节点尾部添加内容]
+        点击节点尾部添加内容】
+        <script>
+            function appendTest() {
+                var newNode = '<span>尾</span>';
+                $('#appendTest').append(newNode);
+            }
+        </script>
+    </dd>
+
+    <dd onclick="appendToTest()">22.10;节点尾部添加内容,【$(acontent).appendTest(selector);;[节点尾部添加内容]
+        点击节点尾部添加内容】
+        <script>
+            function appendToTest() {
+                var newNode = '<span>尾</span>';
+                $(newNode).appendTo('#appendTest');
+            }
+        </script>
+    </dd>
+    <dd onclick="prependTest()">22.11;节点头部添加内容,【$(selector).prepend(acontent);;[节点头部添加内容]
+        点击节点头部添加内容】
+        <script>
+            function prependTest() {
+                var newNode = '<span>头</span>';
+                $('#prependTest').prepend(newNode);
+            }
+        </script>
+    </dd>
+
+    <dd onclick="prependToTest()">22.12;节点头部添加内容,【$(acontent).prependTo(selector);[节点头部添加内容]
+        点击节点头部添加内容】
+        <script>
+            function prependToTest() {
+                var newNode = '<span>头</span>';
+                $(newNode).prependTo('#prependTest');
+            }
+        </script>
+    </dd>
+
+    <dd onclick="afterTest()">22.13;外部插入后面after()【$(selector).after(acontent)】
+
+        <script>
+            function afterTest() {
+                var newNode = '<span>外部添加后面</span>';
+                $('#afterTest').after(newNode);
+            }
+        </script>
+    </dd>
+
+    <dd onclick="insertAfterTest()">22.14;外部插入后面insertAfter()【$(content).insertAfter(selector)】
+
+        <script>
+            function insertAfterTest() {
+                var newNode = '<span>外部添加后面</span>';
+                $(newNode).insertAfter('#afterTest');
+            }
+        </script>
+    </dd>
+    <dd onclick="beforeTest()">22.14;外部插入前面before()【$(selector).before(acontent)】
+
+        <script>
+            function beforeTest() {
+                var newNode = '<span>外部添加</span>';
+                $('#beforeTest').before(newNode);
+            }
+        </script>
+    </dd>
+
+    <dd onclick="insertBeforeTest()">22.15;外部插入前面insertBefore()【$(content).insertBefore(selector)】
+
+        <script>
+            function insertBeforeTest() {
+                var newNode = '<span>外部添加</span>';
+                $(newNode).insertBefore('#beforeTest');
+            }
+        </script>
+    </dd>
+
+</div>
+
+<div id="23">
+    <dt>23.jquery html操作</dt>
+    <div style="border:1px grey solid">
+        代码测试区
+        <div> hello world</div>
+
+
+        <div> whc</div>
+
+    </div>
+    <dd onclick="htmlTest()">23.1 获取html内容【html()】
+        <script>
+            function htmlTest() {
+                var t = $('#23>div').html();
+                alert(t);
+            }
+        </script>
+    </dd>
+
+    <dd onclick="htmlContentTest()">23.2 设置html内容【html(content)】
+        <script>
+            function htmlContentTest() {
+                var newNode = '<div>新内容</div>';
+                $('#23>div').html(newNode);
+            }
+        </script>
+    </dd>
+</div>
+
+<div id="24">
+    <dt>24.jquery text操作【text()】</dt>
+    <div style="border:1px grey solid">
+        代码测试区
+        <div> text操作</div>
+    </div>
+    <dd onclick="textTest()">24.1 获取text的值
+        <script>
+            function textTest() {
+                var text = $('#24>div').text();
+                alert(text);
+            }
+        </script>
+    </dd>
+
+    <dd onclick="textContentTest()">24.1 设置text的值
+        <script>
+            function textContentTest() {
+                $('#24>div').text('这是text的新值');
+            }
+        </script>
+    </dd>
+</div>
+
+<div id="25">
+    <dt>25.表单操作值【val()】</dt>
+    <div style="border:1px grey solid">
+        代码测试区
+        <input id="valTest" value="val值">
+        <select id="valSTest">
+            <option>值1</option>
+            <option>值2</option>
+            <option>值3</option>
+            <option>值4</option>
+        </select>
+        复选框测试
+        <input type="checkbox" id="checkboxTest">
+    </div>
+    <dd onclick="valTest()">25.1获取单个值val()
+        <script>
+            function valTest() {
+                var val = $('#valTest').val();
+                alert(val);
+            }
+        </script>
+    </dd>
+    <dd onclick="checkboxTest()">25.2判断复选框状态[$('#xxx').is(':checked')]
+        <script>
+            function checkboxTest() {
+                var val = $('#checkboxTest').is(':checked');
+                alert(val);
+            }
+        </script>
+    </dd>
+    <dd onclick="valSTest()">25.3select获取值val【select返回选中的值】
+        <script>
+            function valSTest() {
+                var val = $('#valSTest').val();
+                alert(val);
+            }
+        </script>
+    </dd>
+
+    <dd onclick="valContentTest()">25.4设置元素值val【val(value)】
+        <script>
+            function valContentTest() {
+                var val = $('#valTest').val(['修改', '后', '的值']);
+                alert(val);
+            }
+        </script>
+    </dd>
+</div>
+
+<div id="26">
+    <dt>26.attr读取，修改属性【attr()】</dt>
+    <div style="border:1px grey solid">
+        代码测试区
+        <input type="text" id="attrTest" value="这个input的value">
+    </div>
+    <dd onclick="attrTest()">26.1读取attr【attr(attr)】
+        <script>
+            function attrTest() {
+                var attrValue = $('#attrTest').attr('value');
+                alert(attrValue);
+            }
+        </script>
+    </dd>
+    <dd onclick="attrValueTest()">26.2设置attr【attr(attr,attrValue)】
+        <script>
+            function attrValueTest() {
+                $('#attrTest').attr('value', '修改后的value');
+
+            }
+        </script>
+    </dd>
+    <dd onclick="attrValueMapTest()">26.3设置多个attr[以map形式]【attr({attr1::attrValue1,attr2:attrValue2,attr3:attrValue3})】
+        <script>
+            function attrValueMapTest() {
+                $('#attrTest').attr({'value': '修改后的value', 'style': 'background:grey'});
+            }
+        </script>
+    </dd>
+</div>
+
+<div id="27">
+    <dt>27.属性删除removeAttr</dt>
+    <div style="border:1px grey solid">
+        代码测试区
+        <div id="removeAttrTest" style="background:greenyellow">hello</div>
+    </div>
+    <dd onclick="removeAttrTest()">点击删除style属性
+        <script>
+            function removeAttrTest() {
+                $('#removeAttrTest').removeAttr('style');
+            }
+        </script>
+    </dd>
+</div>
+
+<div id="28">
+    <dt>28.元素样式css</dt>
+    <div style="border:1px grey solid">
+        代码测试区
+        <style>
+            .bgClass {
+                background: forestgreen;
+            }
+
+            .colorClass {
+                color: red;
+            }
+        </style>
+        <div id="addClassTest">添加样式</div>
+        <div id="removeClassTest" class="bgClass">移除样式</div>
+        <div id="toggleClassTest">切换样式</div>
+        <div id="readCssTest" class="colorClass">读取样式</div>
+        <div id="writeCssTest">读取样式</div>
+
+    </div>
+    <dd onclick="addClassTest()">28.1addClass添加样式【$(selector).addClass(className)】
+        <script>
+            function addClassTest() {
+                $('#addClassTest').addClass('bgClass');
+            }
+        </script>
+    </dd>
+
+    <dd onclick="removeClassTest()">28.2removeClass移除样式【$(selector).removeClass(className1 className2 ......
+        )去除指定class[中间为空格] 参数为空去除全部class】
+        <script>
+            function removeClassTest() {
+                $('#removeClassTest').removeClass('bgClass');
+            }
+        </script>
+    </dd>
+
+    <dd onclick="toggleClassTest()">28.3toggleClass切换样式【$(selector).toggleClass(className1 className2 ...... )切换class】
+        <script>
+            function toggleClassTest() {
+                $('#toggleClassTest').toggleClass('bgClass colorClass');
+            }
+        </script>
+    </dd>
+
+    <dd onclick="readCssTest()">28.4css()读取css样式【$(selector).css(cssName)】
+        <script>
+            function readCssTest() {
+                var color = $('#readCssTest').css('color');
+                alert(color);
+            }
+        </script>
+    </dd>
+
+    <dd onclick="writeCssTest()">
+        28.5css(map)设置css样式【普通的css(cssName1,cssValue1)/css(map)-->$(selector).css({cssName1:cssValue1,cssName2:cssValue2...})】
+        <script>
+            function writeCssTest() {
+                $('#writeCssTest').css({'color': 'green', 'font-size': '30px'});
+            }
+        </script>
+    </dd>
+</div>
+
+<div id="29">
+    <dt>29.css位置</dt>
+    <div style="border:1px grey solid">
+        代码测试区
+        <div id="offsetTest">css的位置</div>
+        <div id="offsetCoordinatesTest">css的重定位置</div>
+        <div id="positionTest">css的相对父元素位置</div>
+        <div id="scrollPositionTest">css相对滚动条位置</div>
+    </div>
+
+    <dd onclick="offsetTest()">29.1 offset()获取元素位于文档的位置
+        <script>
+            function offsetTest() {
+                var offset = $('#offsetTest').offset();
+                alert(offset.left);
+                alert(offset.top);
+            }
+        </script>
+
+    <dd onclick="offsetCoordinatesTest()">29.2 offset(coordinates)设置文档位置【$(selector).offset({'top':'xx','left':'xx'})】
+        <script>
+            function offsetCoordinatesTest() {
+                var offset = $('#offsetCoordinatesTest').offset();
+                $('#offsetCoordinatesTest').offset({'top': offset.top - 10, 'left': offset.left});
+            }
+        </script>
+    </dd>
+
+    <dd onclick="positionTest()">29.3 position()获取相对父元素的偏移量【$(selector).position()】
+        <script>
+            function positionTest() {
+                var position = $('#positionTest').position();
+                alert(position.left);
+                alert(position.top);
+            }
+        </script>
+    </dd>
+
+    <dd onclick="scrollPositionTest()">29.4 scrollLeft() 和 scrollTop()获取相对滚动条的偏移量【$(selector).scrollLeft() 和
+        scrollTo()p】
+        <script>
+            function scrollPositionTest() {
+                var scrollPositionLeft = $('#scrollPositionTest').scrollLeft();
+                var scrollPositionTop = $('#scrollPositionTest').scrollTop();
+
+                alert(scrollPositionLeft);
+                alert(scrollPositionTop);
+            }
+        </script>
+    </dd>
+</div>
+
+
+<div id="30">
+    <dt>30.css的尺寸width 和 height</dt>
+    <div style="border:1px grey solid">
+        <style>
+            .rule {
+                padding: 2px;
+                margin: 2px;
+                px;
+                border: 2px;;
+            }
+        </style>
+        代码测试区
+        <div id="heightAndWidthTest" class="rule">元素的尺寸</div>
+        <div id="innerHeightAndWidthTest" class="rule">元素的尺寸</div>
+        <div id="outerHeightAndWidthTest" class="rule">元素的尺寸</div>
+    </div>
+    <dd onclick="heightAndWidthTest()">30.1获取元素的尺寸，不包含内边距padding、边框border、外边距margin
+        <script>
+            function heightAndWidthTest() {
+                var height = $('#heightAndWidthTest').height();
+                var width = $('#heightAndWidthTest').width();
+                $('#heightAndWidthTest').append('width：' + width + 'height:' + height)
+            }
+        </script>
+    </dd>
+    <dd onclick="heightAndWidthContentTest()">30.2设置元素的尺寸，【$(selector).height(height) ，
+        $(selector).width(width)】不包含内边距padding、边框border、外边距margin
+        <script>
+            function heightAndWidthContentTest() {
+                $('#heightAndWidthTest').height('40');
+                $('#heightAndWidthTest').width('100');
+            }
+        </script>
+    </dd>
+
+    <dd onclick="innerHeightAndWidthTest()">30.3获取尺寸，包含内边距padding、不包含边框border、外边距margin
+        <script>
+            function innerHeightAndWidthTest() {
+                var innerHeight = $('#innerHeightAndWidthTest').innerHeight();
+                var innerWidth = $('#innerHeightAndWidthTest').innerWidth();
+                $('#innerHeightAndWidthTest').append('innerwidth：' + innerWidth + 'innerheight:' + innerHeight)
+            }
+        </script>
+    </dd>
+
+    <dd onclick="outerHeightAndWidthTest()">30.4获取外部尺寸，包含内边距padding、包含边框border、默认为false.outerHeight(false)不包含外边距margin
+        <script>
+            function outerHeightAndWidthTest() {
+                var outterHeight = $('#outerHeightAndWidthTest').outerHeight();
+                var outterWidth = $('#outerHeightAndWidthTest').outerWidth();
+                $('#outerHeightAndWidthTest').append('outterwidth：' + outterWidth + 'outterheight:' + outterHeight)
+            }
+        </script>
+    </dd>
+</div>
+
+
+<hr>
+<h1>jquery 事件 </h1>
+<div id="event1">
+    <dt>1.载入事件</dt>
+    <div id="readyEvent" style="border:1px grey solid">
+        代码测试区：
+    </div>
+    <dd>documen、window、html、div、id...载入事件
+        $(document).ready(ready('document'));
+        $(window).ready(ready('window'));
+        $('html').ready(ready('html'))
+        <script>
+            $(document).ready(ready('document'));
+            $(window).ready(ready('window'));
+            $('html').ready(ready('html'));
+            function ready(obj) {
+                $('#readyEvent').append(obj + '载入成功');
+            }
+        </script>
+    </dd>
+</div>
+
+<div id="event2">
+    <dt>2.键盘事件</dt>
+    <div id="keyEvent" style="border:1px grey solid">
+        代码测试区：
+        <textarea id="content"></textarea>
+    </div>
+    <dd>2.1 键盘按下事件【绑定事件】 $('#content').keydown().keypress().keyup()
+        <script>
+            $(document).ready(keyDownEvent());
+            function keyDownEvent() {
+                $('#content').keydown(
+                        function () {
+                            $('#content').css('background', 'red');
+                        }).keypress(
+                        function () {
+                            $('#content').css('background', 'forestgreen');
+                        }).keyup(
+                        function () {
+                            $('#content').css('background', 'greenyellow');
+                        })
+            }
+
+        </script>
+    </dd>
+</div>
+
+<div id="event3">
+    <dt>2.鼠标事件</dt>
+    <div id="mouseEvent" style="border:1px grey solid ; color:forestgreen;">
+        代码测试区：
+    </div>
+    <dd>2.1 鼠标事件【绑定事件】 $('#content').mousedown().mouseup().mousemove().mouseover().mouseout() ;[mouseenter / mouseleave 就是honver事件 ]
+        <script>
+            $(document).ready(mouseEvent());
+            function mouseEvent() {
+                $('#mouseEvent').mousedown(
+                        function () {
+                            $('#mouseEvent').append('鼠标按下');
+
+                        }).mouseup(
+                        function () {
+                            $('#mouseEvent').append('鼠标松开');
+                        }).mousemove(
+                        function () {
+                            $('#mouseEvent').append('鼠标移动');
+                        }).mouseover(
+                        function () {
+                            $('#mouseEvent').text('鼠标移入');
+                            $('#mouseEvent').css({'font-size': '20px'});
+                        }).mouseout(function () {
+                    $('#mouseEvent').text('鼠标移出');
+                });
+            }
+
+        </script>
+    </dd>
+</div>
+
+
+<div id="event4">
+    <dt>3.表单事件</dt>
+    <div id="formEvent" style="border:1px grey solid;">
+        代码测试区：
+        <form id="submitTest" action="http://www.baidu.com">
+            <input id="focusAndBlurTest" type="text" value="聚焦失焦">
+            <br>
+            <input id="changeTest" type="text" value="控件改变事件">
+            <br>
+            <input type="submit" value="submit">
+        </form>
+
+    </div>
+    <dd>3.1聚焦失焦$(selector').focus().blur();
+        <script>
+            $(document).ready(focusAndBlurTest());
+
+            function focusAndBlurTest() {
+                $('#focusAndBlurTest').focus(function () {
+                    $('#focusAndBlurTest').attr('value', '触发聚焦事件');
+                }).blur(function () {
+                    $('#focusAndBlurTest').attr('value', '触发失焦事件');
+                });
+            }
+        </script>
+    </dd>
+
+    <dd>3.2控件值改变事件$(selector').change()[value的值改变触发];
+        <script>
+            $(document).ready(changeTest());
+            function changeTest() {
+                $('#changeTest').change(function () {
+                    var changeValue = $('#changeTest').attr('value');
+                    alert(changeValue);
+                });
+            }
+        </script>
+    </dd>
+
+    <dd>3.3select事件【只能选表单中的东西】
+        <script>
+            $(document).ready(selectTest());
+            function selectTest() {
+                $(document).select(function () {
+                    if (document.selection) {
+                        text = document.selection.createRange().text;
+                    } else {
+                        text = document.getSelection();
+                    }
+                    alert(text);
+                });
+            }
+        </script>
+    </dd>
+
+    <dd>3.4submit事件
+        <script>
+            $(document).ready(submitTest());
+            function submitTest() {
+                $('form[id=submitTest]').submit(function () {
+
+                    if (true == window.confirm('确定提交？')) {
+
+                    } else {
+                        return;
+                    }
+                });
+            }
+        </script>
+    </dd>
+</div>
+
+<div id="event5">
+    <dt>5.绑定事件,操作的是事件</dt>
+    <div style="border: 1px grey solid">
+        代码测试区
+        <div id="typeFnTest">点击看看【代码绑定】</div>
+        <div id="bindMapTest">鼠标移入【代码绑定band】</div>
+        <div id="bindDataTest">【代码绑定band带参数】</div>
+        <div id="oneTest">one(type,[],fn)</div>
+    </div>
+    <dd>5.1 < type>(fn) 例如click(function(){})
+        <script>
+            $(document).ready(typeFnTest());
+            function typeFnTest() {
+                $('#typeFnTest').click(function () {
+                    $('#typeFnTest').append("<span style='color:red'>代码绑定</span>")
+                });
+            }
+        </script>
+    </dd>
+
+    <dd>5.2 bind(map) 一次绑定多个事件【map为{事件：处理}{focus:function(){}】
+        <script>
+            $(document).ready(bindMapTest());
+            function bindMapTest() {
+                $('#bindMapTest').bind({
+                    click: function () {
+                        $('#bindMapTest').append("<span style='color:red'>点击</span>")
+                    },
+                    mouseover: function () {
+                        $('#bindMapTest').append("<span style='color:red'>鼠标移入</span>")
+                    },
+                    mouseout: function () {
+                        $('#bindMapTest').text("鼠标移出");
+                    }
+
+                });
+            }
+        </script>
+    </dd>
+
+    <dd>5.3 bind(type,[data],fn) 【带参数】 'click',{ x: '10px', y: '20px' },function (event) {var x1 = event.data.x}
+        <script>
+            $(document).ready(bindDataTest());
+            function bindDataTest() {
+                var tmp = '参数';
+                $('#bindDataTest').bind(
+                        'click',
+                        {
+                            x: '10px',
+                            y: '20px'
+                        },
+                        function (event) {
+                            $('#bindDataTest').append('x' + event.data.x + 'y' + event.data.y + tmp);
+                        }
+                );
+            }
+        </script>
+    </dd>
+
+    <dd>5.4one(type,[data],fn) 和 one(map)【只执行一次的函数】
+        <script>
+            $(document).ready(oneTest());
+            function oneTest() {
+                $('#oneTest').one({
+                    click: function () {
+                        $('#oneTest').append('此函数只执行一次');
+                    },
+                    mouseover: function () {
+                        $('#oneTest').append('鼠标移入只执行一次');
+                    }
+                });
+            }
+        </script>
+    </dd>
+</div>
+
+<div id="event6">
+    <dt>6.jquery事件对象</dt>
+
+    <div style="border:1px grey solid">
+        代码测试区
+        <div id="typeTest">类型</div>
+
+    </div>
+
+    <dd>6.1 类型type
+        <script>
+            $(document).ready(typeTest());
+            function typeTest() {
+                $('#typeTest').bind({
+                    click: function (event) {
+                        var x = event.pageY;
+                        var y = event.pageX;
+                        $('#typeTest').text('坐标x/y' + x + '/' + y);
+                    }
+                });
+            }
+        </script>
+    </dd>
+</div>
+
+<hr>
+<h1>jquery 动画效果 </h1>
+<div id="flash1">
+    <dt>1.出现消失</dt>
+    <div style="border:1px grey solid">
+        代码测试区
+        <div id="hideTest">hide()点击隐藏</div>
+        <div id="hideSpeedTest">hide(speed)点击隐藏speed</div>
+        <div id="showTest">show()点击出现【先隐藏】</div>
+        <div id="showSpeedTest">show(speed)点击出现speed【先隐藏】</div>
+        <div id="toggleTest">toggle()点击交替出现隐藏</div>
+        <div id="toggleSpeedTest">toggle(speed)点击交替出现隐藏</div>
+    </div>
+    <dd>1.1hide()隐藏
+        <script>
+            $(document).ready(hideTest());
+            function hideTest() {
+                $('#hideTest').bind({
+                    click: function () {
+                        $('#hideTest').hide();
+                    }
+                });
+            }
+        </script>
+    </dd>
+    <dd>1.2.hide(speed)隐藏【speed速度在speed时间内隐藏】
+        <script>
+            $(document).ready(hideSpeedTest());
+            function hideSpeedTest() {
+                $('#hideSpeedTest').bind({
+                    click: function () {
+                        $('#hideSpeedTest').hide(7000);
+                    }
+                });
+            }
+        </script>
+    </dd>
+    <dd>1.3.hide()隐藏
+        <script>
+            $(document).ready(showTest());
+            function showTest() {
+                $('#showTest').bind({
+                    click: function () {
+                        $('#hideTest').show();
+                    }
+                });
+            }
+        </script>
+    </dd>
+    <dd>1.4.hide(speed)隐藏【speed速度在speed时间内隐藏】
+        <script>
+            $(document).ready(showSpeedTest());
+            function showSpeedTest() {
+                $('#showSpeedTest').bind({
+                    click: function () {
+                        $('#hideSpeedTest').show(7000);
+                    }
+                });
+            }
+        </script>
+    </dd>
+
+    <dd>1.5.toggle()切换隐藏消失
+        <script>
+            $(document).ready(toggleTest());
+            function toggleTest() {
+                $('#toggleTest').bind({
+                    click: function () {
+                        $('#hideTest').toggle();
+                    }
+                });
+            }
+        </script>
+    </dd>
+    <dd>1.6.toggle(speed)隐藏【speed速度在speed时间内隐藏】
+        <script>
+            $(document).ready(toggleSpeedTest());
+            function toggleSpeedTest() {
+                $('#toggleSpeedTest').bind({
+                    click: function () {
+                        $('#hideSpeedTest').toggle(7000);
+                    }
+                });
+            }
+        </script>
+    </dd>
+</div>
+
+<div id="flash2">
+    <dt>2.向上收缩、向下展开</dt>
+    <div id="slideTest" style="border:1px grey solid">代码测试区
+        <br>
+        <br>
+    </div>
+    <dd id="slideUpClick">2.1 slideUp()向上收缩
+        <script>
+            $(document).ready(slideUpTest());
+            function slideUpTest() {
+                $('#slideUpClick').bind({
+                    click: function () {
+                        $('#slideTest').slideUp();
+                    }
+                });
+            }
+        </script>
+    </dd>
+
+    <dd id="slideSpeedClick">2.2 slideUp(speed)向上收缩
+        <script>
+            $(document).ready(slideUpTest());
+            function slideUpTest() {
+                $('#slideSpeedClick').bind({
+                    click: function () {
+                        $('#slideTest').slideUp(2000);
+                    }
+                });
+            }
+        </script>
+    </dd>
+
+    <dd id="slideDownClick">2.3 slideDown()向下拓展
+        <script>
+            $(document).ready(slideUpTest());
+            function slideUpTest() {
+                $('#slideDownClick').bind({
+                    click: function () {
+                        $('#slideTest').slideDown();
+                    }
+                });
+            }
+        </script>
+    </dd>
+
+    <dd id="slideDownSpeedClick">2.4 slideDown(speed)向下拓展
+        <script>
+            $(document).ready(slideUpTest());
+            function slideUpTest() {
+                $('#slideDownSpeedClick').bind({
+                    click: function () {
+                        $('#slideTest').slideDown(2000);
+                    }
+                });
+            }
+        </script>
+    </dd>
+
+    <dd id="slideToggleSpeedClick">2.4 slideToggle(speed)切换
+        <script>
+            $(document).ready(slideToggleSpeedClick());
+            function slideToggleSpeedClick() {
+                $('#slideToggleSpeedClick').bind({
+                    click: function () {
+                        $('#slideTest').slideToggle(2000);
+                    }
+                });
+            }
+        </script>
+    </dd>
+</div>
+
+<div id="flash3">
+    <dt>3.淡入淡出</dt>
+    <div id="fadeTest" style="display:none;border:1px grey solid">
+        代码测试区
+    </div>
+    <dd id="fadeInTest">3.1 fadeIn 淡入【点击淡入】
+        <script>
+            $(document).ready(fadeInTest());
+            function fadeInTest() {
+                $('#fadeInTest').bind({
+                    click: function () {
+                        $('#fadeTest').fadeIn(1000);
+                    }
+                });
+            }
+        </script>
+    </dd>
+
+    <dd id="fadeOutTest">3.2 fadeOut 淡出【点击淡出】
+        <script>
+            $(document).ready(fadeOutTest());
+            function fadeOutTest() {
+                $('#fadeOutTest').bind({
+                    click: function () {
+                        $('#fadeTest').fadeOut(1000);
+                    }
+                });
+            }
+        </script>
+    </dd>
+
+    <dd id="fadeToTest">3.2 fadeTo 指定不透明度【点击 透明度0.5】
+        <script>
+            $(document).ready(fadeToTest());
+            function fadeToTest() {
+                $('#fadeToTest').bind({
+                    click: function () {
+                        $('#fadeTest').fadeTo(1000, 0.5);
+                    }
+                });
+            }
+        </script>
+    </dd>
+</div>
+</body>
+</html>

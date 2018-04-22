@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/jquery.mobile-1.4.5.min.css">
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+
+<div data-role="page" id="pageone">
+
+
+    <div data-role="header">
+        <h1>面板：data-role="panel"</h1>
+    </div>
+
+    <div data-role="main" class="ui-content">
+        <p>点击下面按钮打开面板。</p>
+        <a href="#myPanel1" class="ui-btn ui-btn-inline ui-corner-all ui-shadow">打开面板</a>
+        <a href="#myPanel2" class="ui-btn ui-btn-inline ui-corner-all ui-shadow">打开 禁用data-dismissible的 面板</a>
+        <a href="#myPanel3" class="ui-btn ui-btn-inline ui-corner-all ui-shadow">打开 禁用data-swipe-close的 面板</a>
+
+        <hr/>
+        <p>面板展示三种方式</p>
+        <p>点击以下按钮查看面板的不同展示方式。</p>
+        <a href="#overlayPanel" class="ui-btn ui-btn-inline ui-corner-all ui-shadow">覆盖面板</a>
+        <a href="#revealPanel" class="ui-btn ui-btn-inline ui-corner-all ui-shadow">滑出面板</a>
+        <a href="#pushPanel" class="ui-btn ui-btn-inline ui-corner-all ui-shadow">推动面板</a>
+        <hr/>
+        <p>面板定位</p>
+        <p>点击以下按钮查看面板的不同展示方式。</p>
+        <a href="#myPanelRight" class="ui-btn ui-btn-inline ui-corner-all ui-shadow">打开面板-右边出现</a>
+        <a href="#myPanelLeft" class="ui-btn ui-btn-inline ui-corner-all ui-shadow">打开面板-左边出现</a>
+        <hr/>
+        <p>面板fixed ： ata-position-fixed="true"固定面板，不随着页面的滚动儿滚动</p>
+        <a href="#myPanelFixed" class="ui-btn ui-btn-inline ui-corner-all ui-shadow">打开面板-固定面板</a>
+    </div>
+
+
+    <!-- 面板-->
+
+    <div data-role="panel" id="myPanel1">
+        <h2>面板头部</h2>
+        <p>你可以通过点击面板外部区域或按下 Esc 键或滑动来关闭面板。</p>
+    </div>
+
+    <div data-role="panel" id="myPanel2" data-dismissible="false">
+        <h2>data-dismissible 属性为 "false" 禁用了外部点击关闭功能</h2>
+        <p>面板设置了 data-dismissible 属性为 "false", 意味着不能通过点击面板外部区域来关闭，你可以使用按下 Esc 键或向左滑动来关闭。</p>
+    </div>
+
+    <div data-role="panel" id="myPanel3" data-swipe-close="false">
+        <h2>面板头部</h2>
+        <p>面板设置了 data-swipe-close 属性为 "false", 意味着不能通过滑动来关闭，你可以使用按下 Esc 键或点击面板外部区域来关闭 。</p>
+    </div>
+
+    <hr>
+    <!-- 三种面板方式 -->
+    <div data-role="panel" id="overlayPanel" data-display="overlay">
+        <h2>覆盖面板</h2>
+        <p>你可以使用按下 Esc 键、点击面板外部区域、通过滑动或点击下面按钮来关闭面板：</p>
+        <a href="#pageone" data-rel="close"
+           class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left">关闭面板</a>
+    </div>
+    <div data-role="panel" id="revealPanel" data-display="reveal">
+        <h2>滑出面板</h2>
+        <p>你可以使用按下 Esc 键、点击面板外部区域、通过滑动或点击下面按钮来关闭面板：</p>
+        <a href="#pageone" data-rel="close"
+           class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left">关闭面板</a>
+    </div>
+    <div data-role="panel" id="pushPanel" data-display="push">
+        <h2>推动面板</h2>
+        <p>你可以使用按下 Esc 键、点击面板外部区域、通过滑动或点击下面按钮来关闭面板：</p>
+        <a href="#pageone" data-rel="close"
+           class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left">关闭面板</a>
+    </div>
+
+    <hr>
+    <!-- 面板定位  -->
+    <div data-role="panel" id="myPanelRight" data-position="right">
+        <h2>面板定位 ， 出现位置</h2>
+        <p>你可以使用按下 Esc 键、点击面板外部区域、通过滑动或点击下面按钮来关闭面板:</p>
+        <a data-rel="close"
+           class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left">关闭面板</a>
+    </div>
+    <div data-role="panel" id="myPanelLeft" data-position="left">
+        <h2>面板定位 ， 出现位置</h2>
+        <p>你可以使用按下 Esc 键、点击面板外部区域、通过滑动或点击下面按钮来关闭面板:</p>
+        <a data-rel="close"
+           class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left">关闭面板</a>
+    </div>
+
+    <hr>
+    <!-- 面板fixed  -->
+    <div data-role="panel" id="myPanelFixed" data-position-fixed="true">
+        <h2>Panel Header</h2>
+        <p>你可以使用按下 Esc 键、点击面板外部区域、通过滑动或点击下面按钮来关闭面板:</p>
+        <a href="#pageone" data-rel="close" class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left">关闭面板</a>
+    </div>
+    <div data-role="footer">
+        <h1>页面底部</h1>
+    </div>
+
+
+</div>
+
+</body>
+</html>

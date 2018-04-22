@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Html5</title>
+</head>
+<body>
+<div>
+    <h3>1.为html添加新元素</h3>
+
+    <script>
+        document.createElement("myTag")
+    </script>
+    <style>
+        myTag {
+            color: red;
+        }
+
+    </style>
+
+    <myTag>
+        使用了自定义标签的元素
+    </myTag>
+
+</div>
+
+<hr/>
+<p>
+
+<h3>2.判断是否是IE浏览器</h3>
+
+</p>
+<hr/>
+<div>
+    <h3>3.Canvas</h3>
+
+    <h4>3.1.矩形<br/>
+        fillRect(x,y,width,height) 方法定义了矩形当前的填充方式。<br/>
+
+    </h4>
+    <canvas id="myCanvas2"></canvas>
+    <script>
+        var c = document.getElementById("myCanvas2");
+        var ctx = c.getContext("2d");
+        ctx.fillStyle = "#FF0000";
+        ctx.fillRect(0, 0, 150, 75);
+    </script>
+</div>
+
+<div>
+    <h3>Canvas</h3>
+
+    <h4>3.2.路径<br/>
+        moveTo(x,y) 定义线条开始坐标<br/>
+        lineTo(x,y) 定义线条结束坐标<br/>
+    </h4>
+    <canvas id="myCanvas3"></canvas>
+    <script>
+        var c = document.getElementById("myCanvas3");
+        var ctx = c.getContext("2d");
+        ctx.moveTo(0, 0);
+        ctx.lineTo(200, 100);
+        ctx.stroke()
+    </script>
+</div>
+
+<div>
+    <h3>Canvas</h3>
+    <h4>3.3.圆<br/>
+        arc(x,y,r,start,stop)<br/>
+    </h4>
+    <canvas id="myCanvas4"></canvas>
+    <script>
+        var c = document.getElementById("myCanvas4");
+        var ctx = c.getContext("2d");
+        ctx.beginPath();
+        ctx.arc(95, 50, 40, 0, 2 * Math.PI);
+        ctx.stroke();
+    </script>
+</div>
+
+<div>
+    <h3>Canvas</h3>
+
+    <h4>3.4.文本<br/>
+        font - 定义字体<br/>
+        fillText(text,x,y) - 在 canvas 上绘制实心的文本<br/>
+        strokeText(text,x,y) - 在 canvas 上绘制空心的文本<br/>
+    </h4>
+    <canvas id="myCanvas5"></canvas>
+    <canvas id="myCanvas6"></canvas>
+    <script>
+        var c = document.getElementById("myCanvas5");
+        var ctx = c.getContext("2d");
+        ctx.font = "30px Arial";
+        ctx.fillText("Hello World", 10, 50);
+    </script>
+    <script>
+        var c = document.getElementById("myCanvas6");
+        var ctx = c.getContext("2d");
+        ctx.font = "30px Arial";
+        ctx.strokeText("Hello World", 10, 50);
+    </script>
+</div>
+
+<hr/>
+
+<div>
+    <h3>4.input 类型</h3>
+    <p>
+    <ul>
+        <li>color</li>
+        <li>date</li>
+        <li>datetime</li>
+        <li>datetime-local</li>
+        <li>email</li>
+        <li>month</li>
+        <li>number</li>
+        <li>range</li>
+        <li>search</li>
+        <li>tel</li>
+        <li>time</li>
+        <li>url</li>
+        <li>week</li>
+    </ul>
+    </p>
+
+    <div>
+        1.选择颜色 提交结果[#00000]
+        <input type="color" name="favcolor"><br>
+        2.选择日期 提交结果[2017-06-07]
+        <input type="date" name="bday"><br>
+        3.E-mail:[提交会检查email是否合法]
+        <input type="email" name="usremail"><br>
+        4. 月和年
+        <input type="month" name="bdaymonth"><br>
+        5.数量 ( 1 到 5 之间):
+        <input type="number" name="quantity" min="1" max="5" value="3" disabled><br>
+        6.time
+        <input type="time"><br>
+        7.url：[提交会检查url是否合法]
+        <input type="url" name="homepage"><br>
+        8. 第几年的第几周
+        <input type="week" name="year_week">
+        数字类型的属性<br>
+        <table class="reference">
+            <tbody>
+            <tr>
+                <th style="width:20%">属性</th>
+                <th>描述</th>
+            </tr>
+            <tr>
+                <td>disabled</td>
+                <td>规定输入字段是禁用的</td>
+            </tr>
+            <tr>
+                <td class="html5badge">max</td>
+                <td>规定允许的最大值</td>
+            </tr>
+            <tr>
+                <td>maxlength</td>
+                <td>规定输入字段的最大字符长度</td>
+            </tr>
+            <tr>
+                <td class="html5badge">min</td>
+                <td>规定允许的最小值</td>
+            </tr>
+            <tr>
+                <td class="html5badge">pattern</td>
+                <td>规定用于验证输入字段的模式</td>
+            </tr>
+            <tr>
+                <td>readonly</td>
+                <td>规定输入字段的值无法修改</td>
+            </tr>
+            <tr>
+                <td class="html5badge">required</td>
+                <td>规定输入字段的值是必需的</td>
+            </tr>
+            <tr>
+                <td>size</td>
+                <td>规定输入字段中的可见字符数</td>
+            </tr>
+            <tr>
+                <td class="html5badge">step</td>
+                <td>规定输入字段的的合法数字间隔</td>
+            </tr>
+            <tr>
+                <td>value</td>
+                <td>规定输入字段的默认值</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<hr>
+<div>
+    <h3>5.表单元素</h3>
+    <div>
+        <h4>5.1 数据列表datalist[拥有自动补全功能]</h4>
+        <input list="browsers">
+        <datalist id="browsers">
+            <option value="Internet Explorer">
+            <option value="Firefox">
+            <option value="Chrome">
+            <option value="Opera">
+            <option value="Safari">
+        </datalist>
+    </div>
+
+    <div>
+        <h4>5.2 output [ 元素用于不同类型的输出]</h4>
+        <form oninput="x.value=parseInt(a.value)+parseInt(b.value)">0
+            <input type="range" id="a" value="50">100 +
+            <input type="number" id="b" value="50">=
+            <output name="x" for="a b"></output>
+        </form>
+    </div>
+
+</div>
+
+<hr>
+
+<div>
+    <h3>6.表单属性</h3>
+    <p>
+        form新属性：<br>
+        autocomplete<br>
+        novalidate<br>
+    </p>
+    <p>
+        input新属性：<br>
+        autocomplete<br>
+        autofocus<br>
+        form<br>
+        formaction<br>
+        formenctype<br>
+        formmethod<br>
+        formnovalidate<br>
+        formtarget<br>
+        height 与 width<br>
+        list<br>
+        min 与 max<br>
+        multiple<br>
+        pattern (regexp)<br>
+        placeholder<br>
+        required<br>
+        step<br>
+    </p>
+</div>
+
+</body>
+</html>

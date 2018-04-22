@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.min.js"></script>
+    <title>Vue study</title>
+</head>
+<body>
+<!----------------------------------------------------------------------------->
+<h4>1.数据视图 标签外的使用{{xxData}} </h4>
+<div id="data">
+    <h5>{{data}}</h5>
+    <input v-model="data">
+    <pre>
+       <code>
+
+    < h5>{ {data}}< /h5>
+    < input v-model="data">
+        var vm = new Vue({
+            el: "#data",
+            data: {
+                data: "这个是测试数据"
+            }
+        });
+       </code>
+    </pre>
+    <script>
+        var vm = new Vue({
+            el: "#data",
+            data: {
+                data: "这个是测试数据"
+            }
+        });
+    </script>
+</div>
+<!----------------------------------------------------------------------------->
+<h4>2.数据视图 - 数据修改</h4>
+<div id="data2">
+    <h5>{{data}}</h5>
+    <button onclick="data2()">点击</button>
+    <pre>
+       <code>
+       function data2() {
+            var vm = new Vue({
+                el: "#data2",
+                data: {
+                    data: "这个是测试数据"
+                }
+            });
+            vm.data = "修改"
+        }
+       </code>
+    </pre>
+    <script>
+        function data2() {
+            var vm = new Vue({
+                el: "#data2",
+                data: {
+                    data: "这个是测试数据"
+                }
+            });
+            vm.data = "修改"
+        }
+    </script>
+</div>
+<!----------------------------------------------------------------------------->
+<h4>3.数据视图 - $用于区别属性方法(el...)</h4>
+<div id="data3">
+</div>
+<hr>
+
+<!----------------------------------------------------------------------------->
+<h4>4.数据视图 - 监听属性 属性中的值需要v-model="xxdata"</h4>
+<div id="data4">
+    修改这个输入
+    <input type="text" v-model="data">
+    <pre>
+       <code>
+        var vm = new Vue({
+            el: "#data4",
+            data: {
+                data: "这个是测试数据"
+            },
+            watch: {
+                data: function (newValue, oldValue) {
+                    console.log("只要data数据改变，就会触发这个函数：修改前的数据为" + oldValue);
+                    console.log("只要data数据改变，就会触发这个函数：修改后的数据为" + newValue);
+                }
+            }
+        });
+        //这个是外界手动触发函数
+        vm.$watch("data", function (newValue, oldValue) {
+            console.log("新数据" + newValue);
+            console.log("就数据" + oldValue);
+        })
+       </code>
+    </pre>
+    <script>
+        var vm = new Vue({
+            el: "#data4",
+            data: {
+                data: "这个是测试数据"
+            },
+            watch: {
+                data: function (newValue, oldValue) {
+                    console.log("只要data数据改变，就会触发这个函数：修改前的数据为" + oldValue);
+                    console.log("只要data数据改变，就会触发这个函数：修改后的数据为" + newValue);
+                }
+            }
+        });
+        //这个是外界手动触发函数
+        vm.$watch("data", function (newValue, oldValue) {
+            console.log("新数据" + newValue);
+            console.log("就数据" + oldValue);
+        })
+    </script>
+</div>
+
+<!----------------------------------------------------------------------------->
+<hr>
+<h4>5.样式绑定 - v-bind:class可以控制class的有无(动态切换class) </h4>
+<style>
+    .dataClass {
+        width: 200px;
+        height: 200px;
+        color: red;
+    }
+</style>
+<div id="data5" v-bind:class="{dataClass:data5class}">
+    修改这个输入
+    <input type="button" onclick="data5()" value="点击">
+    <pre>
+       <code>
+          < div id="data5" v-bind:class="{dataClass:data5class}">
+           function data5() {
+            var vm = new Vue({
+                el: "#data5",
+                data: {
+                    data5class: true
+                }
+            });
+        }
+       </code>
+    </pre>
+    <script>
+        function data5() {
+            var vm = new Vue({
+                el: "#data5",
+                data: {
+                    data5class: true
+                }
+            });
+        }
+    </script>
+</div>
+
+
+<!----------------------------------------------------------------------------->
+<hr>
+<h4>5.直接绑定对象 - v-bind:class="classObject" </h4>
+<div id="data6" v-bind:class="{dataClass:data5class}">
+    修改这个输入
+    <input type="button" onclick="data6()" value="点击">
+    <pre>
+       <code>
+
+       </code>
+    </pre>
+    <script>
+        function data6() {
+            var vm = new Vue({
+                el: "#data6",
+                data: {
+
+                }
+            });
+        }
+    </script>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/jquery.mobile-1.4.5.min.css">
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+
+<div data-role="page" id="pageone">
+    <div data-role="header">
+        <h1>列切换</h1>
+    </div>
+
+    <div data-role="main" class="ui-content">
+        <p>列切换模型会在宽度不够时隐藏数据。默认情况下，jQuery Mobile 会先隐藏表格右侧的列。但是，你可以在表格头部(<th>)通过添加 data-priority 属性指定隐藏列的顺序，data-priority 的值可以是 1 (最高优先级) 到 6 (最低优先级):</p>
+
+        <h4>慢慢重置窗口大小。你会发现表格中的列会根据窗口的大小自动隐藏列。</h4>
+        <table data-role="table" data-mode="columntoggle" class="ui-responsive" id="myTable">
+            <thead>
+            <tr>
+                <th data-priority="6">CustomerID</th>
+                <th>CustomerName</th>
+                <th data-priority="1">ContactName</th>
+                <th data-priority="2">Address</th>
+                <th data-priority="3">City</th>
+                <th data-priority="4">PostalCode</th>
+                <th data-priority="5">Country</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>1</td>
+                <td>Alfreds Futterkiste</td>
+                <td>Maria Anders</td>
+                <td>Obere Str. 57</td>
+                <td>Berlin</td>
+                <td>12209</td>
+                <td>Germany</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Antonio Moreno Taquer</td>
+                <td>Antonio Moreno</td>
+                <td>Mataderos 2312</td>
+                <td>Mico D.F.</td>
+                <td>05023</td>
+                <td>Mexico</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr/>
+    <p>可选择列的的表格</p>
+    <p>
+    <table data-role="table" data-mode="columntoggle" class="ui-responsive" data-column-btn-text="点我显示或隐藏列!">
+        <thead>
+        <tr>
+            <th data-priority="6">学号</th>
+            <th>姓名</th>
+            <th data-priority="1">年龄</th>
+            <th data-priority="2">班级</th>
+            <th data-priority="3">QQ</th>
+            <th data-priority="4">邮箱</th>
+            <th data-priority="5">电话</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>Alfreds Futterkiste</td>
+            <td>Maria Anders</td>
+            <td>Obere Str. 57</td>
+            <td>Berlin</td>
+            <td>12209</td>
+            <td>Germany</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Antonio Moreno Taquer</td>
+            <td>Antonio Moreno</td>
+            <td>Mataderos 2312</td>
+            <td>Mico D.F.</td>
+            <td>05023</td>
+            <td>Mexico</td>
+        </tr>
+
+        </tbody>
+    </table>
+    </p>
+
+    <div data-role="footer">
+        <h1>底部文本</h1>
+    </div>
+</div>
+
+</body>
+</html>

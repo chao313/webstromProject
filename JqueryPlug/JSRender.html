@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <base href="lib/">
+    <script src="jquery.js"></script>
+    <script src="jsrender.js"></script>
+    <title>JqueryTmpl.html</title>
+</head>
+<body>
+<div>
+    <h3 id="show">1.插入数值</h3>
+    <div id='targetDiv1'></div>
+    <script id="renderTemp1" type="text/x-jsrender">
+	<div>
+		{{:#index+1}}: <b>{{>name}}</b> ({{>releaseYear}})
+	</div>
+
+
+
+
+
+
+
+
+
+    </script>
+    <script type="text/javascript">
+        var movies1 = [
+            {name: "The Red Violin", releaseYear: "1998"},
+            {name: "Eyes Wide Shut", releaseYear: "1999"},
+            {name: "The Inheritance", releaseYear: "1976"}
+        ];
+        // Render the template with the movies data and insert
+        // the rendered HTML under the "movieList" element
+        $(function () {
+            $('#show').bind({
+                click: function () {
+                    $("#targetDiv1").html(
+                            $("#renderTemp1").render(movies1)
+                    );
+                }
+            })
+        });
+    </script>
+</div>
+
+<hr>
+
+<div>
+    <h3 id="button2">2.自定义模板（编译命名的模板）[模板写在js里面]</h3>
+    <div id='targetDiv2'></div>
+    <script type="text/javascript">
+        var movies2 = [
+            {name: "The Red Violin", releaseYear: "1998", director: "François Girard"},
+            {name: "Eyes Wide Shut", releaseYear: "1999", director: "Stanley Kubrick"},
+            {name: "The Inheritance", releaseYear: "1976", director: "Mauro Bolognini"}
+        ];
+        /* Compile markup as named templates */
+        $.templates({
+            titleTemplate: "<tr><td colspan=3>{{>name}}</td></tr>",
+            detailTemplate: "<tr><td>{{>name}}</td><td>Released: {{>releaseYear}}</td><td>director: {{>director}}</td></tr>"
+        });
+        var html = $.render.detailTemplate(movies2);
+        $("#button2").bind({
+            click: function () {
+                $("#targetDiv2").html(html);
+            }
+        });
+    </script>
+</div>
+
+<hr>
+
+<div>
+    <p>
+    <h3 id="button3">3.转码</h3>
+    <ul>
+        <li><em>{{:value}}</em> 不转换，被用于去赋予值，包含了html标签的值</li>
+        <li><em>{{loc:value lang="..."}}</em> 使用自定义的转换器（根据lang来选择）</li>
+        <li><em>{{html:value}}</em> 使用内置的HTML编码器转换 . （元素内容更好的安全性，但是，轻微的消耗） .
+        </li>
+        <li><em>{{>value}}</em>内置HTML编码器的替代语法【就是html：的替代】</li>
+        <li><em>{{attr:availability}}</em> 使用内置的属性编码器转换 (Better security within
+            attributes).
+        </li>
+        <li><em>{{url:value lang="..."}}</em> 使用内置的URL编码器转换 .</li>
+    </ul>
+    <br/>
+    </p>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Title (loc:纯数字)</th>
+            <th>Title (loc:含中文)</th>
+            <th>不转换</th>
+            <th>HTML转码（原样输出）</th>
+        </tr>
+        </thead>
+        <tbody id='targetDiv3'>
+        <!--内容-->
+        </tbody>
+    </table>
+    <!--模板-->
+    <script id="renderTemplate3" type="text/x-jsrender">
+	<tr title="{{attr:name}}">
+		<td>{{loc:datetime lang='纯数字'}}</td>
+		<td>{{loc:datetime lang='含中文'}}</td>
+		<td class="synopsis">{{:content}}</td>
+		<td class="synopsis">{{html:content}}</td>
+	</tr>
+
+
+
+
+
+
+    </script>
+    <script type="text/javascript">
+        var movies3 = [
+            {
+                name: "死亡笔记",
+                datetime: "2016-9-12",
+                content: "The <span class='role'>grim reaper</span> (<a href='http://www.netflix.com/RoleDisplay/Brad_Pitt/73919'>Brad Pitt</a>) visits <span class='role'>Bill Parrish</span>"
+            },
+            {
+                name: "盗墓笔记",
+                datetime: "2014-9-12",
+                content: "Director <span class='director'>Stanley Kubrick's</span> final film: <br/><br/><img src='http://cdn-4.nflximg.com/US/boxshots/large/5670434.jpg'/>"
+            }
+        ];
+        /*专门为了loc而准备*/
+        $.views.converters({
+            loc: function (value) {
+                var result = "";
+
+                switch (this.tagCtx.props.lang) {
+                    case "纯数字":
+                        result = value;
+                        break;
+
+                    case "含中文":
+                        switch (value) {
+                            case "2014-9-12":
+                                result = "2014年9月12日";
+                                break;
+
+                            case "2016-9-12":
+                                result = "2016年9月12日";
+                                break;
+                        }
+                        break;
+                }
+                return result;
+            }
+        });
+        /*专门为了loc而准备 end*/
+        var html = $('#renderTemplate3').render(movies3)
+        $("#button3").bind({
+            click: function () {
+                $("#targetDiv3").html(html);
+            }
+        });
+    </script>
+</div>
+
+<hr>
+
+<div>
+    <p>
+    <h3 id="button4">4.{{if}} {{else}} {{/if}}</h3>
+    <br/>
+    </p>
+
+    <div id='targetDiv4'>
+
+
+    </div>
+
+    <!--模板-->
+    <script id="renderTemplate4" type="text/x-jsrender">
+	<tr>
+		<td>
+			{{if name!= 'null'}}
+				{{html:name}}|{{html:datetime}}|{{:content}}
+			{{else name== 'null'}}
+                name为null
+			{{/if}}
+		</td>
+	</tr>
+
+
+
+
+
+
+    </script>
+    <script type="text/javascript">
+        var movies4 = [
+            {
+                name: "死亡笔记",
+                datetime: "2016-9-12",
+                content: "<span>死亡笔记-内容</span>"
+            },
+            {
+                name: "盗墓笔记",
+                datetime: "2014-9-12",
+                content: "<span>盗墓笔记 - 内容</span>"
+            },
+            {
+                name: "null",
+                datetime: "2014-9-12",
+                content: "<span>null</span>"
+            }
+        ];
+
+        var html = $('#renderTemplate4').render(movies4)
+        $("#button4").bind({
+            click: function () {
+                $("#targetDiv4").html(html);
+            }
+        });
+    </script>
+</div>
+
+<hr/>
+
+<div>
+    <p>
+    <h3 id="button5">5.{{for}}</h3>
+    <br/>
+    </p>
+    <div id='targetDiv5'>
+        <!--内容-->
+    </div>
+    <!--模板-->
+    <script id="renderTemplate5" type="text/x-jsrender">
+	<tr>
+		<td>
+				{{html:name}}|{{html:datetime}}
+				{{for infos}}
+                      {{html:one}}|{{html:two}}
+				{{/for}}
+		</td>
+	</tr>
+
+
+
+
+    </script>
+    <script type="text/javascript">
+        var movies5 = [
+            {
+                name: "死亡笔记",
+                datetime: "2016-9-12",
+                infos: [
+                    {'one': '第一章'}, {'two': '第二章'}
+                ]
+            },
+            {
+                name: "盗墓笔记",
+                datetime: "2014-9-12",
+                infos: [
+                    {'one': '第一章'}, {'two': '第二章'}
+                ]
+            }
+        ];
+        var html = $('#renderTemplate5').render(movies5)
+        $("#button5").bind({
+            click: function () {
+                $("#targetDiv5").html(html);
+            }
+        });
+    </script>
+</div>
+
+<div>
+    <p>
+    <h3 id="button6">6.{{include tmpl="#..."/}}[包含其他的模板]</h3>
+    <br/>
+    </p>
+    <div id='targetDiv6'>
+        <!--内容-->
+    </div>
+    <!--模板-->
+    <script id="renderTemplate6" type="text/x-jsrender">
+	<tr>
+		<td>
+				{{html:name}}|{{html:datetime}}
+				 {{include tmpl='#includeTemplate6'/}}
+		</td>
+	</tr>
+
+
+
+    </script>
+
+    <script id="includeTemplate6" type="text/x-jsrender">
+		<td>
+		         {{for infos}}
+                 {{html:one}}|{{html:two}}
+                 {{/for}}
+		</td>
+
+
+
+    </script>
+    <script type="text/javascript">
+        var movies6 = [
+            {
+                name: "死亡笔记",
+                datetime: "2016-9-12",
+                infos: [
+                    {'one': '第一章'}, {'two': '第二章'}
+                ]
+            },
+            {
+                name: "盗墓笔记",
+                datetime: "2014-9-12",
+                infos: [
+                    {'one': '第一章'}, {'two': '第二章'}
+                ]
+            }
+        ];
+        var html = $('#renderTemplate6').render(movies6)
+        $("#button6").bind({
+            click: function () {
+                $("#targetDiv6").html(html);
+            }
+        });
+    </script>
+</div>
+
+<hr>
+
+<div>
+    <p>
+    <h3 id="button7">7.helper自定义方法(处理数据)</h3>
+    </p>
+    <div id='targetDiv7'>
+        <!--内容-->
+    </div>
+    <!--模板-->
+    <script id="renderTemplate7" type="text/x-jsrender">
+        <tr>
+        <td>
+        {{for languages}}
+        <a href='{{>~urlFormat(name, "baidu")}}'>{{>name}}</a>
+        {{/for}}
+        </td>
+        </tr>
+    </script>
+    <script>
+        $.views.helpers({
+            urlFormat: function (val, web) {
+
+                switch (web) {
+                    case 'baidu':
+                    {
+                        return 'http://baidu.com?word=' + val;
+                    }
+                        ;
+                    case 'sogou':
+                    {
+                        return 'https://www.sogou.com/web?query=' + val;
+                    }
+                }
+
+            }
+        })  ;
+        var movie7 = {
+            title: "Eyes Wide Shut",
+            languages: [
+                {name: "French"},
+                {name: "German"},
+                {name: "Spanish"}
+            ]
+        };
+
+        $("#button7").bind({
+            click: function () {
+                var html = $("#renderTemplate7").render(movie7);
+                $('#targetDiv7').html(html);
+            }
+        });
+    </script>
+</div>
+
+</body>
+</html>

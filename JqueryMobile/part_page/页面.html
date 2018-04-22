@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JqueryMoblie</title>
+    <link rel="stylesheet" href="../css/jquery.mobile-1.4.5.min.css">
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+
+<div data-role="page" id="pageone">
+    <div data-role="header">
+        <h1>页面</h1>
+    </div>
+    <div data-role="main" class="ui-content">
+        <a href="#pagetwo">跳转到第二个页面</a>
+    </div>
+    <div data-role="footer">
+        <h1>底部文本</h1>
+    </div>
+</div>
+
+<div data-role="page" data-dialog="true" id="pagetwo">
+    <div data-role="header">
+        <h1>这是第二个界面</h1>
+    </div>
+    <div data-role="main" class="ui-content">
+        <a href="#pageone">跳转到第一个页面</a>
+    </div>
+    <div data-role="footer">
+        <h1>底部文本</h1>
+    </div>
+</div>
+
+</body>
+</html>

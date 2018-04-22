@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/jquery.mobile-1.4.5.min.css">
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+
+<div data-role="page" id="pageone">
+    <div data-role="header">
+        <h1>按钮</h1>
+    </div>
+
+    <div data-role="main" class="ui-content">
+        <a href="#" class="ui-btn">按钮</a>
+        <a href="#pagetwo" class="ui-btn">导航按钮</a>
+        <p>内联按钮 (一个接一个显示 ， 并排):</p>
+        <a href="#pageone" class="ui-btn ui-btn-inline">返回第一个页面</a>
+        <a href="#pageone" class="ui-btn ui-btn-inline">返回第一个页面</a>
+        <a href="#pageone" class="ui-btn ui-btn-inline">返回第一个页面</a>
+        <a href="#" class="ui-btn" data-rel="back">返回（忽略href）</a>
+    </div>
+
+    <div data-role="footer">
+        <h1>底部文本</h1>
+    </div>
+</div>
+
+<div data-role="page" id="pagetwo">
+    <div data-role="header">
+        <h1>按钮</h1>
+    </div>
+
+    <div data-role="main" class="ui-content">
+        <p>再见!</p>
+        <a href="#pageone" data-role="button">返回第一个页面</a>
+    </div>
+
+    <div data-role="footer">
+        <h1>底部文本</h1>
+    </div>
+</div>
+</body>
+</html>

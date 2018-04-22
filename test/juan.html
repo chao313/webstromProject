@@ -1,0 +1,2656 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="content-language" lang="zh-CN"/>
+    <meta name="viewport" content="initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="Copyright" content="爱奇艺-iQIYI.COM"/>
+    <meta name="author" content="爱奇艺-iQIYI.COM"/>
+    <meta name="applicable-device" content="mobile"/>
+    <meta name="HandheldFriendly" content="True" />
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="//www.qiyipic.com/common/fix/h5_white_images/desktop_logo-57.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="//www.qiyipic.com/common/fix/h5_white_images/desktop_logo-72.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="//www.qiyipic.com/common/fix/h5_white_images/desktop_logo-114.png"/>
+    <title>电视剧频道-最新好看的电视剧大全-热门电视剧排行榜-爱奇艺</title>
+    <meta name="keywords" lang="zh-CN" content="电视剧,电视剧排行榜,最新最热门的电视剧大全,经典电视剧" />
+    <meta name="description" lang="zh-CN" content="爱奇艺电视剧频道拥有全网最新、最全的高清正版电视剧视频资源，最热门的、好看的电视剧在线观看。电视剧内容丰富全面，正版高清，播放流畅，为用户精心推荐推荐热播电视剧，经典电视剧。电视剧类型包含内地剧、韩剧、港剧、台剧、欧美剧、泰国电视剧。电视剧内容内容涵盖古装剧、偶像剧、悬疑剧、奇幻剧、武侠剧、宫廷剧、喜剧、言情剧、家庭伦理、都市剧题材。" />
+    <meta name="appid" content="1876806" />
+    <link rel="alternate" hreflang="zh-TW" href="http://m.tw.iqiyi.com/dianshiju/" />
+    <link rel="canonical" href="http://m.iqiyi.com/dianshiju/"/>
+    <link rel="alternate" hreflang="zh-CN" href="http://m.iqiyi.com/dianshiju/"/>
+    <link rel="alternate" hreflang="zh" href="http://m.iqiyi.com/dianshiju/"/>
+
+    <link rel="canonical" href="http://www.iqiyi.com/dianshiju/"/>
+
+    <script src="//static.qiyi.com/js/html5/js/lib/qoe.min.js?v=20170112"></script>
+    <script>
+        __QOE__.syncResource();
+    </script>
+
+    <link type="text/css" href="http://static.iqiyi.com/css/20170526/h5-v3.css" rel="stylesheet"/>    <script type="text/javascript">
+    window.__page_start = new Date().getTime();
+    // 移动端分享视频时针对大于21亿4700万的tvid进行了处理，此处进行兼容；
+    // 当发现是经过转换过的tvid时，计算真实tvid并控制页面跳转到正确的tvid播放页。
+    // 2014-05-27@caozhonghong
+    (function(){
+        function getRealID(id){
+            if(id % 100 == 99 && id > 200000099 && id < 2000000099) {
+                return  (id - 99 - 2000000 * 100 + 2147483647 + 62);
+            }else{
+                return id;
+            }
+        }
+
+        var fTvid = location.href.match(/\btvid=([^=\?#&]*)\b/i);
+        if(fTvid){
+            var rTvid = getRealID(fTvid[1]);
+            if(fTvid[1] != rTvid) {
+                // 重定向到正确tvid播放页
+                location.href = location.href.replace(/\btvid=[^=\?#&]*\b/i, "tvid=" + rTvid);
+            }
+        }
+    })();        (function(console) {
+        var rules = {
+            level : 0, //['info', 'trace', 'warn', 'error', 'log']，2对应的是warn
+            types : {
+                'interface_failure_timeout' : {//接口超时出错
+                    methods : 'random 0',
+                    isGanglia : true
+                },
+                'interface_failure_param' : {//传入的参数出错
+                    methods : 'random 0',
+                    isGanglia : true
+                },
+                'interface_failure_internal' : {//内部错误，返回的接口数据不是想要的都可以发送这个
+                    methods : 'random 5',
+                    isGanglia : true
+                },
+                'interface_success' : {
+                    methods : 'random 30',
+                    isGanglia : true
+                },
+                'env' : {
+                    methods : 'random 30'
+                },
+                'inc' : {
+                    //暂时配置一个累加的字段,有些需求需要累加
+                    methods : 'random 1',
+                    isGanglia : true
+                },
+                'timer' : {//临时增加的，用来看时间消耗，这个以后会被profile替换
+                    methods : 'random 30',
+                    isGanglia : true
+                }
+            }
+        };
+
+        var getCookie = function(key) {
+            var value = null;
+            var reg = new RegExp("(^| )" + key + "=([^;]*)(;|\x24)"), result = reg.exec(document.cookie);
+            if (result) {
+                value = result[2] || "";
+            }
+            if ('string' == typeof value) {
+                value = decodeURIComponent(value);
+                return value;
+            }
+            return "";
+        }, setCookie = function(key, value, options) {
+            options = options || {};
+            value = encodeURIComponent(value);
+            var expires = options.expires;
+            if ('number' == typeof options.expires) {
+                expires = new Date();
+                expires.setTime(expires.getTime() + options.expires);
+            }
+
+            document.cookie = key + "=" + value + (options.path ? "; path=" + options.path : "") + ( expires ? "; expires=" + expires.toGMTString() : "") + (options.domain ? "; domain=" + options.domain : "") + (options.secure ? "; secure" : '');
+        };
+        var methods = {
+            all : function() {
+                return true;
+            },
+            random : function(percent) {
+                var randValue = getCookie('lograndvalue');
+                if (randValue === '') {
+                    randValue = Math.random() * 100;
+                    setCookie('lograndvalue', randValue, {
+                        expires : 7 * 24 * 3600 * 1000
+                    });
+                }
+                return randValue < percent;
+            }
+        };
+        var jsonToQuery = function(json) {
+            var query = [];
+            (function f(json) {
+                for (var k in json) {
+                    var v = '';
+                    if ( typeof json[k] != 'object') {
+                        v = json[k];
+                    } else {
+                        //这里不做递归调用了，提高效率
+                        //v = f.call(this, json[k]);
+                    }
+                    query.push(k + '=' + encodeURIComponent(v));
+                }
+            })(json);
+            return query.join('&');
+        };
+
+        ['info', 'trace', 'warn', 'error'].forEach(function(method, l) {
+            /* if (!console[method]) {
+             console[method] = function(rules) {
+             var types = rules.types, level = rules.level, r = null;
+             return l < level ? function() {
+             } : function() {
+             var args = arguments[0];
+             if(typeof args == 'object' && (r = types[args.t])) {
+             //发送请求到后台
+             var fluxMethod = args.methods ||  r.methods;
+             var m = fluxMethod.split(' ');
+             if(methods[m[0]].call(window, m.slice(1))) {
+             var url = 'http://mt.t.iqiyi.com/h5/common',query = '';
+             if(r.isGanglia) {
+             var filterArr = ['interface_failure', 'inc'].filter(function(t) {
+             return args.t.indexOf(t) != -1;
+             });
+             if(filterArr && filterArr.length) {
+             query = 'inc='+args.name;
+             }else {
+             query = args.name + '=' + args.tm;
+             args.tm = 'ms' + args.tm;//这里转换为字符串，防止被统计
+             }
+             query += '&';
+             }
+             query += jsonToQuery(args);
+             url = url +'?' + query+'&rn=r'+(Math.random() + new Date().getTime());
+             var img = new Image();
+             img.src = url;
+             }
+             }else {
+             }
+             };
+             }
+             }*/
+        });
+        console.track = (function() {//用来描述用户行为轨迹
+            var key = 'track';
+            return {
+                dot : function(msg) {
+                    //feedback 打点
+                    msg = new Date() + ':::' + msg;
+                    try {
+                        var omsg = localStorage.getItem(key);
+                        var omsgArr = [];
+                        if (omsg && ( omsgArr = omsg.split('\n')).length > 1000) {
+                            omsgArr = omsgArr.slice(500);
+                        }
+                        omsgArr.push(msg);
+                        localStorage.setItem(key, omsgArr.join('\n'));
+                    } catch(e) {
+
+                    }
+                },
+                getTrackMsg : function() {
+                    var msg = '';
+                    try {
+                        msg = localStorage.getItem(key);
+                    } catch(e) {
+                    }
+                    return msg;
+                },
+                clearTrackMsg : function() {
+                    try {
+                        localStorage.setItem(key, '');
+                    } catch(e) {
+                    }
+
+                }
+            };
+        })();
+        ['time', 'timeEnd', 'profile', 'profileEnd'].forEach(function() {
+            //性能监控相关代码,这个暂时先不实现
+        });
+
+    })(window.console);         window.Qiyi = window.Qiyi || {};
+    window.Q = window.Qiyi;
+    (function(Q) {
+        Q.liburl = "//static.qiyi.com/js/html5/js/lib/h5lib.removesea.1.0.1.js";
+        Q.load = function(jobName, callback) {
+            seajs.use(Q.liburl, function() {
+                seajs.use("//static.qiyi.com/js/html5/" + jobName, function(pagejob) {
+                    if (pagejob && pagejob.addJobs) {
+                        pagejob.addJobs();
+                    }
+                    if (pagejob && pagejob.start) {
+                        pagejob.start();
+                    }
+                    if (callback) {
+                        callback();
+                    }
+                });
+            });
+        };
+        Q.ready = function(callback) {
+            seajs.use(Q.liburl, function() {
+                callback();
+            });
+        };
+        Q.PageInfo = Q.PageInfo || {};
+    })(window.Q);
+    Q.PageInfo = Q.PageInfo || {};
+    Q.PageInfo.debug = "true";
+    Q.PageInfo.sample = "";        Q.PageInfo.hot_search = ["楚乔传","欢乐颂2","奔跑吧","夏至未至","白鹿原"];
+    Q.PageInfo.page = "channelHome";
+    Q.PageInfo.cid = "2";
+    Q.PageInfo.playInfo = {};
+    Q.PageInfo.pingback = {
+        area: "h_rose",
+        event_id: "13eeb6dd-36da-4d1a-830a-207a1e3ae84a",
+        bkt: "h_rose_main"
+    };
+    Q.PageInfo.tag = "";
+    Q.PageInfo.title = "电视剧"
+</script>
+</head><body>
+<div data-id="scrollShow" data-component="page.common.component.scrollShow" data-behavior="page.channel.behavior.clickPingback">
+    <div data-component="page.home.component.lazyLoad">
+        <div class="m-header-group" data-component="page.home.component.headContainer">
+            <div data-node="headerContianer" class="header-group-innder header-fixed">
+                <div class="m-box-items m-box-items-full" data-component="page.home.component.headerBar">
+                    <!-- m-header -->
+                    <header class="m-header">
+                        <a href="/" class="logo-iqiyi" title="爱奇艺" name="爱奇艺视频" data-rseat="607051_home"></a>
+                        <div class="children-tags"></div>
+                        <div class="m-user">
+                            <div data-node="search" class="header-search" data-component="page.home.component.searchBtn">
+                                <a href="javascript:;" class="c-glyphicon c-glyphicon-searchfine" data-rseat="607061_search"></a>
+                            </div>
+                            <div data-node="history" class="header-recorder">
+                                <a href="/u/record" class="c-glyphicon c-glyphicon-recorder" data-rseat="607061_record"></a>
+                            </div>
+                            <div class="header-login" data-component="page.home.component.userInfo">
+                                <a href="/user.html" data-node="loginBtn" class="link-login hide" data-rseat="607061_login">登录</a>
+                                <a href="/u/" data-node="userIcon" class="link-userIcon hide" style="background-image:url(http://www.qiyipic.com/common/fix/headicons/female06-130.png);" data-rseat="607061_login"></a>
+                            </div>
+                            <div class="header-app" data-component="page.home.component.downloadBtn">
+                                <a data-component="common.component.downLink.callOrDownloadLink" data-behavior="page.play.behavior.showDiver" data-diver-vfm='f_358_xmll' href="javascript:;" data-download-pos="home_banner_down" data-behavior="page.play.behavior.showDiver" data-diver-vfm='f_358_xmll' data-appbanner="down" data-rseat="mcltdown_2hmbnr" data-download-rseat="603091_2"  data-type="qiyimobile130930_dwnld" data-enttype="3bfy" data-type="call&download" data-target="home" data-app="" class="link-app">下载APP</a>
+                            </div>
+                        </div>
+                    </header>
+                    <!-- m-header end -->
+                </div>                    <!-- m-search-fixed -->
+
+                <section class="m-header-search hide" data-component="page.home.component.searchFlow" data-default-key="">
+                    <div class="header-search-box">
+                        <div class="header-searchInput">
+                            <form action="javascript:;">
+                                <input type="search" data-node="input" placeholder="" class="search-input">
+                                <i class="c-glyphicon c-glyphicon-search"></i>
+                                <i data-node="clear" class="c-glyphicon c-glyphicon-close"></i>
+                            </form>
+                        </div>
+                        <div data-node="btnBox" class="header-searchBtn" data-type="cancel">
+                            <a href="javascript:;" data-node="search" class="c-btn btn-search">搜索</a>
+                            <a href="javascript:;" data-node="cancel" class="c-btn btn-cancle">取消</a>
+                        </div>
+                    </div>
+                    <!-- suggest -->
+                    <div class="header-search-suggest">
+                        <ul data-node="suggest" class="list-suggest">
+                        </ul>
+                    </div>
+                    <script data-node="suggestListItem" type="template-mustache">
+                        {{#list}}
+                        <li data-value="{{name}}">
+                            <a href="javascript:;" data-value="{{name}}">{{name}}</a>
+                        </li>
+                        {{/list}}
+                    </script>
+                </section>
+                <!-- m-search-fixed -->                    <div class="m-box-items m-box-items-full" data-component="page.home.component.headNav">
+                <!-- content -->
+                <nav class="g-nav-head">
+                    <div data-node="naviBar" class="m-nav-head m-sliding">
+                        <ul class="m-nav-head-list m-sliding-list" style="-webkit-transform: translate(0px, 0px) scale(1);
+        transform: translate(0px, 0px) scale(1);">
+                            <li><a data-node="channel_home" href="/" class="c-linkChannel" data-rseat="607051_home">精选</a></li>
+                            <li><a data-node="channel_120" href="/vip/" class="c-linkChannel" data-rseat="607051_channel">VIP会员</a></li>
+                            <li><a data-node="channel_hotSpot" href="/m5/bubble/hotFeeds.html" class="c-linkChannel" data-rseat="612061_hotfeed">热点</a></li>
+                            <li><a data-node="channel_2" href="/dianshiju/" class="c-linkChannel" data-rseat="607051_channel">电视剧</a></li>
+                            <li><a data-node="channel_1" href="/dianying/" class="c-linkChannel" data-rseat="607051_channel">电影</a></li>
+                            <li><a data-node="channel_6" href="/zongyi/" class="c-linkChannel" data-rseat="607051_channel">综艺</a></li>
+                            <li><a data-node="channel_4" href="/dongman/" class="c-linkChannel" data-rseat="607051_channel">动漫</a></li>
+                            <li><a data-node="channel_live" href="/live/" class="c-linkChannel" data-rseat="607051_channel">直播</a></li>
+                            <li><a data-node="channel_25" href="/zixun/" class="c-linkChannel" data-rseat="607051_channel">资讯</a></li>
+                            <li><a data-node="channel_7" href="/yule/" class="c-linkChannel" data-rseat="607051_channel">娱乐</a></li>
+                            <li><a data-node="channel_27" href="/yuanchuang/" class="c-linkChannel" data-rseat="607051_channel">原创</a></li>
+                            <li><a data-node="channel_22" href="/fun/" class="c-linkChannel" data-rseat="607051_channel">搞笑</a></li>
+                            <li><a data-node="channel_32" href="/jiankang/" class="c-linkChannel" data-rseat="607051_channel">健康</a></li>
+                            <li><a data-node="channel_21" href="/life/" class="c-linkChannel" data-rseat="607051_channel">生活</a></li>
+                            <li><a data-node="channel_29" href="/muying/" class="c-linkChannel" data-rseat="607051_channel">母婴</a></li>
+                            <li><a data-node="channel_31" href="/tuokouxiu/" class="c-linkChannel" data-rseat="607051_channel">脱口秀</a></li>
+                            <li><a data-node="channel_28" href="/mil/" class="c-linkChannel" data-rseat="607051_channel">军事</a></li>
+                            <li><a data-node="channel_10" href="/pianhua/" class="c-linkChannel" data-rseat="607051_channel">片花</a></li>
+                            <li><a data-node="channel_9" href="/lvyou/" class="c-linkChannel" data-rseat="607051_channel">旅游</a></li>
+                            <li><a data-node="channel_13" href="/shishang/" class="c-linkChannel" data-rseat="607051_channel">时尚</a></li>
+                            <li><a data-node="channel_12" href="/edu/" class="c-linkChannel" data-rseat="607051_channel">教育</a></li>
+                            <li><a data-node="channel_24" href="/caijing/" class="c-linkChannel" data-rseat="607051_channel">财经</a></li>
+                            <li><a data-node="channel_5" href="/yinyue/" class="c-linkChannel" data-rseat="607051_channel">音乐</a></li>
+                            <li><a data-node="channel_26" href="/qiche/" class="c-linkChannel" data-rseat="607051_channel">汽车</a></li>
+                            <li><a data-node="channel_3" href="/jilupian/" class="c-linkChannel" data-rseat="607051_channel">纪录片</a></li>
+                            <li><a data-node="channel_17" href="/sports/" class="c-linkChannel" data-rseat="607051_channel">体育</a></li>
+                            <li><a data-node="channel_15" href="/shaoer/" class="c-linkChannel" data-rseat="607051_channel">儿童</a></li>
+                            <li><a data-node="channel_8" href="/youxi/" class="c-linkChannel" data-rseat="607051_channel">游戏</a></li>
+                            <li><a data-node="channel_30" href="/keji/" class="c-linkChannel" data-rseat="607051_channel">科技</a></li>
+                            <li><a data-node="channel_16" href="/weidianying/" class="c-linkChannel" data-rseat="607051_channel">网络电影</a></li>
+                            <li><a data-node="channel_150" href="/paike/" class="c-linkChannel" data-rseat="607051_channel">拍客</a></li>
+                            <li><a data-node="channel_20" href="/ad/" class="c-linkChannel" data-rseat="607051_channel">广告</a></li>
+                            <li><a data-node="channel_111" href="/qiyichupin/" class="c-linkChannel" data-rseat="607051_channel">爱奇艺出品</a></li>
+                            <li><a data-node="channel_33" href="/gongyi/" class="c-linkChannel" data-rseat="607051_channel">公益</a></li>
+                            <li><a data-node="channel_billboard" href="/billboard.html" class="c-linkChannel" data-rseat="607051_channel">风云榜</a></li>
+                            <li><a data-node="channel_lib" href="/lib/" class="c-linkChannel" data-rseat="607051_channel">全网影视</a></li>
+                        </ul>
+                    </div>
+                    <a class="c-menu-linkmore " href="javascript:void(0);" data-node="channelListBtn" data-rseat="607051_channellist">
+                        <i class="c-glyphicon c-glyphicon-menuNew"></i>
+                    </a>
+                </nav>
+                <!-- content end -->
+            </div>
+            </div>
+        </div>
+        <div
+                data-component="common.component.tab.TabMenu"
+                data-cid="2">
+            <div class="m-box-items m-box-items-full" data-node="tab_label">
+                <div class="m-dm-tapHead">
+                    <section class="m-tab-nav tap-fixed" data-node="tabNav">
+                        <div class="m-tab-nav-list">
+                            <span data-node="recommendLable" data-widget-tab-label="1" data-msg="CHANNEL_RECOMMEND" class="c-tab-item selected">推荐</span>
+                            <span data-node="videosLable" data-rseat="704053_h5pianku" data-widget-tab-label="2" data-msg="CHANNEL_LIB" class="c-tab-item">片库</span>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <div data-node="tab_body">
+                <div data-widget-tab-body="1">
+
+                    <div class="m-box  m-box-top m-box-Ptop " data-scroll-show="true" data-block="705231_syunying"
+                    >
+
+                        <div class="m-box-items  m-box-items-Pbottom "
+                        >
+                            <section class="m-pic m-pic-horizontal-full">
+                                <ul class="m-pic-list">
+                                    <li data-qipuId="208055401" data-channelId="2" data-index="0">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/common/lego/20170629/7695ab1279db4c4aacf5c062c2fa1161.jpg);"
+                                               href="http://m.iqiyi.com/v_19rr7tde6w.html"
+                                               data-rseat="705231_syunying">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-green">VIP</i>
+                                                </div>
+                                                <div class="c-cb">
+                                                    <div class="c-cb-item">
+                                                        <span class="cb-set cb-set-l">寻人大师2</span>
+                                                        <span class="cb-set cb-set-r">12集全</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </section>
+                        </div>
+
+
+                        <div class="m-box-items  m-box-items-Ptop "
+                        >
+                            <section class="m-pic m-pic-vercital">
+                                <ul class="m-pic-list">
+                                    <li data-qipuId="203965201" data-channelId="2" data-index="1">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://pic7.qiyipic.com/image/20170601/13/1c/a_100024820_m_601_m5_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rr700mq0.html"
+                                               data-rseat="705231_syunying">
+                                                <div class="c-rb">
+                                                    <span class="c-date">更新至30集</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rr700mq0.html" data-rseat="705231_syunying" title="楚乔传">楚乔传</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="207693201" data-channelId="2" data-index="2">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/common/lego/20170628/e0a70d495a1d49618577198d04564306.gif);"
+                                               href="http://m.iqiyi.com/v_19rr72thug.html"
+                                               data-rseat="705231_syunying">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-green">VIP</i>
+                                                </div>
+                                                <div class="c-rb">
+                                                    <span class="c-date">14集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rr72thug.html" data-rseat="705231_syunying" title="盲侠大律师">盲侠大律师</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="204358301" data-channelId="2" data-index="3">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20170609/7d/46/a_100028731_m_601_m2_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rr77fz1c.html"
+                                               data-rseat="705231_syunying">
+                                                <div class="c-rb">
+                                                    <span class="c-date">更新至32集</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rr77fz1c.html" data-rseat="705231_syunying" title="夏至未至">夏至未至</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="205171701" data-channelId="2" data-index="4">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20170609/f7/9c/a_100036831_m_601_m1_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rr76eo94.html"
+                                               data-rseat="705231_syunying">
+                                                <div class="c-rb">
+                                                    <span class="c-date">更新至32集</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rr76eo94.html" data-rseat="705231_syunying" title="深夜食堂">深夜食堂</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="204210101" data-channelId="2" data-index="5">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20170525/c4/c9/a_100027251_m_601_m1_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rr7dibd4.html"
+                                               data-rseat="705231_syunying">
+                                                <div class="c-rb">
+                                                    <span class="c-date">43集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rr7dibd4.html" data-rseat="705231_syunying" title="女管家">女管家</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="207471001" data-channelId="2" data-index="6">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20170531/5c/10/a_100054479_m_601_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rr77fzss.html"
+                                               data-rseat="705231_syunying">
+                                                <div class="c-rb">
+                                                    <span class="c-date">更新至29集</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rr77fzss.html" data-rseat="705231_syunying" title="一粒红尘">一粒红尘</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                </ul>
+                            </section>
+                        </div>    </div>
+                    <div class="m-box " data-scroll-show="true" data-block="705231_scehua"
+                    >
+                        <div class="m-box-items">
+                            <section class="m-title">
+                                <h3 class="c-title-des">独家策划<span class="c-info"></span></h3>
+
+                            </section>
+                        </div>
+
+                        <div class="m-box-items "
+                        >
+                            <section class="m-pic m-pic-horizontal-full">
+                                <ul class="m-pic-list">
+                                    <li data-qipuId="440169402" data-channelId="${item.channelId}" data-index="1">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/common/lego/20170628/3b1869138e1c43da80ebb4ac4fe62759.jpg);"
+                                               href="http://m.iqiyi.com/v_19rr7t843k.html?list=19rrl5z6ja"
+                                               data-rseat="705231_scehua">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-blue">专题</i>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rr7t843k.html?list=19rrl5z6ja" data-rseat="705231_scehua" title="神剧亮了：《夏至未至》特辑">神剧亮了：《夏至未至》特辑</a>
+                                            </div>
+
+                                            <div  class="c-info" >
+                                                <a href="http://m.iqiyi.com/v_19rr7t843k.html?list=19rrl5z6ja" data-rseat="705231_scehua" title="专访白敬亭：尬聊小编最服你！">专访白敬亭：尬聊小编最服你！</a>
+                                            </div>
+                                        </div>
+
+                                    </li>
+                                </ul>
+                            </section>
+                        </div>
+
+
+                        <div class="m-box-items "
+                        >
+                            <section class="m-pic m-pic-horizontal">
+                                <ul class="m-pic-list">
+                                    <li data-qipuId="409798802" data-channelId="${item.channelId}" data-index="1">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/common/lego/20170629/f616f53832dc48e7ac149838015d4bca.gif);"
+                                               href="http://m.iqiyi.com/v_19rr7seofs.html?list=19rrkk3ny6"
+                                               data-rseat="705231_scehua">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-blue">专题</i>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rr7seofs.html?list=19rrkk3ny6" data-rseat="705231_scehua" title="《楚乔传》花絮更精彩">《楚乔传》花絮更精彩</a>
+                                            </div>
+
+                                            <div  class="c-info" >
+                                                <a href="http://m.iqiyi.com/v_19rr7seofs.html?list=19rrkk3ny6" data-rseat="705231_scehua" title="赵丽颖摸头杀治愈技！">赵丽颖摸头杀治愈技！</a>
+                                            </div>
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="438550402" data-channelId="${item.channelId}" data-index="2">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/common/lego/20170629/5ec940eebd5f4425845ebfe02b0bf7bf.jpg);"
+                                               href="http://m.iqiyi.com/v_19rr7sl4co.html?list=19rrl67a3y"
+                                               data-rseat="705231_scehua">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-blue">专题</i>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rr7sl4co.html?list=19rrl67a3y" data-rseat="705231_scehua" title="《鬼吹灯之牧野诡事》抢先看">《鬼吹灯之牧野诡事》抢先看</a>
+                                            </div>
+
+                                            <div  class="c-info" >
+                                                <a href="http://m.iqiyi.com/v_19rr7sl4co.html?list=19rrl67a3y" data-rseat="705231_scehua" title="天下霸唱特辑 王大陆被赞“黑痞帅”">天下霸唱特辑 王大陆被赞“黑痞帅”</a>
+                                            </div>
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="711750600" data-channelId="10" data-index="3">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20170629/43/ad/v_112658501_m_601_m1_284_160.jpg);"
+                                               href="http://m.iqiyi.com/v_19rr7sn8v8.html"
+                                               data-rseat="705231_scehua">
+                                                <div class="c-rb">
+                                                    <span class="c-date">01:00</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rr7sn8v8.html" data-rseat="705231_scehua" title="《我的前半生》抢先看">《我的前半生》抢先看</a>
+                                            </div>
+
+                                            <div  class="c-info" >
+                                                <a href="http://m.iqiyi.com/v_19rr7sn8v8.html" data-rseat="705231_scehua" title="靳东马伊琍半途相见">靳东马伊琍半途相见</a>
+                                            </div>
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="435189202" data-channelId="${item.channelId}" data-index="4">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/common/lego/20170629/c6a5f5fc4fa34936af1997727d423635.jpg);"
+                                               href="http://m.iqiyi.com/v_19rr7sj39w.html?list=19rrke1fi6"
+                                               data-rseat="705231_scehua">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-blue">专题</i>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rr7sj39w.html?list=19rrke1fi6" data-rseat="705231_scehua" title="《我们的少年时代》预告">《我们的少年时代》预告</a>
+                                            </div>
+
+                                            <div  class="c-info" >
+                                                <a href="http://m.iqiyi.com/v_19rr7sj39w.html?list=19rrke1fi6" data-rseat="705231_scehua" title="梨涡少年易祥千玺！">梨涡少年易祥千玺！</a>
+                                            </div>
+                                        </div>
+
+                                    </li>
+                                </ul>
+                            </section>
+                        </div>    </div>
+                    <div class="m-box " data-scroll-show="true" data-block="705231_sgenbo"
+                         data-tags="true" data-cloud-pingback="true" >
+                        <div class="m-box-items">
+                            <section class="m-title">
+                                <h3 class="c-title-des">同步跟播<span class="c-info"></span></h3>
+
+                                <a href="http://m.iqiyi.com/billboard.html#2" class="c-link">排行榜&gt;</a>
+                            </section>
+                        </div>
+
+                        <div class="m-box-items "
+                             data-tag-set="hot_tv" data-tag-name="同步跟播" >
+                            <section class="m-pic m-pic-horizontal-full">
+                                <ul class="m-pic-list">
+                                    <li data-qipuId="692992100" data-channelId="2" data-index="0">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://pic7.qiyipic.com/image/20170601/13/1c/a_100024820_m_601_m5_480_270.jpg);"
+                                               href="http://m.iqiyi.com/v_19rr700mq0.html"
+                                               data-rseat="705231_sgenbo1">
+                                                <div class="c-rb">
+                                                    <span class="c-date">更新至30集</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rr700mq0.html" data-rseat="705231_sgenbo1" title="楚乔传">楚乔传</a>
+                                            </div>
+
+                                            <div  class="c-info" >
+                                                <a href="http://m.iqiyi.com/v_19rr700mq0.html" data-rseat="705231_sgenbo1" title="乱世少女厮杀成长传奇">乱世少女厮杀成长传奇</a>
+                                            </div>
+                                        </div>
+
+                                    </li>
+                                </ul>
+                            </section>
+                        </div>
+
+
+                        <div class="m-box-items "
+                             data-tag-set="hot_tv" data-tag-name="同步跟播" >
+                            <section class="m-pic m-pic-vercital">
+                                <ul class="m-pic-list">
+                                    <li data-qipuId="326122100" data-channelId="2" data-index="1">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20141121/d1/d8/a_100007848_m_601_m1_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rrn0xzbs.html"
+                                               data-rseat="705231_sgenbo1">
+                                                <div class="c-rb">
+                                                    <span class="c-date">28集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rrn0xzbs.html" data-rseat="705231_sgenbo1" title="尖刀出鞘">尖刀出鞘</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="697095500" data-channelId="2" data-index="2">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20170609/7d/46/a_100028731_m_601_m2_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rr77fz1c.html"
+                                               data-rseat="705231_sgenbo1">
+                                                <div class="c-rb">
+                                                    <span class="c-date">更新至32集</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rr77fz1c.html" data-rseat="705231_sgenbo1" title="夏至未至">夏至未至</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="686310500" data-channelId="2" data-index="3">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20170525/c4/c9/a_100027251_m_601_m1_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rr7dibd4.html"
+                                               data-rseat="705231_sgenbo1">
+                                                <div class="c-rb">
+                                                    <span class="c-date">43集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rr7dibd4.html" data-rseat="705231_sgenbo1" title="女管家">女管家</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="303609300" data-channelId="2" data-index="4">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20140912/43/d3/a_100007033_m_601_m1_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rrnf0b08.html"
+                                               data-rseat="705231_sgenbo1">
+                                                <div class="c-rb">
+                                                    <span class="c-date">30集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rrnf0b08.html" data-rseat="705231_sgenbo1" title="翠兰的爱情">翠兰的爱情</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="676883100" data-channelId="2" data-index="5">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20170515/0f/9a/a_100035997_m_601_m3_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rr794vlc.html"
+                                               data-rseat="705231_sgenbo1">
+                                                <div class="c-rb">
+                                                    <span class="c-date">55集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rr794vlc.html" data-rseat="705231_sgenbo1" title="欢乐颂2">欢乐颂2</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="610673900" data-channelId="2" data-index="6">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20170121/53/8a/a_100027338_m_601_m2_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rrakb0jk.html"
+                                               data-rseat="705231_sgenbo1">
+                                                <div class="c-rb">
+                                                    <span class="c-date">58集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rrakb0jk.html" data-rseat="705231_sgenbo1" title="三生三世十里桃花">三生三世十里桃花</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                </ul>
+                            </section>
+                        </div>            <div class="m-box-items m-box-items-full">
+                        <section class="m-linkMore">
+                            <a href="javascript:void(0)"
+                               class="m-link"
+                               data-component="page.dongman.component.searchBtn"
+                               data-search='{"sort":4}'
+                               data-filter='{"sort":"新上线"}'
+                               data-rseat="705231_sgenbo2">
+                                查看更多<i class="c-glyphicon c-glyphicon-more"></i>
+                            </a>
+                        </section>
+                    </div>    </div>
+                    <div class="m-box " data-scroll-show="true" data-block="705231_sreju"
+                         data-tags="true" data-cloud-pingback="true" >
+                        <div class="m-box-items">
+                            <section class="m-title">
+                                <h3 class="c-title-des">热剧点播台<span class="c-info"></span></h3>
+
+                            </section>
+                        </div>
+
+                        <div class="m-box-items "
+                             data-tag-set="hot_tv" data-tag-name="同步跟播" >
+                            <section class="m-pic m-pic-horizontal-full">
+                                <ul class="m-pic-list">
+                                    <li data-qipuId="421309302" data-channelId="${item.channelId}" data-index="3">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/common/lego/20170628/c398b4c8092949389b1c0d5e88035f90.jpg);"
+                                               href="http://m.iqiyi.com/v_19rr7tohoo.html?list=19rrkdacre"
+                                               data-rseat="705231_sreju">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-blue">专题</i>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rr7tohoo.html?list=19rrkdacre" data-rseat="705231_sreju" title="《夏至未至》抢先看">《夏至未至》抢先看</a>
+                                            </div>
+
+                                            <div  class="c-info" >
+                                                <a href="http://m.iqiyi.com/v_19rr7tohoo.html?list=19rrkdacre" data-rseat="705231_sreju" title="郑爽陈学冬共赴青春之约">郑爽陈学冬共赴青春之约</a>
+                                            </div>
+                                        </div>
+
+                                    </li>
+                                </ul>
+                            </section>
+                        </div>
+
+
+                        <div class="m-box-items "
+                             data-tag-set="hot_tv" data-tag-name="同步跟播" >
+                            <section class="m-pic m-pic-vercital">
+                                <ul class="m-pic-list">
+                                    <li data-qipuId="442294202" data-channelId="${item.channelId}" data-index="1">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://pic5.qiyipic.com/image/20170627/8c/b8/pl_301964371_m_601_m1_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rr7seqno.html?list=19rrl4r4ra"
+                                               data-rseat="705231_sreju">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-blue">专题</i>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rr7seqno.html?list=19rrl4r4ra" data-rseat="705231_sreju" title="《复合大师》抢先看">《复合大师》抢先看</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="421492202" data-channelId="${item.channelId}" data-index="2">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/common/lego/20170620/c154689cc773408cbfa1031d42241cad.jpg);"
+                                               href="http://m.iqiyi.com/v_19rr7vo62s.html?list=19rrkdaqo6"
+                                               data-rseat="705231_sreju">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-blue">专题</i>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rr7vo62s.html?list=19rrkdaqo6" data-rseat="705231_sreju" title="《醉玲珑》精彩预告">《醉玲珑》精彩预告</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="437530802" data-channelId="${item.channelId}" data-index="3">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://pic1.qiyipic.com/image/20170515/ca/45/pl_301944713_m_601_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rr73m3qg.html?list=19rrl6x9em"
+                                               data-rseat="705231_sreju">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-blue">专题</i>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rr73m3qg.html?list=19rrl6x9em" data-rseat="705231_sreju" title="《深夜食堂》抢先看">《深夜食堂》抢先看</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                </ul>
+                            </section>
+                        </div>    </div>
+                    <div class="m-box" data-scroll-show="true" data-block="705231_szizhi" data-tags="true" data-cloud-pingback="true">
+                        <div class="m-box-items">
+                            <section class="m-title">
+                                <h3 class="c-title-des">爱奇艺出品·自制剧<span class="c-info"></span></h3>
+
+                            </section>
+                        </div>
+                        <div class="m-box-items "
+                             data-tag-set="iqiyi_tv" data-tag-name="爱奇艺出品·自制剧" >
+                            <section class="m-pic m-pic-vercital">
+                                <ul class="m-pic-list">
+                                    <li data-qipuId="694939000" data-channelId="2" data-index="0">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20170613/11/8c/a_100055384_m_601_m2_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rr6ykw7o.html"
+                                               data-rseat="705231_szizhi1">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-green">VIP</i>
+                                                </div>
+                                                <div class="c-rb">
+                                                    <span class="c-date">12集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rr6ykw7o.html" data-rseat="705231_szizhi1" title="思美人之山鬼后裔">思美人之山鬼后裔</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="397768800" data-channelId="2" data-index="1">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20161020/cb/e6/a_100014552_m_601_m3_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rrochxcc.html"
+                                               data-rseat="705231_szizhi1">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-red">自制</i>
+                                                </div>
+                                                <div class="c-rb">
+                                                    <span class="c-date">32���全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rrochxcc.html" data-rseat="705231_szizhi1" title="花千骨2015">花千骨2015</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="710858100" data-channelId="2" data-index="2">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20170628/49/5b/a_100057408_m_601_m2_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rr7tde6w.html"
+                                               data-rseat="705231_szizhi1">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-green">VIP</i>
+                                                </div>
+                                                <div class="c-rb">
+                                                    <span class="c-date">12集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rr7tde6w.html" data-rseat="705231_szizhi1" title="寻人大师2">寻人大师2</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="399667700" data-channelId="2" data-index="3">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20150930/ab/6f/a_100015251_m_601_m3_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rrob7ixk.html"
+                                               data-rseat="705231_szizhi1">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-red">自制</i>
+                                                </div>
+                                                <div class="c-rb">
+                                                    <span class="c-date">12集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rrob7ixk.html" data-rseat="705231_szizhi1" title="活着再见">活着再见</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="567592700" data-channelId="2" data-index="4">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20161110/10/0c/a_100035995_m_601_m3_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rr9bx0uo.html"
+                                               data-rseat="705231_szizhi1">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-green">VIP</i>
+                                                </div>
+                                                <div class="c-rb">
+                                                    <span class="c-date">12集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rr9bx0uo.html" data-rseat="705231_szizhi1" title="美人为馅2">美人为馅2</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="588008200" data-channelId="2" data-index="5">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20170302/a9/4a/a_100033379_m_601_m14_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rr9ubdr8.html"
+                                               data-rseat="705231_szizhi1">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-green">VIP</i>
+                                                </div>
+                                                <div class="c-rb">
+                                                    <span class="c-date">12集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rr9ubdr8.html" data-rseat="705231_szizhi1" title="无间道">无间道</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                </ul>
+                            </section>
+                        </div>    <div class="m-box-items m-box-items-full">
+                        <section class="m-linkMore">
+                            <a href="javascript:void(0)"
+                               class="m-link"
+                               data-component="page.dongman.component.searchBtn"
+                               data-search='{"threeCategory":{"type":"自制剧"},"sort":11}'
+                               data-filter='{"type":"自制剧"}'
+                               data-rseat="705231_szizhi2">
+                                查看更多<i class="c-glyphicon c-glyphicon-more"></i>
+                            </a>
+                        </section>
+                    </div></div>
+                    <div class="m-box" data-scroll-show="true" data-block="705231_swangju">
+                        <div class="m-box-items">
+                            <section class="m-title">
+                                <h3 class="c-title-des">网络剧精选<span class="c-info"></span></h3>
+
+                            </section>
+                        </div>
+                        <div class="m-box-items "
+                             data-tag-set="iqiyi_tv" data-tag-name="爱奇艺出品·自制剧" >
+                            <section class="m-pic m-pic-vercital">
+                                <ul class="m-pic-list">
+                                    <li data-qipuId="206958201" data-channelId="2" data-index="0">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20170511/59/ba/a_100051918_m_601_m1_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rr7ewe78.html"
+                                               data-rseat="705231_swangju1">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-green">VIP</i>
+                                                </div>
+                                                <div class="c-rb">
+                                                    <span class="c-date">18集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rr7ewe78.html" data-rseat="705231_swangju1" title="花间提壶方大厨第2季">花间提壶方大厨第2季</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="207785401" data-channelId="2" data-index="1">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20170627/87/e6/a_100056050_m_601_m2_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rr75bgj4.html"
+                                               data-rseat="705231_swangju1">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-green">VIP</i>
+                                                </div>
+                                                <div class="c-rb">
+                                                    <span class="c-date">12集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rr75bgj4.html" data-rseat="705231_swangju1" title="3号地产商">3号地产商</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="207489801" data-channelId="2" data-index="2">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20170620/0d/ee/a_100054572_m_601_m5_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rr70yxvg.html"
+                                               data-rseat="705231_swangju1">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-green">VIP</i>
+                                                </div>
+                                                <div class="c-rb">
+                                                    <span class="c-date">28集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rr70yxvg.html" data-rseat="705231_swangju1" title="刑警战记">刑警战记</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="207284001" data-channelId="2" data-index="3">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20170526/ad/6f/a_100053543_m_601_m2_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rr7esrbw.html"
+                                               data-rseat="705231_swangju1">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-green">VIP</i>
+                                                </div>
+                                                <div class="c-rb">
+                                                    <span class="c-date">10集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rr7esrbw.html" data-rseat="705231_swangju1" title="暗徒">暗徒</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="206632801" data-channelId="2" data-index="4">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20170526/d7/99/a_100050293_m_601_m2_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rrb2maoc.html"
+                                               data-rseat="705231_swangju1">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-green">VIP</i>
+                                                </div>
+                                                <div class="c-rb">
+                                                    <span class="c-date">12集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rrb2maoc.html" data-rseat="705231_swangju1" title="怦然心痛">怦然心痛</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="206711601" data-channelId="2" data-index="5">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20170516/6c/21/a_100050687_m_601_m3_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rrayt2bs.html"
+                                               data-rseat="705231_swangju1">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-green">VIP</i>
+                                                </div>
+                                                <div class="c-rb">
+                                                    <span class="c-date">12集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rrayt2bs.html" data-rseat="705231_swangju1" title="假凤虚凰">假凤虚凰</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                </ul>
+                            </section>
+                        </div>                        <div class="m-box-items m-box-items-full">
+                        <section class="m-linkMore">
+                            <a href="javascript:void(0)"
+                               class="m-link"
+                               data-component="page.dongman.component.searchBtn"
+                               data-search='{"threeCategory":{"type":"网络剧"},"sort":11}'
+                               data-filter='{"type":"网络剧"}'
+                               data-rseat="705231_swangju2">
+                                查看更多<i class="c-glyphicon c-glyphicon-more"></i>
+                            </a>
+                        </section>
+                    </div>                    </div>
+
+                    <div class="m-box " data-scroll-show="true" data-block="705231_sjutou"
+                         data-tags="true" data-cloud-pingback="true" >
+                        <div class="m-box-items">
+                            <section class="m-title">
+                                <h3 class="c-title-des">围观剧透社<span class="c-info"></span></h3>
+
+                            </section>
+                        </div>
+
+                        <div class="m-box-items "
+                             data-tag-set="iqiyi_tv" data-tag-name="爱奇艺出品·自制剧" >
+                            <section class="m-pic m-pic-horizontal-full">
+                                <ul class="m-pic-list">
+                                    <li data-qipuId="711686200" data-channelId="10" data-index="6">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20170629/75/7a/v_112657737_m_601_480_270.jpg);"
+                                               href="http://m.iqiyi.com/v_19rr7sj39w.html"
+                                               data-rseat="705231_sjutou">
+                                                <div class="c-rb">
+                                                    <span class="c-date">01:30</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rr7sj39w.html" data-rseat="705231_sjutou" title="《少年时代》易烊千玺特辑">《少年时代》易烊千玺特辑</a>
+                                            </div>
+
+                                            <div  class="c-info" >
+                                                <a href="http://m.iqiyi.com/v_19rr7sj39w.html" data-rseat="705231_sjutou" title="梨涡少年易祥千玺！">梨涡少年易祥千玺！</a>
+                                            </div>
+                                        </div>
+
+                                    </li>
+                                </ul>
+                            </section>
+                        </div>
+
+
+                        <div class="m-box-items "
+                             data-tag-set="iqiyi_tv" data-tag-name="爱奇艺出品·自制剧" >
+                            <section class="m-pic m-pic-horizontal">
+                                <ul class="m-pic-list">
+                                    <li data-qipuId="711652900" data-channelId="10" data-index="1">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20170629/f2/c8/v_112654532_m_601_284_160.jpg);"
+                                               href="http://m.iqiyi.com/v_19rr7sl4co.html"
+                                               data-rseat="705231_sjutou">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-red">独播</i>
+                                                </div>
+                                                <div class="c-rb">
+                                                    <span class="c-date">03:01</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rr7sl4co.html" data-rseat="705231_sjutou" title="《鬼吹灯》天下霸唱特辑">《鬼吹灯》天下霸唱特辑</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="711648100" data-channelId="10" data-index="2">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20170629/64/0b/v_112654140_m_601_284_160.jpg);"
+                                               href="http://m.iqiyi.com/v_19rr7sl1qg.html"
+                                               data-rseat="705231_sjutou">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-red">独播</i>
+                                                </div>
+                                                <div class="c-rb">
+                                                    <span class="c-date">03:18</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rr7sl1qg.html" data-rseat="705231_sjutou" title="寻人大师：花絮 龙套剧组揭秘">寻人大师：花絮 龙套剧组揭秘</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="709213700" data-channelId="10" data-index="3">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20170626/18/58/v_112633694_m_601_m1_284_160.jpg);"
+                                               href="http://m.iqiyi.com/v_19rr7tkmso.html"
+                                               data-rseat="705231_sjutou">
+                                                <div class="c-rb">
+                                                    <span class="c-date">00:17</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rr7tkmso.html" data-rseat="705231_sjutou" title="夏至未至：幕后花絮">夏至未至：幕后花絮</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="709695900" data-channelId="10" data-index="4">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://pic9.qiyipic.com/common/lego/20170627/3e22f343a5574b7db5cbbb6f3ff6c42a.jpg);"
+                                               href="http://m.iqiyi.com/v_19rr7tvdgw.html"
+                                               data-rseat="705231_sjutou">
+                                                <div class="c-rb">
+                                                    <span class="c-date">02:14</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rr7tvdgw.html" data-rseat="705231_sjutou" title="《复合大师》抢先看">《复合大师》抢先看</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                </ul>
+                            </section>
+                        </div>    </div>
+                    <div class="m-box" data-scroll-show="true" data-block="705231_shanju" data-tags="true" data-cloud-pingback="true">
+                        <div class="m-box-items">
+                            <section class="m-title">
+                                <h3 class="c-title-des">养眼韩剧<span class="c-info"></span></h3>
+
+                            </section>
+                        </div>
+                        <div class="m-box-items "
+                             data-tag-set="korean_tv" data-tag-name="养眼韩剧" >
+                            <section class="m-pic m-pic-vercital">
+                                <ul class="m-pic-list">
+                                    <li data-qipuId="453406400" data-channelId="2" data-index="0">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20160414/ac/2b/a_100014741_m_601_m13_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rrkxmiss.html"
+                                               data-rseat="705231_shanju1">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-green">VIP</i>
+                                                </div>
+                                                <div class="c-rb">
+                                                    <span class="c-date">16集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rrkxmiss.html" data-rseat="705231_shanju1" title="太阳的后裔">太阳的后裔</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="521882900" data-channelId="2" data-index="1">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20160930/fa/bf/a_100027789_m_601_m8_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rrm12tfc.html"
+                                               data-rseat="705231_shanju1">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-green">VIP</i>
+                                                </div>
+                                                <div class="c-rb">
+                                                    <span class="c-date">16集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rrm12tfc.html" data-rseat="705231_shanju1" title="灰姑娘与四骑士">灰姑娘与四骑士</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="511696100" data-channelId="2" data-index="2">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20160720/0d/ab/a_100028281_m_601_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rrm7hz7s.html"
+                                               data-rseat="705231_shanju1">
+                                                <div class="c-rb">
+                                                    <span class="c-date">16集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rrm7hz7s.html" data-rseat="705231_shanju1" title="亲爱的恩东啊">亲爱的恩东啊</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="544577800" data-channelId="2" data-index="3">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20160627/97/ce/a_100027014_m_601_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rr9fmz50.html"
+                                               data-rseat="705231_shanju1">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-green">VIP</i>
+                                                </div>
+                                                <div class="c-rb">
+                                                    <span class="c-date">16集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rr9fmz50.html" data-rseat="705231_shanju1" title="好运罗曼史">好运罗曼史</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="498189700" data-channelId="2" data-index="4">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20160624/96/e6/a_100018575_m_601_m1_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rrlkh3ag.html"
+                                               data-rseat="705231_shanju1">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-green">VIP</i>
+                                                </div>
+                                                <div class="c-rb">
+                                                    <span class="c-date">20集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rrlkh3ag.html" data-rseat="705231_shanju1" title="请回答1988">请回答1988</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="216777500" data-channelId="2" data-index="5">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20131120/fd/b4/a_100001291_m_601_m3_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rrhd5t9s.html"
+                                               data-rseat="705231_shanju1">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-green">VIP</i>
+                                                </div>
+                                                <div class="c-rb">
+                                                    <span class="c-date">21集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rrhd5t9s.html" data-rseat="705231_shanju1" title="来自星星的你">来自星星的你</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                </ul>
+                            </section>
+                        </div>    <div class="m-box-items m-box-items-full">
+                        <section class="m-linkMore">
+                            <a href="javascript:void(0)"
+                               class="m-link"
+                               data-component="page.dongman.component.searchBtn"
+                               data-search='{"threeCategory":{"area":"韩国"},"sort":11}'
+                               data-filter='{"area":"韩国"}'
+                               data-rseat="705231_shanju2">
+                                查看更多<i class="c-glyphicon c-glyphicon-more"></i>
+                            </a>
+                        </section>
+                    </div></div>
+                    <div class="m-box" data-scroll-show="true" data-block="705231_smeiju" data-tags="true" data-cloud-pingback="true">
+                        <div class="m-box-items">
+                            <section class="m-title">
+                                <h3 class="c-title-des">热播美剧<span class="c-info"></span></h3>
+
+                            </section>
+                        </div>
+                        <div class="m-box-items "
+                             data-tag-set="american_tv" data-tag-name="热播美剧" >
+                            <section class="m-pic m-pic-vercital">
+                                <ul class="m-pic-list">
+                                    <li data-qipuId="601824100" data-channelId="2" data-index="0">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20170120/8f/49/a_100017079_m_601_m1_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rr9w8nbc.html"
+                                               data-rseat="705231_smeiju1">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-red">独播</i>
+                                                </div>
+                                                <div class="c-rb">
+                                                    <span class="c-date">22集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rr9w8nbc.html" data-rseat="705231_smeiju1" title="喜当爷">喜当爷</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="310995300" data-channelId="2" data-index="1">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20140922/9f/82/a_100007124_m_601_m1_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rrnkk3d4.html"
+                                               data-rseat="705231_smeiju1">
+                                                <div class="c-rb">
+                                                    <span class="c-date">12集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rrnkk3d4.html" data-rseat="705231_smeiju1" title="国土安全第四季">国土安全第四季</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="572746200" data-channelId="2" data-index="2">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20151106/3c/06/a_100017087_m_601_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rra2meus.html"
+                                               data-rseat="705231_smeiju1">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-red">独播</i>
+                                                </div>
+                                                <div class="c-rb">
+                                                    <span class="c-date">10集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rra2meus.html" data-rseat="705231_smeiju1" title="超能力第2季">超能力第2季</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="572748300" data-channelId="2" data-index="3">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20161123/78/a6/a_100017082_m_601_m1_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rra2mg68.html"
+                                               data-rseat="705231_smeiju1">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-red">独播</i>
+                                                </div>
+                                                <div class="c-rb">
+                                                    <span class="c-date">11集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rra2mg68.html" data-rseat="705231_smeiju1" title="编织记忆第1季">编织记忆第1季</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="646586300" data-channelId="2" data-index="4">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20170405/95/31/a_100048656_m_601_m1_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rrbd6rbk.html"
+                                               data-rseat="705231_smeiju1">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-red">独播</i>
+                                                </div>
+                                                <div class="c-rb">
+                                                    <span class="c-date">10集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rrbd6rbk.html" data-rseat="705231_smeiju1" title="秘密与谎言 第2季">秘密与谎言 第2季</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="599518300" data-channelId="2" data-index="5">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20170111/64/8e/a_100017086_m_601_m2_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rr9xc27k.html"
+                                               data-rseat="705231_smeiju1">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-red">独播</i>
+                                                </div>
+                                                <div class="c-rb">
+                                                    <span class="c-date">10集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rr9xc27k.html" data-rseat="705231_smeiju1" title="癫狂之旅第1季">癫狂之旅第1季</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                </ul>
+                            </section>
+                        </div>    <div class="m-box-items m-box-items-full">
+                        <section class="m-linkMore">
+                            <a href="javascript:void(0)"
+                               class="m-link"
+                               data-component="page.dongman.component.searchBtn"
+                               data-search='{"threeCategory":{"area":"美剧"},"sort":11}'
+                               data-filter='{"area":"美剧"}'
+                               data-rseat="705231_smeiju2">
+                                查看更多<i class="c-glyphicon c-glyphicon-more"></i>
+                            </a>
+                        </section>
+                    </div></div>
+                    <div class="m-box" data-scroll-show="true" data-block="705231_sriju" data-tags="true" data-cloud-pingback="true">
+                        <div class="m-box-items">
+                            <section class="m-title">
+                                <h3 class="c-title-des">独播日剧<span class="c-info"></span></h3>
+
+                            </section>
+                        </div>
+                        <div class="m-box-items "
+                             data-tag-set="japanese_tv" data-tag-name="独播日剧" >
+                            <section class="m-pic m-pic-vercital">
+                                <ul class="m-pic-list">
+                                    <li data-qipuId="144111400" data-channelId="2" data-index="0">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20140220/90/61/a_50450263_m_601_m1_195_260.jpg);"
+                                               href="http://m.iqiyi.com/dianshiju/20130603/9865fbf797ca5f82.html"
+                                               data-rseat="705231_sriju1">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-green">VIP</i>
+                                                </div>
+                                                <div class="c-rb">
+                                                    <span class="c-date">16集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/dianshiju/20130603/9865fbf797ca5f82.html" data-rseat="705231_sriju1" title="一吻定情">一吻定情</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="612261300" data-channelId="2" data-index="1">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20170118/da/5c/a_100042130_m_601_m1_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rrajzqag.html"
+                                               data-rseat="705231_sriju1">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-red">独播</i>
+                                                </div>
+                                                <div class="c-rb">
+                                                    <span class="c-date">16集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rrajzqag.html" data-rseat="705231_sriju1" title="宠物情人">宠物情人</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="416638400" data-channelId="2" data-index="2">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20151104/3d/86/a_100016970_m_601_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rrkpe3l8.html"
+                                               data-rseat="705231_sriju1">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-red">独播</i>
+                                                </div>
+                                                <div class="c-rb">
+                                                    <span class="c-date">10集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rrkpe3l8.html" data-rseat="705231_sriju1" title="小南的迷你情人">小南的迷你情人</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="630475900" data-channelId="2" data-index="3">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20170308/9d/db/a_100046415_m_601_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rraicnbk.html"
+                                               data-rseat="705231_sriju1">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-green">VIP</i>
+                                                </div>
+                                                <div class="c-rb">
+                                                    <span class="c-date">12集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rraicnbk.html" data-rseat="705231_sriju1" title="和歌子的酒第1季">和歌子的酒第1季</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="611938500" data-channelId="2" data-index="4">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20170204/0c/e1/a_100043273_m_601_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rrajppd4.html"
+                                               data-rseat="705231_sriju1">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-red">独播</i>
+                                                </div>
+                                                <div class="c-rb">
+                                                    <span class="c-date">10集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rrajppd4.html" data-rseat="705231_sriju1" title="白鸟丽子">白鸟丽子</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="303185700" data-channelId="2" data-index="5">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20141125/71/4d/a_100006918_m_601_m2_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rrner7ew.html"
+                                               data-rseat="705231_sriju1">
+                                                <div class="c-rb">
+                                                    <span class="c-date">1集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rrner7ew.html" data-rseat="705231_sriju1" title="一吻定情2：冲绳特别篇">一吻定情2：冲绳特别篇</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                </ul>
+                            </section>
+                        </div>    <div class="m-box-items m-box-items-full">
+                        <section class="m-linkMore">
+                            <a href="javascript:void(0)"
+                               class="m-link"
+                               data-component="page.dongman.component.searchBtn"
+                               data-search='{"threeCategory":{"area":"日本"},"sort":11}'
+                               data-filter='{"area":"日本"}'
+                               data-rseat="705231_sriju2">
+                                查看更多<i class="c-glyphicon c-glyphicon-more"></i>
+                            </a>
+                        </section>
+                    </div></div>
+                    <div class="m-box" data-scroll-show="true" data-block="705231_staiju" data-tags="true" data-cloud-pingback="true">
+                        <div class="m-box-items">
+                            <section class="m-title">
+                                <h3 class="c-title-des">清新台剧<span class="c-info"></span></h3>
+
+                            </section>
+                        </div>
+                        <div class="m-box-items "
+                             data-tag-set="taiwanese_tv" data-tag-name="清新台剧" >
+                            <section class="m-pic m-pic-vercital">
+                                <ul class="m-pic-list">
+                                    <li data-qipuId="91408700" data-channelId="2" data-index="0">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20161110/0b/2b/a_50001778_m_601_m1_195_260.jpg);"
+                                               href="http://m.iqiyi.com/dianshiju/20100521/n14243.html"
+                                               data-rseat="705231_staiju1">
+                                                <div class="c-rb">
+                                                    <span class="c-date">46集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/dianshiju/20100521/n14243.html" data-rseat="705231_staiju1" title="媳妇的眼泪">媳妇的眼泪</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="208482400" data-channelId="2" data-index="1">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20131029/58/f0/a_100000923_m_601_m1_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rrh88efg.html"
+                                               data-rseat="705231_staiju1">
+                                                <div class="c-rb">
+                                                    <span class="c-date">72集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rrh88efg.html" data-rseat="705231_staiju1" title="有爱一家人">有爱一家人</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="103352600" data-channelId="2" data-index="2">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20150313/28/d1/a_50133262_m_601_m1_195_260.jpg);"
+                                               href="http://m.iqiyi.com/dianshiju/20111010/d74a0004987e687e.html"
+                                               data-rseat="705231_staiju1">
+                                                <div class="c-rb">
+                                                    <span class="c-date">30集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/dianshiju/20111010/d74a0004987e687e.html" data-rseat="705231_staiju1" title="格格要出嫁">格格要出嫁</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="257392400" data-channelId="2" data-index="3">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20141103/e8/58/a_100005940_m_601_m4_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rrhilp4s.html"
+                                               data-rseat="705231_staiju1">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-green">VIP</i>
+                                                </div>
+                                                <div class="c-rb">
+                                                    <span class="c-date">16集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rrhilp4s.html" data-rseat="705231_staiju1" title="16个夏天">16个夏天</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="328499700" data-channelId="2" data-index="4">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20141122/08/3d/a_100007865_m_601_m2_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rrn9uzyw.html"
+                                               data-rseat="705231_staiju1">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-red">独播</i>
+                                                </div>
+                                                <div class="c-rb">
+                                                    <span class="c-date">26集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rrn9uzyw.html" data-rseat="705231_staiju1" title="终极少女">终极少女</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="90182000" data-channelId="2" data-index="5">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20151027/63/2f/a_50000167_m_601_195_260.jpg);"
+                                               href="http://m.iqiyi.com/dianshiju/20100406/n1407.html"
+                                               data-rseat="705231_staiju1">
+                                                <div class="c-rb">
+                                                    <span class="c-date">42集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/dianshiju/20100406/n1407.html" data-rseat="705231_staiju1" title="风云2">风云2</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                </ul>
+                            </section>
+                        </div>    <div class="m-box-items m-box-items-full">
+                        <section class="m-linkMore">
+                            <a href="javascript:void(0)"
+                               class="m-link"
+                               data-component="page.dongman.component.searchBtn"
+                               data-search='{"threeCategory":{"area":"台湾"},"sort":11}'
+                               data-filter='{"area":"台湾"}'
+                               data-rseat="705231_staiju2">
+                                查看更多<i class="c-glyphicon c-glyphicon-more"></i>
+                            </a>
+                        </section>
+                    </div></div>
+                    <div class="m-box" data-scroll-show="true" data-block="705231_sqingchun" data-tags="true" data-cloud-pingback="true">
+                        <div class="m-box-items">
+                            <section class="m-title">
+                                <h3 class="c-title-des">青春颜控剧<span class="c-info"></span></h3>
+
+                            </section>
+                        </div>
+                        <div class="m-box-items "
+                             data-tag-set="idol_tv" data-tag-name="青春颜控剧" >
+                            <section class="m-pic m-pic-vercital">
+                                <ul class="m-pic-list">
+                                    <li data-qipuId="369061600" data-channelId="2" data-index="0">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20150526/28/26/a_100010324_m_601_m3_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rrnqernw.html"
+                                               data-rseat="705231_sqingchun1">
+                                                <div class="c-rb">
+                                                    <span class="c-date">34集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rrnqernw.html" data-rseat="705231_sqingchun1" title="抓住彩虹的男人">抓住彩虹的男人</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="344954900" data-channelId="2" data-index="1">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20150127/b1/78/a_100009417_m_601_m1_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rro4t188.html"
+                                               data-rseat="705231_sqingchun1">
+                                                <div class="c-rb">
+                                                    <span class="c-date">46集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rro4t188.html" data-rseat="705231_sqingchun1" title="千金女贼">千金女贼</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="364331500" data-channelId="2" data-index="2">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20150526/26/36/a_100011184_m_601_m3_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rrnsll6o.html"
+                                               data-rseat="705231_sqingchun1">
+                                                <div class="c-rb">
+                                                    <span class="c-date">45集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rrnsll6o.html" data-rseat="705231_sqingchun1" title="虎妈猫爸">虎妈猫爸</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="545043800" data-channelId="2" data-index="3">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20161021/36/66/a_100032830_m_601_m1_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rr9fzdis.html"
+                                               data-rseat="705231_sqingchun1">
+                                                <div class="c-rb">
+                                                    <span class="c-date">40集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rr9fzdis.html" data-rseat="705231_sqingchun1" title="亲密的搭档">亲密的搭档</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="465034400" data-channelId="2" data-index="4">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20160324/82/cc/a_100023186_m_601_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rrl0qguk.html"
+                                               data-rseat="705231_sqingchun1">
+                                                <div class="c-rb">
+                                                    <span class="c-date">28集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rrl0qguk.html" data-rseat="705231_sqingchun1" title="麻辣芳邻">麻辣芳邻</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="433025800" data-channelId="2" data-index="5">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20151225/b3/1c/a_100013180_m_601_m2_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rrkgf4h0.html"
+                                               data-rseat="705231_sqingchun1">
+                                                <div class="c-rb">
+                                                    <span class="c-date">48集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rrkgf4h0.html" data-rseat="705231_sqingchun1" title="戴流苏耳环的少女">戴流苏耳环的少女</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                </ul>
+                            </section>
+                        </div>    <div class="m-box-items m-box-items-full">
+                        <section class="m-linkMore">
+                            <a href="javascript:void(0)"
+                               class="m-link"
+                               data-component="page.dongman.component.searchBtn"
+                               data-search='{"threeCategory":{"type":"青春剧"},"sort":11}'
+                               data-filter='{"type":"青春剧"}'
+                               data-rseat="705231_sqingchun2">
+                                查看更多<i class="c-glyphicon c-glyphicon-more"></i>
+                            </a>
+                        </section>
+                    </div></div>
+                    <div class="m-box" data-scroll-show="true" data-block="705231_sguzhuang" data-tags="true" data-cloud-pingback="true">
+                        <div class="m-box-items">
+                            <section class="m-title">
+                                <h3 class="c-title-des">古装偶像剧<span class="c-info"></span></h3>
+
+                            </section>
+                        </div>
+                        <div class="m-box-items "
+                             data-tag-set="ancient_tv" data-tag-name="古装偶像剧" >
+                            <section class="m-pic m-pic-vercital">
+                                <ul class="m-pic-list">
+                                    <li data-qipuId="684568200" data-channelId="2" data-index="0">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20170511/59/ba/a_100051918_m_601_m1_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rr7ewe78.html"
+                                               data-rseat="705231_sguzhuang1">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-green">VIP</i>
+                                                </div>
+                                                <div class="c-rb">
+                                                    <span class="c-date">18集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rr7ewe78.html" data-rseat="705231_sguzhuang1" title="花间提壶方大厨第2季">花间提壶方大厨第2季</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="669064000" data-channelId="2" data-index="1">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20170428/54/a8/a_100020183_m_601_m1_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rraz0vu4.html"
+                                               data-rseat="705231_sguzhuang1">
+                                                <div class="c-rb">
+                                                    <span class="c-date">72集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rraz0vu4.html" data-rseat="705231_sguzhuang1" title="思美人">思美人</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="614839700" data-channelId="2" data-index="2">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20170209/9c/ae/a_100030753_m_601_m1_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rrarpa7s.html"
+                                               data-rseat="705231_sguzhuang1">
+                                                <div class="c-rb">
+                                                    <span class="c-date">40集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rrarpa7s.html" data-rseat="705231_sguzhuang1" title="大秦帝国之崛起">大秦帝国之崛起</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="409313100" data-channelId="2" data-index="3">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20151022/2e/cc/a_100015977_m_601_m3_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rrkjt6ao.html"
+                                               data-rseat="705231_sguzhuang1">
+                                                <div class="c-rt">
+                                                    <i class="c-picicon c-picicon-red">独播</i>
+                                                </div>
+                                                <div class="c-rb">
+                                                    <span class="c-date">10集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rrkjt6ao.html" data-rseat="705231_sguzhuang1" title="蜀山战纪第2季">蜀山战纪第2季</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="223746800" data-channelId="2" data-index="4">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20140128/0d/2c/a_100002524_m_601_m2_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rrgyogws.html"
+                                               data-rseat="705231_sguzhuang1">
+                                                <div class="c-rb">
+                                                    <span class="c-date">77集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rrgyogws.html" data-rseat="705231_sguzhuang1" title="隋唐英雄3">隋唐英雄3</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                    <li data-qipuId="348465100" data-channelId="2" data-index="5">
+                                        <div class="piclist-img">
+                                            <a class="piclist-link"
+                                               style="background-image:url(http://m.qiyipic.com/image/20150303/77/3c/a_100008879_m_601_m3_195_260.jpg);"
+                                               href="http://m.iqiyi.com/v_19rro1w1i8.html"
+                                               data-rseat="705231_sguzhuang1">
+                                                <div class="c-rb">
+                                                    <span class="c-date">72集全</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="piclist-title">
+                                            <div   class="c-title" >
+                                                <a href="http://m.iqiyi.com/v_19rro1w1i8.html" data-rseat="705231_sguzhuang1" title="封神英雄">封神英雄</a>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                </ul>
+                            </section>
+                        </div>    <div class="m-box-items m-box-items-full">
+                        <section class="m-linkMore">
+                            <a href="javascript:void(0)"
+                               class="m-link"
+                               data-component="page.dongman.component.searchBtn"
+                               data-search='{"threeCategory":{"type":"古装剧"},"sort":11}'
+                               data-filter='{"type":"古装剧"}'
+                               data-rseat="705231_sguzhuang2">
+                                查看更多<i class="c-glyphicon c-glyphicon-more"></i>
+                            </a>
+                        </section>
+                    </div></div>                                                                                                                                                    <div class="m-box" data-scroll-show="true" data-block="705231_srebofenlei">
+                    <div class="m-box-items">
+                        <section class="m-title">
+                            <h3 class="c-title-des">热播分类<span class="c-info"></span></h3>
+                            <a href="javascript:;" class="c-link"></a>
+                        </section>
+                    </div>
+                    <div class="m-box-items m-box-items-full">
+                        <div class="m-hot-classify">
+                            <ul class="hot-list">
+                                <li><a data-rseat="705231_srebofenlei" href="javascript:void(0)" data-component="page.dongman.component.searchBtn"
+                                       data-search='{"threeCategory":{"area":"","type":"","year":"","purchase":""}, "sort":11, "filter":{"key":"year", "value":"全部年份"}}'
+                                       data-filter='{"area":"全部地区","type":"全部类型"，"year":"全部年份","purchase":"全部资费"}'>全部</a></li>
+                                <li><a data-rseat="705231_srebofenlei" href="javascript:void(0)" data-component="page.dongman.component.searchBtn" data-search='{"threeCategory":{"area":"韩国"},"sort":11}' data-filter='{"area":"韩国"}'>韩国</a></li>
+                                <li><a data-rseat="705231_srebofenlei" href="javascript:void(0)" data-component="page.dongman.component.searchBtn" data-search='{"threeCategory":{"area":"内地"},"sort":11}' data-filter='{"area":"内地"}'>内地</a></li>
+                                <li><a data-rseat="705231_srebofenlei" href="javascript:void(0)" data-component="page.dongman.component.searchBtn" data-search='{"threeCategory":{"area":"美剧"},"sort":11}' data-filter='{"area":"美剧"}'>美剧</a></li>
+                                <li><a data-rseat="705231_srebofenlei" href="javascript:void(0)" data-component="page.dongman.component.searchBtn" data-search='{"threeCategory":{"type":"宫廷剧"},"sort":11}' data-filter='{"type":"宫廷剧"}'>宫廷</a></li>
+                                <li><a data-rseat="705231_srebofenlei" href="javascript:void(0)" data-component="page.dongman.component.searchBtn" data-search='{"threeCategory":{"type":"偶像剧"},"sort":11}' data-filter='{"type":"偶像剧"}'>偶像</a></li>
+                                <li><a data-rseat="705231_srebofenlei" href="javascript:void(0)" data-component="page.dongman.component.searchBtn" data-search='{"threeCategory":{"type":"古装剧"},"sort":11}' data-filter='{"type":"古装剧"}'>古装</a></li>
+                                <li><a data-rseat="705231_srebofenlei" href="javascript:void(0)" data-component="page.dongman.component.searchBtn" data-search='{"threeCategory":{"type":"自制剧"},"sort":11}' data-filter='{"type":"自制剧"}'>自制</a></li>
+                                <li><a data-rseat="705231_srebofenlei" href="javascript:void(0)" data-component="page.dongman.component.searchBtn" data-search='{"threeCategory":{"type":"谍战剧"},"sort":11}' data-filter='{"type":"谍战剧"}'>谍战</a></li>
+                                <li><a data-rseat="705231_srebofenlei" href="javascript:void(0)" data-component="page.dongman.component.searchBtn" data-search='{"threeCategory":{"type":"武侠剧"},"sort":11}' data-filter='{"type":"武侠剧"}'>武侠</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>    <div class="m-box" data-block="704272_Charmlist" data-scroll-show="true">
+                    <div class="m-box-items">
+                        <section class="m-title">
+                            <h3 class="c-title-des">排行榜</h3>
+                        </section>
+                    </div>
+
+                    <div style="display:none;" data-component="page.billboard.component.board" data-id="board">
+
+                        <div data-node="board">
+                        </div>
+
+                        <script type="text/velocity" data-node="navTemplate">
+
+            <div class="m-box-items m-box-items-full">
+    <!-- content -->
+    <section class="m-tab-nav">
+        <div class="m-tab-nav-list">
+            <span class="c-tab-item #if($dim == 'hour') selected #end" data-dim="hour" data-rseat="704191_Charmlist_rtclick" data-node="dim">实时</span>
+            <span class="c-tab-item #if($dim == 'his') selected #end" data-dim="his" data-rseat="704191_Charmlist_totalclick" data-node="dim">总榜</span>
+        </div>
+    </section>
+    <!-- content end -->
+</div>
+
+
+    </script>
+                        <script type="text/velocity" data-node="listTemplate">
+
+            <div class="m-box m-box-mid" data-tab="board" data-node="$dim">
+                <div class="m-box-items m-box-items-full">
+                    <ul class="m-starAwards-figures $!ulClass">
+                        #foreach($item in $items)
+                            <li class="figure-list">
+    <a href="$item.episode_play_url"
+        class="figure_pic"
+        style="background-image:url(${item.album_pic_url})"
+        data-rseat="704272_Charmlist_item">
+
+        #if($foreach.index > 2)
+<i class="icon icon-num4">${foreach.index + 1}</i>
+#else
+<i class="icon icon-num${foreach.index + 1}">${foreach.index + 1}</i>
+#end
+
+        <div class="c-rt">
+    #if($item.is_member_only)
+    <i class="c-picicon c-picicon-green">VIP</i>
+    #elseif($item.is_qiyi_produced)
+    <i class="c-picicon c-picicon-red">自制</i>
+    #elseif($item.is_exclusive)
+    <i class="c-picicon c-picicon-red">独播</i>
+    #end
+</div>
+
+        #if($item.showContent)
+<div class="c-rb">
+    #if($item.album_channel == '1')
+    <span class="c-date c-date-score">
+        <i class="score-item">$item.showContent</i>
+    </span>
+    #else
+    <span class="c-date">${item.showContent}</span>
+    #end
+</div>
+#end
+
+    </a>
+    <div class="figure_cont" href="$item.episode_play_url" data-rseat="704272_Charmlist_item">
+        <div class="figure_title max-line2">${item.name}</div>
+        #if(${item.prompt_description})
+        <div class="figure_info">${item.prompt_description}</div>
+        #end
+        <div class="figure_playnum">总播放量:  $!{item.allNum}</div>
+    </div>
+</li>
+
+                        #end
+                    </ul>
+                </div>
+            </div>
+
+    </script>
+                    </div>
+                    <div class="m-box-items m-box-items-full">
+                        <section class="m-linkMore">
+                            <a href="/billboard.html#2" data-rseat="704272_Charmlist_more" class="m-link">查看更多<i class="c-glyphicon c-glyphicon-more"></i></a>
+                        </section>
+                    </div>
+                </div>
+                    <div class="m-box" data-tag-name="应用推荐">
+                        <div data-id="appRecommend" data-page="channelHome" class="m-box-items" data-component="common.component.appRecommend" data-behavior="page.play.behavior.showDiver" data-diver-vfm="m_376_bdll">
+                            <section class="m-title">
+                                <i class="c-channelicon c-channel-yingyong"></i>
+                                <h3 class="c-title-des">应用推荐</h3>
+                            </section>
+                            <ul data-node="container" class="m-list-app">
+
+                            </ul>
+
+                            <script data-node="itemTemplate" type="text/mustache">
+        {{#adinfo}}
+            <li>
+                <a href="javascript:;" data-href="{{ad_link}}" data-index="{{index}}" {{#data-download-pos}}data-download-pos={{data-download-pos}}{{/data-download-pos}} {{#data-rseat}}data-rseat={{data-rseat}}{{/data-rseat}} {{#data-download-rseat}}data-download-rseat = {{data-download-rseat}}{{/data-download-rseat}}  {{#data-component}}data-component={{data-component}}{{/data-component}}>
+                    <img src="{{list_logo}}" width="100%" alt="{{ad_name}}"/>
+                    <div class="c-title">{{ad_name}}</div>
+                </a>
+            </li>
+        {{/adinfo}}
+        </script>
+                        </div>
+                        <div class="m-box-items m-box-items-full">
+                            <!-- m-linkMore -->
+                            <section class="m-linkMore">
+                                <a href="http://store.iqiyi.com/m/index" class="m-link">
+                                    更多应用
+                                    <i class="c-glyphicon c-glyphicon-more"></i>
+                                </a>
+                            </section>
+                            <!-- components m-linkMore shtml end -->
+                        </div>
+                    </div>
+                    <!-- components m-downApp shtml -->
+                    <section class="m-downApp hide" data-component="page.channel.component.appBottomBanner" data-behavior="page.play.behavior.showDiver" data-diver-vfm="m_364_vivo,m_376_bdll,f_366_oppo,f_367_oppo,f_368_fldh,f_429_vivo">
+                        <a href="javascript:;" data-node="download" data-download-rseat="603091_14" data-rseat="1409282_h5shtct" data-download-pos="channelHome_nativeapp_down" data-component="common.component.downLink.callOrDownloadLink" class="desc-item">
+                            <div class="qiyi-icon">
+                                <img src="http://www.qiyipic.com/common/fix/h5_white_images/iqiyi.png">
+                            </div>
+                            <div class="txt-info">
+                                <span >爱奇艺客户端</span>
+                                <span >一秒添加到桌面</span>
+                            </div>
+                        </a>
+                        <a href="javascript:;" data-node="close" class="close-item">
+                            <i class="c-glyphicon c-glyphicon-guideClose"></i>
+                        </a>
+                    </section>
+                    <!-- components m-downApp shtml end -->
+                </div>
+                <!-- 片库 start -->
+                <div data-widget-tab-body="2"
+                     data-scroll-show="true"
+                     data-block="704052_h5pianku"
+                     style="display:none;"
+                     data-curCtgName="电视剧"
+                     data-searchCtgName="电视剧"
+                     data-cid="2"
+                     data-component ="page.channel.component.library"
+                     data-behavior="common.behavior.onScroll2Bottom.onScroll2Bottom"
+                     data-id = "library"
+                     data-scroll-hight = "200" >
+                    <!-- 片库选项 start-->
+                    <div class="m-box m-box-top m-box-Ptop">
+                        <div
+                                class="m-box-items m-box-items-full"
+                                data-ctgname="电视剧"
+                                data-cid="2"
+                                data-component="page.channel.component.FilterBar"
+                                id="filterBar">
+                            <script type="text/tpl" data-node="filter_tpl">
+                {{#types}}
+    <section class="m-sortList-wrap m-sliding sortList-border" {{#desc}} data-desc="{{desc}}" {{/desc}} data-node="fileterType_{{i}}">
+        <ul class="m-sortList m-sliding-list" style="-webkit-transform: translate(0px, 0px) scale(1);transform: translate(0px, 0px) scale(1);">
+            {{#alls}}
+            <li>
+                <a href="javascript:;" data-i="{{i}}" {{#sortValue}} data-sort-item="{{sortValue}}" data-type="sort_click" {{/sortValue}} {{^sortValue}} data-type="filter_click"  data-listsearch-value="{{name}}" {{/sortValue}}  class="c-sortlist-item {{#sel}}selected{{/sel}}">{{name}}</a>
+            </li>
+            {{/alls}}
+        </ul>
+    </section>
+{{/types}}
+
+            </script>
+                        </div>
+                    </div>
+                    <!-- 片库选项 end-->
+                    <!-- 片库内容 start-->
+                    <div class="m-box m-box-Ptop">
+                        <!-- 筛选内容 start -->
+                        <div class="m-box-items" data-node="lib_box">
+                            <section class="m-pic  anim-change" data-node="lib_wrap"></section>
+                        </div>
+                        <!-- 筛选内容 end -->
+                        <div class="m-box-items m-box-items-full">
+                            <section class="m-linkMore" data-node="next_wrapper">
+                                <a href="javascript:;" class="m-link" title="下拉加载更多" data-node="next"> 爱奇艺努力加载中... </a>
+                            </section>
+                        </div>
+                    </div>
+                    <script type="text/tpl" data-node="lib_tpl">
+        {{#isEmpty}}
+            <section class="m-pic  anim-change">
+            <div style="padding: 90px 0;color:#999;line-height:.2rem">
+            <p class="text-center">暂无对应的筛选结果，请尝试其他类型，<br>或使用搜索找您喜欢的内容。</p>
+            </div>
+            </section>
+        {{/isEmpty}}
+        {{^isEmpty}}
+            <ul class="m-pic-list">
+                {{#results}}
+                    <li>
+                        <div data-docId="{{docId}}" data-siteId="{{siteId}}" data-pageNum="{{pageNum}}" data-channelId="{{channelId}}" data-albumId="{{albumId}}" data-node="libitem_{{docId}}">
+        <div class="piclist-img">
+            <a title="{{mainTitle}}" href="{{pageUrl}}" class="piclist-link" style="background-image:url({{imageUrl}});">
+                {{!右上角图标}}
+                {{#isVip}}
+                    <div class="c-rt">
+                        <i class="c-picicon c-picicon-green">VIP</i>
+                    </div>
+                {{/isVip}}
+                {{^isVip}}
+                    {{#isBill}}
+                        <div class="c-rt">
+                            <i class="c-picicon c-picicon-green">用券</i>
+                        </div>
+                    {{/isBill}}
+                    {{^isBill}}
+                        {{#isPaid}}
+                            <div class="c-rt">
+                                <i class="c-picicon c-picicon-green">付费</i>
+                            </div>
+                        {{/isPaid}}
+                        {{^isPaid}}
+                            {{#isQiyiProduced}}
+                                <div class="c-rt">
+                                    <i class="c-picicon c-picicon-red">自制</i>
+                                </div>
+                            {{/isQiyiProduced}}
+                            {{^isQiyiProduced}}
+                                {{#isExclusive}}
+                                    <div class="c-rt">
+                                        <i class="c-picicon c-picicon-red">独播</i>
+                                    </div>
+                                {{/isExclusive}}
+                                {{^isExclusive}}
+                                    {{#isPaikeType}}
+                                        <div class="c-rt">
+                                            <i class="c-picicon c-picicon-green">拍客</i>
+                                        </div>
+                                    {{/isPaikeType}}
+                                {{/isExclusive}}
+                            {{/isQiyiProduced}}
+                        {{/isPaid}}
+                    {{/isBill}}
+                {{/isVip}}
+                {{!左下角图标}}
+                {{#pubStr}}
+                <div class="c-lb">
+                    <span class="c-date">{{pubStr}}</span>
+                </div>
+                {{/pubStr}}
+                {{!右下角图标}}
+                {{#rbContent}}
+                <div class="c-rb">
+                    {{#isMovie}}
+                        <span class="c-date c-date-score">
+                            <i class="score-item">{{rbContent}}</i>
+                        </span>
+                    {{/isMovie}}
+                    {{^isMovie}}
+                        <span class="c-date">{{rbContent}}</span>
+                    {{/isMovie}}
+                </div>
+                {{/rbContent}}
+            </a>
+        </div>
+        <div class="piclist-title">
+            {{#mainTitle}}
+                <div class="c-title">
+                    <a href="{{pageUrl}}">{{mainTitle}}</a>
+                </div>
+            {{/mainTitle}}
+            {{#subTitle}}
+                <div class="c-info">
+                    <a href="javascript:;">{{subTitle}}</a>
+                </div>
+            {{/subTitle}}
+        </div>
+    </div>
+
+                    </li>
+                {{/results}}
+            </ul>
+        {{/isEmpty}}
+    </script>
+                </div>                    </div>
+        </div>
+        <div class="m-box">
+            <div class="m-box-items m-box-items-full">
+                <section class="m-linkMore noborder-top">
+                    <a href="/feedback.html" class="m-link"><i class="c-glyphicon c-glyphicon-feed"></i>意见反馈</a>
+                </section>
+            </div>
+        </div>
+        <div class="m-box-bottom">
+            <div class="page-c-items" data-component="common.component.footer">
+                <footer class="m-footer">
+                    <img src="http://www.qiyipic.com/common/fix/h5-v3/foot.png">
+                </footer>
+            </div>            </div>
+        <div class="m-sideBar po-fixed">
+            <div data-component="page.home.fragment.backTop">
+                <a data-node="nodeLink" href="javascript:;" class="m-goTop hide">
+                    <i class="c-glyphicon c-glyphicon-arrowUp"></i>
+                    <span>顶部</span>
+                </a>
+            </div>            </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="//static.qiyi.com/js/html5/js/lib/lib.1.1.1.min.js?sea1.2.min.js"></script>
+<script type="text/javascript" src="https://security.iqiyi.com/static/cook/v1/cooksdk.js"></script>
+<script>
+    Q.load("js/page/channel/f2fc7b6354!app.js");
+</script>
+<script type="text/javascript">
+    ;(function(d, m) {
+        var i = new Image(),
+                s = '//iqiyi.irs01.com/irt?_iwt_t=i&_iwt_id=&_iwt_UA=UA-iqiyi-000008&r=' + m.random() + +new Date();
+        i.src = s;
+    })(document, Math);
+</script>
+<script type="text/javascript">
+    $(window).on('load', function(){
+        var _comscore = _comscore || [];
+        _comscore.push({ c1: "2", c2: "7290408" });
+        var s = document.createElement("script");
+        s.async = true;
+        s.src = (document.location.protocol == "https:" ? "https://sb" : "http://b") + ".scorecardresearch.com/beacon.js";
+        s.onload = s.onreadystatechange = function () {
+            if (!s.readyState || "loaded" == s.readyState || "complete" == s.readyState) {
+                s.onload = s.onreadystatechange = null;
+            }
+        };
+        document.head.appendChild(s);
+    });
+</script>
+<noscript><img src="http://b.scorecardresearch.com/p?c1=2&c2=7290408&cv=2.0&cj=1"/></noscript><script type="text/javascript">
+    $(window).on('load', function(){
+        var mat = document.cookie.match(/QC006=([^=;]*)/i);
+
+        window._hmt = window._hmt || [];
+        _hmt.push(["_setUserId", mat?mat[1]:""]);
+
+        var hm = document.createElement("script");
+        hm.async = true;
+        hm.src = "//hm.baidu.com/hm.js?5df871ab99f94347b23ca224fc7d013f";
+        document.head.appendChild(hm);
+    });
+</script></body>
+</html>

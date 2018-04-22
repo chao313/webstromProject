@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/jquery.mobile-1.4.5.min.css">
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+
+<div data-role="page" id="pageone">
+    <div data-role="header">
+        <h1>页面切换效果</h1>
+    </div>
+
+    <div data-role="main" class="ui-content">
+        <a href="#pagetwo" data-transition="fade">fade	默认。淡入到下一页</a><br/>
+        <a href="#pagetwo" data-transition="flow">抛出当前页，进入下一页	</a><br/>
+        <a href="#pagetwo" data-transition="pop">像弹出窗口那样转到下一页</a><br/>
+        <a href="#pagetwo" data-transition="slide">从右向左滑动到下一页</a><br/>
+        <a href="#pagetwo" data-transition="slidefade">从右向左滑动并淡入到下一页</a><br/>
+        <a href="#pagetwo" data-transition="slideup">从下到上滑动到下一页</a><br/>
+        <a href="#pagetwo" data-transition="slidedown">从上到下滑动到下一页</a><br/>
+        <a href="#pagetwo" data-transition="turn">转向下一页</a><br/>
+        <a href="#pagetwo" data-transition="none">无过渡效果</a><br/>
+    </div>
+
+    <div data-role="footer">
+        <h1>底部文本</h1>
+    </div>
+</div>
+
+<div data-role="page" id="pagetwo">
+    <div data-role="header">
+        <h1>欢迎来到我的主页</h1>
+    </div>
+
+    <div data-role="main" class="ui-content">
+        <p>点击链接查看相反方向的淡入效果 (页面从左至右淡入)。</p>
+        <a href="#pageone" data-transition="slide" data-direction="reverse">淡入第一个页面(reversed)</a>
+    </div>
+
+    <div data-role="footer">
+        <h1>底部文本</h1>
+    </div>
+</div>
+
+</body>
+</html>

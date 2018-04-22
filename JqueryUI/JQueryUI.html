@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JQueryUI Study</title>
+    <link rel="stylesheet" href="css/jquery-ui.min.css">
+    <script type="application/javascript" src="js/jquery.js"></script>
+    <script type="application/javascript" src="js/jquery-ui.min.js"></script>
+</head>
+<body>
+
+<h2>JQueryUI Study</h2>
+
+<div>
+    <h3>1.拖动</h3>
+    <dt>1.1.普通拖动 draggable
+    <div id="dargTest" style="border:1px solid grey; width:100px;height:50px;">
+        测试区【拖动】
+    </div>
+    <script>
+        $(function () {
+            $('#dargTest').draggable();
+        });
+    </script>
+    </dt>
+
+    <dt>1.2.拖动【滚动，带速度，滚动敏感度】【draggable { scroll: true, scrollSensitivity: 10,scrollSpeed: 1}】
+    <div id="dargScrollTest" style="border:1px solid grey; width:100px;height:50px;">
+        测试区【自动滚动】
+    </div>
+    <script>
+        $(function () {
+            $('#dargScrollTest').draggable({
+                scroll: true,
+                scrollSensitivity: 10,
+                scrollSpeed: 1
+            });
+        });
+    </script>
+    </dt>
+
+    <dt>1.3.拖动【x轴】【draggable {axis: "x"}】
+    <div id="dargXTest" style="border:1px solid grey; width:100px;height:50px;">
+        测试区【x轴】
+    </div>
+    <script>
+        $(function () {
+            $('#dargXTest').draggable({
+                axis: "x",
+            });
+        });
+    </script>
+    </dt>
+
+    <dt>1.4.拖动【y轴】【draggable { axis: "y"}】
+    <div id="dargYTest" style="border:1px solid grey; width:100px;height:50px;">
+        测试区【y轴】
+    </div>
+    <script>
+        $(function () {
+            $('#dargYTest').draggable({
+                axis: "y"
+            });
+        });
+    </script>
+    </dt>
+
+    <dt>1.5.拖动【约束】【draggable { containment: "#containment-wrapper" id / containment: "parent"上级 / containment:
+        "document" 文本范围}】
+    <div id="dargContainmentTest" style="border:1px solid grey; width:100px;height:50px;">
+        测试区【约束】
+    </div>
+    <script>
+        $(function () {
+            $('#dargContainmentTest').draggable({
+                containment: "document"
+            });
+        });
+    </script>
+    </dt>
+
+    <dt>1.6.拖动【鼠标样式、鼠标位置】【draggable { cursor: "move",[move[移动标志]/crosshair[十字架]/default[默认鼠标]/pointer[手指]] cursorAt: {
+        top: 56, left: 56 }}】
+
+    <div id="dargCursorTest" style="border:1px solid grey; width:100px;height:50px;">
+        测试区【鼠标样式、鼠标位置】
+    </div>
+    <script>
+        $(function () {
+            $('#dargCursorTest').draggable({
+                cursor: "move",
+                cursorAt: {top: 56, left: 56}
+
+            });
+        });
+    </script>
+    </dt>
+
+    <dt>1.7.拖动【延迟】【draggable {distance: 20,[拖动20像素后开始移动] delay: 1000[毫秒]}】
+
+    <div id="dargDelayTest" style="border:1px solid grey; width:100px;height:50px;">
+        测试区【延迟】
+    </div>
+    <script>
+        $(function () {
+            $('#dargDelayTest').draggable({
+                distance: 20,
+                delay: 1000
+
+            });
+        });
+    </script>
+    </dt>
+
+    <dt>1.8.事件【start、drag 和 stop】【draggable {start: function () {},drag: function () {},stop: function () {}}】
+
+    <div id="dargEventTest" style="border:1px solid grey; width:100px;height:50px;">
+        测试区
+    </div>
+    <script>
+        $(function () {
+            $('#dargEventTest').draggable({
+                start: function () {
+                    $('#dargEventTest').html('拖动开始');
+                },
+                drag: function () {
+                    $('#dargEventTest').html('拖动进行中');
+                },
+                stop: function () {
+                    $('#dargEventTest').html('拖动结束');
+                }
+
+            });
+        });
+    </script>
+    </dt>
+
+    <dt>1.9.手柄Handles【手柄Handles】【draggable {handle:'xxx'[控制手柄]}】
+
+    <div id="dargHandlesTest" style="border:1px solid grey; width:100px;height:50px;">
+        测试区
+        <div style="border:1px solid grey; font-size: 10px">
+            移动手柄[只有在这边才能移动]
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $('#dargHandlesTest').draggable({
+                handle: 'div'
+
+            });
+        });
+    </script>
+    </dt>
+
+    <dt>1.10.还原revert【还原revert】【draggable { revert: true}】
+
+    <div id="dargRevertTest" style="border:1px solid grey; width:100px;height:50px;">
+        测试区【还原revert】
+    </div>
+    <script>
+        $(function () {
+            $('#dargRevertTest').draggable({
+                revert: true,
+
+            });
+        });
+    </script>
+    </dt>
+    <dt>1.11.grid网格对齐【draggable { grid: [ 20, 20 ]/像素网格}】
+
+    <div id="dargGridTest" style="border:1px solid grey; width:100px;height:50px;">
+        测试区【grid网格对齐】
+    </div>
+    <script>
+        $(function () {
+            $('#dargGridTest').draggable({
+                grid: [20, 20]
+            });
+        });
+    </script>
+    </dt>
+
+    <dt>1.12.snap对齐其他所有的draggable【draggable { snap: true}】
+
+    <div id="dargSnapTest" style="border:1px solid grey; width:100px;height:50px;">
+        测试区
+    </div>
+    <script>
+        $(function () {
+            $('#dargSnapTest').draggable({
+                snap: true
+            });
+        });
+    </script>
+    </dt>
+
+
+    <dt>1.13.排序sortable【draggable { snap: true},$('xx').disableSelection[禁止选择文字]】
+
+    <div id="dargSortableTest" style="border:1px solid grey; width:200px;">
+        <li class="ui-state-default">Item 1</li>
+        <li class="ui-state-default">Item 2</li>
+        <li class="ui-state-default">Item 3</li>
+        <li class="ui-state-default">Item 4</li>
+        <li class="ui-state-default">Item 5</li>
+    </div>
+    <script>
+        $(function () {
+            $('#dargSortableTest').sortable({
+                revert: true
+            });
+            $("#dargSortableTest").disableSelection();
+        });
+    </script>
+    </dt>
+
+</div>
+
+<div>
+    <h2>2.放置</h2>
+
+    <dt>2.1默认功能
+    <div id="dragDefault" style="border:1px solid grey; width:200px;">
+        拖动块
+    </div>
+
+    <div id="dropDefault" style="border:1px solid grey; width:200px;height:50px;">
+        放置块
+    </div>
+    <script>
+        $(function () {
+            $('#dragDefault').draggable();
+            $('#dropDefault').droppable({
+                drop: function (event, ui) {
+                    alert('ss')
+                }
+            });
+        });
+    </script>
+    </dt>
+</div>
+
+<div>
+    <h2>3.缩放</h2>
+    <dt>3.1默认resizable【$('XXX').resizable()】
+    <div id="resizableDefaut" style="border:1px solid grey; width:200px;height:50px;">
+        代码测试
+    </div>
+    <script>
+        $(function () {
+            $('#resizableDefaut').resizable();
+        });
+    </script>
+    </dt>
+
+    <dt>3.2动画animate【$('XXX').resizable( animate : true)】
+    <div id="resizableAnimate" style="border:1px solid grey; width:200px;height:50px;">
+        代码测试
+    </div>
+    <script>
+        $(function () {
+            $('#resizableAnimate').resizable({
+                animate: true
+            });
+        });
+    </script>
+    </dt>
+
+    <dt>3.3限制缩放区containment【$('XXX').resizable(containment:'id')/document】
+    <div id="resizableContainment" style="border:1px solid grey; width:200px;height:50px;">
+        代码测试
+    </div>
+    <script>
+        $(function () {
+            $('#resizableContainment').resizable({
+                containment: 'document'
+            });
+        });
+    </script>
+    </dt>
+
+    <dt>3.4延时和距离delay and distance【$('XXX').resizable( distance:10,delay:100)】
+    <div id="resizableDelayAndDistance" style="border:1px solid grey; width:200px;height:50px;">
+        代码测试
+    </div>
+    <script>
+        $(function () {
+            $('#resizableDelayAndDistance').resizable({
+                distance: 10,
+                delay: 100
+            });
+        });
+    </script>
+    </dt>
+
+    <dt>3.5助手,helper[在缩放时有效的class样式]【$('XXX').resizable( helper:'ClassName')】
+    <div id="resizableHelper" style="border:1px solid grey; width:200px;height:50px;">
+        代码测试
+    </div>
+    <style>
+        .helperStyle {
+            border: 1px solid red;
+        }
+    </style>
+    <script>
+        $(function () {
+            $('#resizableHelper').resizable({
+                helper: 'helperStyle'
+            });
+        });
+    </script>
+    </dt>
+
+    <dt>3.6设置最大最小尺寸 maxHeight/maxWidth/minHeight/minWidth【$('XXX').resizable( maxHeight: 250,maxWidth: 350,minHeight:
+        150,minWidth: 200)】
+    <div id="resizableSize" style="border:1px solid grey; width:200px;height:50px;">
+        代码测试
+    </div>
+    <script>
+        $(function () {
+            $('#resizableSize').resizable({
+                maxHeight: 250,
+                maxWidth: 350,
+                minHeight: 150,
+                minWidth: 200
+            });
+        });
+    </script>
+    </dt>
+
+    <dt>3.7对齐到网格【$('XXX').resizable(grid: 50[设置像素])】
+    <div id="resizableGrid" style="border:1px solid grey; width:200px;height:50px;">
+        代码测试
+    </div>
+    <script>
+        $(function () {
+            $('#resizableGrid').resizable({
+                grid: 50
+            });
+        });
+    </script>
+    </dt>
+</div>
+
+<div>
+    <h2>4.排序</h2>
+    <dt>4.1默认排序
+    <div id="sortableDefalut" style="border:1px solid grey; width:200px;">
+        <li class="ui-state-default">Item 1</li>
+        <li class="ui-state-default">Item 2</li>
+        <li class="ui-state-default">Item 3</li>
+        <li class="ui-state-default">Item 4</li>
+        <li class="ui-state-default">Item 5</li>
+    </div>
+    <script>
+        $(function () {
+            $('#sortableDefalut').sortable({
+                revert: true
+            });
+            $("#sortableDefalut").disableSelection();
+        });
+    </script>
+    </dt>
+
+    <dt>4.2连接列表[多个排序]相同的class【$('#sort1,#sort2').sortable({connectWith:'.sameClass'}).disableSelection();】
+    <div id="sort1" style="border:1px solid grey; width:200px;" class="sameClass">
+        <li class="ui-state-default">Item 1</li>
+        <li class="ui-state-default">Item 2</li>
+        <li class="ui-state-default">Item 3</li>
+        <li class="ui-state-default">Item 4</li>
+        <li class="ui-state-default">Item 5</li>
+    </div>
+    <div id="sort2" style="border:1px solid grey; width:200px;" class="sameClass">
+        <li class="ui-state-default">Item 1</li>
+        <li class="ui-state-default">Item 2</li>
+        <li class="ui-state-default">Item 3</li>
+        <li class="ui-state-default">Item 4</li>
+        <li class="ui-state-default">Item 5</li>
+    </div>
+    <script>
+        $(function () {
+            $('#sort1,#sort2').sortable({
+                connectWith: '.sameClass'
+            }).disableSelection();
+
+        });
+    </script>
+
+    </dt>
+
+</div>
+
+<div>
+    <h2>5.折叠面板</h2>
+    <dt>
+        5.1-默认功能accordion【$("XXX").accordion();】
+
+    <div id="accordionDefault">
+        <h3>部分 1</h3>
+        <div>
+            <p>
+                Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer
+                ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit
+                amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut
+                odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
+            </p>
+        </div>
+        <h3>部分 2</h3>
+        <div>
+            <p>
+                Sed non urna. Donec et ante. Phasellus eu ligula. Vestibulum sit amet
+                purus. Vivamus hendrerit, dolor at aliquet laoreet, mauris turpis porttitor
+                velit, faucibus interdum tellus libero ac justo. Vivamus non quam. In
+                suscipit faucibus urna.
+            </p>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $("#accordionDefault").accordion();
+        });
+    </script>
+
+    </dt>
+
+    <dt>
+        5.2-折叠【可折叠全部，默认有一个会打开】
+
+    <div id="accordionCollapsible">
+        <h3>部分 1</h3>
+        <div>
+            <p>
+                Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer
+                ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit
+                amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut
+                odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
+            </p>
+        </div>
+        <h3>部分 2</h3>
+        <div>
+            <p>
+                Sed non urna. Donec et ante. Phasellus eu ligula. Vestibulum sit amet
+                purus. Vivamus hendrerit, dolor at aliquet laoreet, mauris turpis porttitor
+                velit, faucibus interdum tellus libero ac justo. Vivamus non quam. In
+                suscipit faucibus urna.
+            </p>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $("#accordionCollapsible").accordion({
+                collapsible: true
+            });
+        });
+    </script>
+
+    </dt>
+
+    <dt>
+        5.3-折叠图标【拥有图标】【icons需要自己创建】
+
+    <div id="accordionIcons">
+        <h3>部分 1</h3>
+        <div>
+            <p>
+                Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer
+                ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit
+                amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut
+                odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
+            </p>
+        </div>
+        <h3>部分 2</h3>
+        <div>
+            <p>
+                Sed non urna. Donec et ante. Phasellus eu ligula. Vestibulum sit amet
+                purus. Vivamus hendrerit, dolor at aliquet laoreet, mauris turpis porttitor
+                velit, faucibus interdum tellus libero ac justo. Vivamus non quam. In
+                suscipit faucibus urna.
+            </p>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            var icons = {
+                header: "ui-icon-circle-arrow-e",
+                activeHeader: "ui-icon-circle-arrow-s"
+            };
+            $("#accordionIcons").accordion({
+                icons: icons
+            });
+        });
+    </script>
+    </dt>
+
+
+    <dt>
+        5.4-折叠高度，填充父元素【 $("XXX").accordion({heightStyle: 'fill'[heightStyle: 'content']内容高度});】【如果想要跟随父元素缩放，父元素中必须
+        $('#parent').resizable({resize:
+        function () {$("#accordionHeight").accordion("refresh");}});】
+
+    <div id="parent">
+        <div id="accordionHeight">
+            <h3>部分 1</h3>
+            <div>
+                <p>
+                    Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer
+                    ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit
+                    amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut
+                    odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
+                </p>
+            </div>
+            <h3>部分 2</h3>
+            <div>
+                <p>
+                    Sed non urna. Donec et ante. Phasellus eu ligula. Vestibulum sit amet
+                    purus. Vivamus hendrerit, dolor at aliquet laoreet, mauris turpis porttitor
+                    velit, faucibus interdum tellus libero ac justo. Vivamus non quam. In
+                    suscipit faucibus urna.
+                </p>
+            </div>
+        </div>
+        <script>
+            $(function () {
+                $('#parent').resizable({
+                            resize: function () {
+                                $("#accordionHeight").accordion("refresh");
+                            }
+                        }
+                );
+                $("#accordionHeight").accordion({
+                    heightStyle: 'fill'
+                });
+            });
+        </script>
+    </div>
+    </dt>
+
+    <dt>
+        5.5-折叠排序【未完成】
+
+
+    <div id="accordionSort">
+        <h3>部分 1</h3>
+        <div>
+            <p>
+                Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer
+                ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit
+                amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut
+                odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
+            </p>
+        </div>
+        <h3>部分 2</h3>
+        <div>
+            <p>
+                Sed non urna. Donec et ante. Phasellus eu ligula. Vestibulum sit amet
+                purus. Vivamus hendrerit, dolor at aliquet laoreet, mauris turpis porttitor
+                velit, faucibus interdum tellus libero ac justo. Vivamus non quam. In
+                suscipit faucibus urna.
+            </p>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $("#accordionSort").accordion({}).sortable({});
+        });
+    </script>
+</div>
+</dt>
+</div>
+
+
+<div>
+    <h2>6.自动完成</h2>
+    <dt>6.1自动补全[默认]
+    <div id="autocomplete">
+
+        测试
+        <input>
+    </div>
+    <script>
+        $(function () {
+            var availableTags = [
+                "ActionScript",
+                "AppleScript",
+                "Asp",
+                "BASIC",
+                "C",
+                "C++",
+                "Clojure",
+                "COBOL",
+                "ColdFusion",
+                "Erlang",
+                "Fortran",
+                "Groovy",
+                "Haskell",
+                "Java",
+                "JavaScript",
+                "Lisp",
+                "Perl",
+                "PHP",
+                "Python",
+                "Ruby",
+                "Scala",
+                "Scheme"
+            ];
+            $("#autocomplete input").autocomplete({
+                source: availableTags
+            });
+        });
+    </script>
+
+    </dt>
+
+
+    <dt>6.1自动补全[自定义数据]
+    <div id="autocompleteData">
+        测试 <input>
+
+    </div>
+    <script>
+        $(function () {
+            var data = [
+                {
+                    value: 'huaian',
+                    area: 'huaian',
+                    chinaValue: '淮安',
+
+                },
+                {
+                    value: 'liyang',
+                    area: 'liyang',
+                    chinaValue: '溧阳',
+                },
+                {
+                    value: 'huaihai',
+                    area: 'huaihai',
+                    chinaValue: '淮海',
+
+                }
+            ];
+
+            $('#autocompleteData input').autocomplete({
+                source: data,
+                focus: function (event, ui) {
+                    $('#autocompleteData input').val(ui.item.chinaValue);
+                },
+                select: function (event, ui) {
+                    $('#autocompleteData input').val(ui.item.chinaValue);
+                }
+
+            }).data("ui-autocomplete")._renderItem = function (ul, item) {
+                return $("<li>")
+                        .append("<a>" + item.chinaValue + "<br>" + item.area + "</a>")
+                        .appendTo(ul);
+            };
+
+
+        });
+    </script>
+
+    </dt>
+
+</div>
+
+<div>
+    <h2>7.按钮</h2>
+    <dt id="buttonPic">7.1图标[带图标的按钮]
+        <button>只带有图标的按钮</button>
+        <button>图标在左侧的按钮</button>
+        <button>带有两个图标的按钮</button>
+        <button>带有两个图标且不带文本的按钮</button>
+        <script>
+            $(function () {
+                $("#buttonPic button:first").button({
+                    icons: {
+                        primary: "ui-icon-locked"
+                    },
+                    text: false
+                }).next().button({
+                    icons: {
+                        primary: "ui-icon-locked"
+                    }
+                }).next().button({
+                    icons: {
+                        primary: "ui-icon-gear",
+                        secondary: "ui-icon-triangle-1-s"
+                    }
+                }).next().button({
+                    icons: {
+                        primary: "ui-icon-gear",
+                        secondary: "ui-icon-triangle-1-s"
+                    },
+                    text: false
+                });
+            });
+        </script>
+    </dt>
+
+
+    <dt>7.2工具栏
+    <div id="toolbar" class="ui-widget-header ui-corner-all">
+        <button id="beginning">开头</button>
+        <button id="rewind">快退</button>
+        <button id="play">播放</button>
+        <button id="stop">停止</button>
+        <button id="forward">快进</button>
+        <button id="end">结尾</button>
+
+        <input type="checkbox" id="shuffle"><label for="shuffle">Shuffle</label>
+
+  <span id="repeat">
+    <input type="radio" id="repeat0" name="repeat" checked="checked"><label for="repeat0">No Repeat</label>
+    <input type="radio" id="repeat1" name="repeat"><label for="repeat1">Once</label>
+    <input type="radio" id="repeatall" name="repeat"><label for="repeatall">All</label>
+  </span>
+    </div>
+    <script>
+        $(function () {
+            $("#beginning").button({
+                text: false,
+                icons: {
+                    primary: "ui-icon-seek-start"
+                }
+            });
+            $("#rewind").button({
+                text: false,
+                icons: {
+                    primary: "ui-icon-seek-prev"
+                }
+            });
+            $("#play").button({
+                        text: false,
+                        icons: {
+                            primary: "ui-icon-play"
+                        }
+                    })
+                    .click(function () {
+                        var options;
+                        if ($(this).text() === "play") {
+                            options = {
+                                label: "pause",
+                                icons: {
+                                    primary: "ui-icon-pause"
+                                }
+                            };
+                        } else {
+                            options = {
+                                label: "play",
+                                icons: {
+                                    primary: "ui-icon-play"
+                                }
+                            };
+                        }
+                        $(this).button("option", options);
+                    });
+            $("#stop").button({
+                        text: false,
+                        icons: {
+                            primary: "ui-icon-stop"
+                        }
+                    })
+                    .click(function () {
+                        $("#play").button("option", {
+                            label: "play",
+                            icons: {
+                                primary: "ui-icon-play"
+                            }
+                        });
+                    });
+            $("#forward").button({
+                text: false,
+                icons: {
+                    primary: "ui-icon-seek-next"
+                }
+            });
+            $("#end").button({
+                text: false,
+                icons: {
+                    primary: "ui-icon-seek-end"
+                }
+            });
+            $("#shuffle").button();
+            $("#repeat").buttonset();
+        });
+    </script>
+    </dt>
+</div>
+
+<div>
+    <h2>8.日期选择器</h2>
+    <dt>8.1默认功能
+    <div>
+        <p>日期：<input type="text" id="datepickerDefault"></p>
+    </div>
+    <script>
+        $(function () {
+            $("#datepickerDefault").datepicker();
+        });
+    </script>
+
+    </dt>
+
+
+    <dt>8.2日期选择器[自定义显示]
+    <div>
+        <p>日期：<input type="text" id="datepickerChoose"></p>
+    </div>
+    <script>
+        $(function () {
+            $("#datepickerChoose").datepicker(
+                    {//添加日期选择功能
+                        numberOfMonths: 2,//显示几个月
+                        showButtonPanel: true,//是否显示按钮面板
+                        dateFormat: 'yy-mm-dd',//日期格式
+                        clearText: "清除",//清除日期的按钮名称
+                        closeText: "关闭",//关闭选择框的按钮名称
+                        yearSuffix: '年', //年的后缀
+                        showMonthAfterYear: true,//是否把月放在年的后面
+                        defaultDate: '2011-03-10',//默认日期
+                        minDate: '2011-03-05',//最小日期
+                        maxDate: '2011-04-20',//最大日期
+                        monthNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+                        dayNames: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
+                        dayNamesShort: ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
+                        dayNamesMin: ['日', '一', '二', '三', '四', '五', '六'],
+                        onSelect: function (selectedDate) {//选择日期后执行的操作
+                            alert(selectedDate + '选择后进行操作');
+                        }
+                    }
+            );
+        });
+    </script>
+
+    </dt>
+
+    <dt>8.3日期选择器[动画显示] [show/默认，slideDown/滑下,fadeIn/淡入,blind/百叶窗,bounce/反弹,clip/剪辑,drop/降落,Fold/折叠,slide/滑动]
+        $("XXXX").datepicker({showAnim: 'drop'/XXX});
+    <div>
+        <p>日期：<input type="text" id="datepickerAnim"></p>
+    </div>
+    <script>
+        $(function () {
+            $("#datepickerAnim").datepicker(
+                    {
+                        showAnim: 'drop'
+                    }
+            );
+        });
+    </script>
+
+    </dt>
+
+    <dt>8.4日期选择器[自定义显示][可选年，月]
+    <div>
+        <p>日期：<input type="text" id="datepickerChooseYearAndMonth"></p>
+    </div>
+    <script>
+        $(function () {
+            $("#datepickerChooseYearAndMonth").datepicker(
+                    {
+                        changeMonth: true,
+                        changeYear: true
+                    }
+            );
+        });
+    </script>
+
+    </dt>
+
+    <dt>8.4日期选择器[限制日期范围][偏移量]使用 'D' 表示天，使用 'W' 表示周，使用 'M' 表示月，使用 'Y' 表示年。
+    <div>
+        <p>日期：<input type="text" id="datepickerOfferset"></p>
+    </div>
+    <script>
+        $(function () {
+            $("#datepickerOfferset").datepicker({
+                        minDate: -20,
+                        maxDate: "+1M +10D"
+                    }
+            );
+        });
+    </script>
+
+    </dt>
+
+
+    <dt>8.4日期选择器[选择日期范围]
+    <div>
+        <label for="datepickerFrom">从</label>
+        <input type="text" id="datepickerFrom" name="from">
+        <label for="datepickerTo">到</label>
+        <input type="text" id="datepickerTo" name="to">
+    </div>
+
+    <script>
+        $(function () {
+            $("#datepickerFrom").datepicker({
+                defaultDate: "+1w",
+                changeMonth: true,
+                numberOfMonths: 3,
+                onClose: function (selectedDate) {
+                    $("#datepickerTo").datepicker("option", "minDate", selectedDate);
+                }
+            });
+            $("#datepickerTo").datepicker({
+                defaultDate: "+1w",
+                changeMonth: true,
+                numberOfMonths: 3,
+                onClose: function (selectedDate) {
+                    $("#datepickerFrom").datepicker("option", "maxDate", selectedDate);
+                }
+            });
+        });
+    </script>
+    </dt>
+</div>
+
+<div>
+    <h2>9.对话框</h2>
+    <dt>9.1默认
+    <div id="dialogDefault" title="基本的对话框" style="border:1px grey solid">
+        <p>这是一个默认的对话框，用于显示信息。对话框窗口可以移动，调整尺寸，默认可通过 'x' 图标关闭。</p>
+    </div>
+    <script>
+        $(function () {
+            $('#dialogDefault').bind({
+                click: function () {
+                    $("#dialogDefault").dialog();
+                }
+            });
+        });
+    </script>
+    </dt>
+
+    <dt>9.2动画
+    <div id="dialogAnim" title="动画对话框" style="border:1px grey solid">
+        <p>这是一个动画显示的对话框，用于显示信息。对话框窗口可以移动，调整尺寸，默认可通过 'x' 图标关闭。</p>
+    </div>
+    <script>
+        $(function () {
+            $('#dialogAnim').bind({
+                click: function () {
+                    $("#dialogAnim").dialog({
+                        show: {
+                            effect: "blind",
+                            duration: 1000
+                        },
+                        hide: {
+                            effect: "explode",
+                            duration: 1000
+                        }
+
+                    });
+                }
+            });
+        });
+    </script>
+    </dt>
+
+    <dt>9.3基本模态
+    <div id="dialogModal" title="模态对话框" style="border:1px grey solid">
+        <p>添加模态覆盖屏幕，让对话框看起来更突出，因为它让页面上其他内容变暗。</p>
+    </div>
+    <script>
+        $(function () {
+            $('#dialogModal').bind({
+                click: function () {
+                    $("#dialogModal").dialog({
+                        modal: true
+                    });
+                }
+            });
+        });
+    </script>
+    </dt>
+
+    <dt>9.4模态[自定义按钮] $("#dialogConfirm").dialog({modal: true,
+        buttons: {
+        确认: function() { },
+        按钮1: function() { },
+        按钮2: function() { }
+        }
+        });
+    <div id="dialogConfirm" title="模态确认对话框" style="border:1px grey solid">
+        <p>添加模态覆盖屏幕，让对话框看起来更突出，因为它让页面上其他内容变暗。</p>
+    </div>
+    <script>
+        $(function () {
+            $('#dialogConfirm').bind({
+                click: function () {
+                    $("#dialogConfirm").dialog({
+
+                        modal: true,
+                        buttons: {
+                            确认: function () {
+                                $(this).dialog("close");
+                                alert('已经删除');
+                            },
+                            Cancel: function () {
+                                $(this).dialog("close");
+                                alert('已经取消删除');
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+    </dt>
+</div>
+
+<div>
+    <h2>10.菜单 默认</h2>
+    <dt>10.1
+    <div>
+        <style>
+            .ui-menu {
+                width: 150px;
+            }
+        </style>
+        <ul id="menuDefault">
+            <li class="ui-state-disabled"><a href="#">菜单1</a></li>
+            <li><a href="#">菜单2</a></li>
+            <li><a href="#">菜单3</a></li>
+            <li><a href="#">菜单4</a></li>
+            <li>
+                <a href="#">菜单5</a>
+                <ul>
+                    <li class="ui-state-disabled"><a href="#">菜单5.1</a></li>
+                    <li><a href="#">菜单5.2</a></li>
+                    <li><a href="#">菜单5.3</a></li>
+                </ul>
+            </li>
+            <li><a href="#">菜单6</a></li>
+            <li>
+                <a href="#">菜单7</a>
+                <ul>
+                    <li>
+                        <a href="#">菜单7.1</a>
+                        <ul>
+                            <li><a href="#">Ada</a></li>
+                            <li><a href="#">Saarland</a></li>
+                            <li><a href="#">Salzburg</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">菜单7.2</a>
+                        <ul>
+                            <li><a href="#">Ada</a></li>
+                            <li><a href="#">Saarland</a></li>
+                            <li><a href="#">Salzburg</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">菜单7.3</a></li>
+                </ul>
+            </li>
+            <li class="ui-state-disabled"><a href="#">菜单8</a></li>
+        </ul>
+    </div>
+    <script>
+        $(function () {
+            $("#menuDefault").menu();
+        });
+    </script>
+    </dt>
+
+    <dt>10.2图标
+    <div>
+        <ul id="menuPic">
+            <li><a href="#"><span class="ui-icon ui-icon-disk"></span>保存</a></li>
+            <li><a href="#"><span class="ui-icon ui-icon-zoomin"></span>放大</a></li>
+            <li><a href="#"><span class="ui-icon ui-icon-zoomout"></span>缩小</a></li>
+            <li class="ui-state-disabled"><a href="#"><span class="ui-icon ui-icon-print"></span>打印...</a></li>
+            <li>
+                <a href="#">播放</a>
+                <ul>
+                    <li><a href="#"><span class="ui-icon ui-icon-seek-start"></span>上一个</a></li>
+                    <li><a href="#"><span class="ui-icon ui-icon-stop"></span>停止</a></li>
+                    <li><a href="#"><span class="ui-icon ui-icon-play"></span>播放</a></li>
+                    <li><a href="#"><span class="ui-icon ui-icon-seek-end"></span>下一个</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <script>
+        $(function () {
+            $("#menuPic").menu();
+        });
+    </script>
+    </dt>
+</div>
+
+<div>
+    <h2>11.标签页</h2>
+    <dt> 11.1默认 标签页
+    <div id="tabsDefault">
+        <ul>
+            <li><a href="#tabs-1">标签1</a></li>
+            <li><a href="#tabs-2">标签2</a></li>
+            <li><a href="#tabs-3">标签3</a></li>
+        </ul>
+        <div id="tabs-1">
+            1标签
+        </div>
+        <div id="tabs-2">
+            2标签
+        </div>
+        <div id="tabs-3">
+            3标签
+        </div>
+    </div>
+
+    <script>
+        $(function () {
+            $("#tabsDefault").tabs();
+        });
+    </script>
+    </dt>
+
+
+    <dt> 11.2通过ajax获取[分离标签页]标签页
+    <div id="tabsAjax">
+        <ul>
+            <li><a href="#tabsAjax-1">标签1</a></li>
+            <li><a href="test.html">标签2</a></li>
+            <li><a href="http://www.baidu.com">标签3</a></li>
+        </ul>
+
+
+    </div>
+
+    <script>
+        $(function () {
+            $("#tabsAjax").tabs({
+                beforeLoad: function (event, ui) {
+                    ui.jqXHR.error(function () {
+                        ui.panel.html(
+                                "不能加载该标签页。如果这不是一个演示。" +
+                                "我们会尽快修复这个问题。");
+                    });
+                }
+            });
+        });
+    </script>
+    </dt>
+    <dt> 11.3 标签页[鼠标悬停]
+    <div id="tabsMouseover">
+        <ul>
+            <li><a href="#tabsMouseover-1">标签1</a></li>
+            <li><a href="#tabsMouseover-2">标签2</a></li>
+            <li><a href="#tabsMouseover-3">标签3</a></li>
+        </ul>
+        <div id="tabsMouseover-1">
+            1标签
+        </div>
+        <div id="tabsMouseover-2">
+            2标签
+        </div>
+        <div id="tabsMouseover-3">
+            3标签
+        </div>
+    </div>
+
+    <script>
+        $(function () {
+            $("#tabsMouseover").tabs({
+                event: "mouseover"
+            });
+        });
+    </script>
+    </dt>
+
+    <dt> 11.4垂直 标签页
+        <style>
+            .ui-tabs-vertical {
+                width: 55em;
+            }
+
+            .ui-tabs-vertical .ui-tabs-nav {
+                padding: .2em .1em .2em .2em;
+                float: left;
+                width: 12em;
+            }
+
+            .ui-tabs-vertical .ui-tabs-nav li {
+                clear: left;
+                width: 100%;
+                border-bottom-width: 1px !important;
+                border-right-width: 0 !important;
+                margin: 0 -1px .2em 0;
+            }
+
+            .ui-tabs-vertical .ui-tabs-nav li a {
+                display: block;
+            }
+
+            .ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active {
+                padding-bottom: 0;
+                padding-right: .1em;
+                border-right-width: 1px;
+                border-right-width: 1px;
+            }
+
+            .ui-tabs-vertical .ui-tabs-panel {
+                padding: 1em;
+                float: right;
+                width: 40em;
+            }
+        </style>
+    <div id="tabsVertical">
+        <ul>
+            <li><a href="#tabsVertical-1">标签1</a></li>
+            <li><a href="#tabsVertical-2">标签2</a></li>
+            <li><a href="#tabsVertical-3">标签3</a></li>
+        </ul>
+        <div id="tabsVertical-1">
+            1标签
+        </div>
+        <div id="tabsVertical-2">
+            2标签
+        </div>
+        <div id="tabsVertical-3">
+            3标签
+        </div>
+    </div>
+
+    <script>
+        $(function () {
+            $("#tabsVertical").tabs().addClass("ui-tabs-vertical ui-helper-clearfix");
+            $("#tabsVertical li").removeClass("ui-corner-top").addClass("ui-corner-left");
+        });
+    </script>
+    </dt>
+</div>
+
+<div>
+    <h2>12.提示框</h2>
+    <dt>
+        12.1提示框[鼠标跟踪][显示title] $(function () {$('#toolTip').tooltip({track: true});/$(document)});
+    <div id="toolTip" title="显示">
+        <p><label for="age">您的年龄：</label><input id="age" title="年龄仅用于统计。"></p>
+    </div>
+
+    <script>
+        $(function () {
+            $('#toolTip').tooltip({
+                track: true
+            });
+        });
+    </script>
+    </dt>
+</div>
+
+<div>
+    <h2>13.特效</h2>
+    <dt>13.1百叶窗特效（Blind Effect)
+    <div id="blindEffet">
+        <p>点击进行切换。</p>
+        <div class="toggle" style=" width: 100px; height: 100px;background: #ccc;"></div>
+    </div>
+    <script>
+        $('#blindEffet').click(function () {
+            $("#blindEffet .toggle").toggle("blind");
+        });
+    </script>
+    </dt>
+
+    <dt>13.2反弹特效（Bounce Effect）
+    <div id="bounceEffet">
+        <p>点击进行切换。</p>
+        <div class="toggle" style=" width: 100px; height: 100px;background: #ccc;"></div>
+    </div>
+    <script>
+        $('#bounceEffet').click(function () {
+            $("#bounceEffet .toggle").toggle('bounce', {times: 3}, 'slow');
+        });
+    </script>
+    </dt>
+
+    <dt>13.3剪辑特效（Clip Effect）
+    <div id="ClipEffet">
+        <p>点击进行切换。</p>
+        <div class="toggle" style=" width: 100px; height: 100px;background: #ccc;"></div>
+    </div>
+    <script>
+        $('#ClipEffet').click(function () {
+            $("#ClipEffet .toggle").toggle('clip');
+        });
+    </script>
+    </dt>
+
+    <dt>13.4颜色动画（Color Animation）演示
+    <div id="ColorAnimationEffet">
+        <p>点击进行切换。</p>
+        <div class="toggle" style=" width: 100px; height: 100px;background: #ccc;"></div>
+    </div>
+    <script>
+        $('#ColorAnimationEffet').click(function () {
+            $("#ColorAnimationEffet .toggle").toggle('clip');
+        });
+    </script>
+    </dt>
+
+<dt>13.5降落特效（Drop Effect）演示
+    <div id="DropEffect">
+        <p>点击进行切换。</p>
+        <div class="toggle" style=" width: 100px; height: 100px;background: #ccc;"></div>
+    </div>
+    <script>
+        $('#DropEffect').click(function () {
+            $("#DropEffect .toggle").toggle('drop');
+        });
+    </script>
+    </dt>
+
+<dt>13.6应用反弹特效（Bounce Effect）
+    <div id="BounceEffect">
+        <p>点击进行切换。</p>
+        <div class="div" style=" width: 100px; height: 100px;background: #ccc;"></div>
+    </div>
+    <script>
+        $( '#BounceEffect' ).click(function() {
+            $( "#BounceEffect  div" ).effect( "bounce", "slow" );
+        });
+    </script>
+    </dt>
+
+
+<dt>13.6爆炸特效（Explode Effect）演示
+    <div id="ExplodeEffect">
+        <p>点击进行切换。</p>
+        <div class="toggle" style=" width: 100px; height: 100px;background: #ccc;"></div>
+    </div>
+    <script>
+        $( '#ExplodeEffect' ).click(function() {
+            $( "#ExplodeEffect  .toggle" ).toggle( 'explode' );
+        });
+    </script>
+    </dt>
+
+<dt>13.7淡入淡出特效（Fade Effect）演示
+    <div id="FadeEffect">
+        <p>点击进行切换。</p>
+        <div class="toggle" style=" width: 100px; height: 100px;background: #ccc;"></div>
+    </div>
+    <script>
+        $( '#FadeEffect' ).click(function() {
+            $( "#FadeEffect  .toggle" ).toggle( 'fade' );
+        });
+    </script>
+    </dt>
+
+<dt>13.8折叠特效（Fold Effect）演示
+    <div id="FoldEffect">
+        <p>点击进行切换。</p>
+        <div class="toggle" style=" width: 100px; height: 100px;background: #ccc;"></div>
+    </div>
+    <script>
+        $( '#FoldEffect' ).click(function() {
+            $( "#FoldEffect  .toggle" ).toggle( 'fold' );
+        });
+    </script>
+    </dt>
+<dt>13.9突出特效（Highlight Effect）演示
+    <div id="HighlightEffect">
+        <p>点击进行切换。</p>
+        <div class="toggle" style=" width: 100px; height: 100px;background: #ccc;"></div>
+    </div>
+    <script>
+        $( '#HighlightEffect' ).click(function() {
+            $( "#HighlightEffect  .toggle" ).toggle( 'highlight' );
+        });
+    </script>
+    </dt>
+
+<dt>13.10膨胀特效（Puff Effect）演示
+    <div id="PuffEffect">
+        <p>点击进行切换。</p>
+        <div class="toggle" style=" width: 100px; height: 100px;background: #ccc;"></div>
+    </div>
+    <script>
+        $( '#PuffEffect' ).click(function() {
+            $( "#PuffEffect  .toggle" ).toggle( 'puff' );
+        });
+    </script>
+    </dt>
+
+<dt>13.11跳动特效（Pulsate Effect）演示
+    <div id="PulsateEffect">
+        <p>点击进行切换。</p>
+        <div class="toggle" style=" width: 100px; height: 100px;background: #ccc;"></div>
+    </div>
+    <script>
+        $( '#PulsateEffect' ).click(function() {
+            $( "#PulsateEffect  .toggle" ).toggle( 'pulsate' );
+        });
+    </script>
+    </dt>
+<dt>13.12缩放特效（Scale Effect）演示
+    <div id="ScaleEffect">
+        <p>点击进行切换。</p>
+        <div class="toggle" style=" width: 100px; height: 100px;background: #ccc;"></div>
+    </div>
+    <script>
+        $( '#ScaleEffect' ).click(function() {
+            $( "#ScaleEffect  .toggle" ).toggle( 'scale' );
+        });
+    </script>
+    </dt>
+
+    <dt>13.12缩放特效（Scale Effect）演示[只在一个方向]
+    <div id="ScaleEffect2">
+        <p>点击进行切换。</p>
+        <div class="toggle" style=" width: 100px; height: 100px;background: #ccc;"></div>
+    </div>
+    <script>
+        $( '#ScaleEffect2' ).click(function() {
+            $( "#ScaleEffect2  .toggle" ).toggle({ effect: "scale", direction: "horizontal" } );
+        });
+    </script>
+    </dt>
+
+
+<dt>13.13震动特效（Shake Effect）演示
+    <div id="ShakeEffect">
+        <p>点击进行切换。</p>
+        <div class="toggle" style=" width: 100px; height: 100px;background: #ccc;"></div>
+    </div>
+    <script>
+        $( '#ShakeEffect' ).click(function() {
+            $( "#ShakeEffect  .toggle" ).toggle({ effect: "shake", direction: "horizontal" } );
+        });
+    </script>
+    </dt>
+
+    <dt>13.13尺寸特效（Size Effect）演示
+    <div id="SizeEffect">
+        <p>点击进行切换。</p>
+        <div class="toggle" style=" width: 100px; height: 100px;background: #ccc;"></div>
+    </div>
+    <script>
+        $( '#SizeEffect' ).click(function() {
+            $( "#SizeEffect  .toggle" ).effect( "size", {
+                to: { width: 200, height: 60 }
+            }, 1000 );
+        });
+    </script>
+    </dt>
+
+</div>
+</body>
+</html>
